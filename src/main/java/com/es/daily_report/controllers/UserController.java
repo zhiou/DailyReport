@@ -11,6 +11,7 @@ import com.es.daily_report.entities.Role;
 import com.es.daily_report.entities.User;
 import com.es.daily_report.entities.UserRole;
 import com.es.daily_report.enums.ErrorType;
+import com.es.daily_report.enums.StaffState;
 import com.es.daily_report.redis.RedisUtil;
 import com.es.daily_report.services.PasswordHelper;
 import com.es.daily_report.shiro.JwtUtil;
@@ -18,10 +19,13 @@ import com.es.daily_report.utils.Constants;
 import com.es.daily_report.utils.Result;
 
 import com.es.daily_report.vo.LoginVO;
+import com.es.daily_report.vo.NewStaffVO;
 import com.es.daily_report.vo.PasswordUpdateVO;
 import com.es.daily_report.vo.UserTokenVO;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
+
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
@@ -32,7 +36,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/daily_report/v1/user")
+@RequestMapping(value = "/v1/daily_report/user", produces = "application/json;charset=utf-8")
 public class UserController {
 
     @Autowired
@@ -59,7 +63,7 @@ public class UserController {
         return role.getName();
     }
 //
-    @PostMapping("/modify_password")
+    @PutMapping("/password")
     @Transactional
     public Result<?> modify(@RequestBody @Validated PasswordUpdateVO passwordUpdateVO,
                                     @RequestHeader(value = "Authorization") String token) {
@@ -85,39 +89,39 @@ public class UserController {
         return Result.success();
     }
 
-//    @Transactional
-//    @PostMapping("/create")
-//    @RequiresRoles("admin")
-//    public Result<?> create(@RequestBody @Validated AccountVO accountVO) {
-//        Account account = accountDao.query(accountVO.getAccount());
-//        if (account != null) {
-//            return Result.failure(ErrorType.ACCOUNT_EXISTED);
-//        }
-//        User user = User.builder()
-//                .name("Anonymous")
-//                .state(State.NORMAL)
-//                .intro(accountVO.getDesc())
-//                .build();
-//        // 存储用户密钥
-//        user.setPassword(accountVO.getPassword());
-//        passwordHelper.encryptPassword(user);
-//        userDao.save(user);
-//
-//        account = Account.builder()
-//                .category(AuthType.PASSWORD)
-//                .openCode(accountVO.getAccount())
-//                .userId(user.getId())
-//                .build();
-//        accountDao.save(account);
-//
-//        Role role = roleDao.query("operator");
-//        UserRole userRole = UserRole.builder()
-//                .userId(user.getId())
-//                .roleId(role.getId())
-//                .build();
-//        userRoleDao.save(userRole);
-//        return Result.success(account);
-//    }
+    @Transactional
+    @PostMapping
+    @RequiresRoles(value={"admin","pmo"},logical = Logical.OR)
+    public Result<?> create(@RequestBody @Validated NewStaffVO newStaffVO) {
+        User userExisted = userDao.queryByNo(newStaffVO.getStaffNumber());
+        if (userExisted != null) {
+            return Result.failure(ErrorType.ACCOUNT_EXISTED);
+        }
+        User user = User.builder()
+                .name(newStaffVO.getName())
+                .departmentId(newStaffVO.getDepartmentId())
+                .number(newStaffVO.getStaffNumber())
+                .state(StaffState.WORKING)
+                .build();
+        userDao.save(user);
+
+        // 存储用户密钥
+        Auth auth = Auth.builder()
+                .userId(user.getId())
+                .credential(newStaffVO.getDefaultPassword())
+                .type("password")
+                .build();
+        passwordHelper.encryptPassword(auth);
+        authDao.save(auth);
+
+        Role role = roleDao.query(newStaffVO.getRole().getName());
+        UserRole userRole = UserRole.builder()
+                .userId(user.getId())
+                .roleId(role.getId())
+                .build();
+        userRoleDao.save(userRole);
+        return Result.success();
+    }
 
     @PostMapping("/login")
     public Result<?> login(@RequestBody @Validated LoginVO loginVO) {
@@ -145,7 +149,7 @@ public class UserController {
 
         String roleName = queryRoleOfUser(user);
         UserTokenVO userTokenVO = UserTokenVO.builder()
-                .username(user.getNumber())
+                .account(user.getNumber())
                 .roleName(roleName)
                 .token(token)
                 .build();

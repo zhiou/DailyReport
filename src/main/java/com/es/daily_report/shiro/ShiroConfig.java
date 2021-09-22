@@ -39,8 +39,8 @@ public class ShiroConfig {
         //配置记住我或认证通过可以访问的地址
         // 配置不会被拦截的链接 顺序判断
         filterChainDefinitionMap.put("/", "anon");
-        filterChainDefinitionMap.put("/daily_report/v1/user/login", "anon");
-        filterChainDefinitionMap.put("/daily_report/v1/user/logout", "anon"); //登出接口排除
+        filterChainDefinitionMap.put("/v1/daily_report/user/login", "anon");
+        filterChainDefinitionMap.put("/v1/daily_report/user/logout", "anon"); //登出接口排除
 //        filterChainDefinitionMap.put("/key_service/v1/account", "anon");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         //过滤链定义，从上向下顺序执行，一般将/**放在最为下边
@@ -65,7 +65,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/daily_report/v1/user/login");
+        shiroFilterFactoryBean.setLoginUrl("/v1/daily_report/user/login");
         return shiroFilterFactoryBean;
     }
 

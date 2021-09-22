@@ -8,8 +8,10 @@ public enum ErrorType {
     TOKEN_INVALID(101004, "无效的登录凭证"),
     LOGIN_FAILED(101005, "用户名或密码错误"),
     USER_ID_INVALID(101006, "无效的用户ID"),
+    INVALID_PARAM(101007, "无效的参数"),
     WRONG_PASSWORD(101011, "密码错误"),
-    SAME_PASSWORD(101012, "新旧密码相同");
+    SAME_PASSWORD(101012, "新旧密码相同"),
+    REPORT_EXISTED(101013, "当日报告已存在");
 
     private Integer code;
     private String message;

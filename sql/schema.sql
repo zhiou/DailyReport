@@ -89,10 +89,19 @@ CREATE TABLE `task` (
     `name` varchar(64) NOT NULL COMMENT '任务名',
     `details` varchar(255) COMMENT '任务内容',
     `cost` tinyint NOT NULL COMMENT '任务工时',
-    `on_day` date COMMENT '日志日期',
-    `project_id` bigint COMMENT '项目ID',
-    `author_id` bigint COMMENT '编写人员ID',
-    `committed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '提交时间',
+    `project_id` bigint DEFAULT NULL COMMENT '项目ID',
+    `product_id` bigint DEFAULT NULL COMMENT '产品ID',
+    `in_report` bigint NOT NULL COMMENT '报告ID',
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
      PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `report`;
+CREATE TABLE `report` (
+    `id` bigint NOT NULL AUTO_INCREMENT,
+    `author_id` bigint COMMENT '编写人员ID',
+    `on_day` date COMMENT '日志日期',
+    `committed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '提交时间',
+    `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
+    PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;

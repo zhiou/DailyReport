@@ -1,5 +1,8 @@
 package com.es.daily_report.controllers;
 
+import com.es.daily_report.vo.ReportVO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -8,6 +11,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -18,6 +23,8 @@ public class TestUtils {
 
     private String token;
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     void login(String username, String password) throws Exception {
         String userAuth = "{\"account\":" +
                 "\"" + username + "\"," +
@@ -25,7 +32,7 @@ public class TestUtils {
                 "\"" + password + "\"" +
                 "}";
         MvcResult result = mvc.perform(
-                post("/daily_report/v1/user/login")
+                post("/v1/daily_report/user/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userAuth)
         )
@@ -44,7 +51,7 @@ public class TestUtils {
                 "\"" + newPassword + "\"" +
                 "}";
         MvcResult result = mvc.perform(
-                post("/daily_report/v1/user/modify_password")
+                put("/v1/daily_report/user/password")
                         .header("Authorization", token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userAuth)
@@ -146,31 +153,32 @@ public class TestUtils {
 //    }
 
     void logout() throws Exception {
-        this.mvc.perform(post("/daily_report/v1/user/logout")
+        this.mvc.perform(post("/v1/daily_report/user/logout")
                 .header("Authorization", token))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
-//    String createAccount(String username, String password) throws Exception {
-//        String desc = "introduce or resume";
-//        String accountInfo = "{\"account\":" +
-//                "\"" + username + "\"," +
-//                "\"password\":" +
-//                "\"" + password + "\"," +
-//                "\"desc\":" +
-//                "\"" + desc + "\"" +
-//                "}";
-//        MvcResult result = mvc.perform(post("/key_service/v1/account/create")
-//                .header("Authorization", token)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(accountInfo))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andReturn();
-//        String body = result.getResponse().getContentAsString();
-//        return JsonPath.read(body, "$.data.account_id");
-//    }
+    void create(String account, String name, String departmentId, String password, String role) throws Exception {
+        String desc = "introduce or resume";
+        String accountInfo = "{\"staff_number\":" +
+                "\"" + account + "\"," +
+                "\"default_password\":" +
+                "\"" + password + "\"," +
+                "\"name\":" +
+                "\"" + name + "\"," +
+                "\"department_id\":" +
+                "\"" + departmentId + "\"," +
+                "\"role\":" + role +
+                "}";
+        MvcResult result = mvc.perform(post("/v1/daily_report/user")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(accountInfo))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+    }
 //
 //    String createBannedAccount(String username, String password) throws Exception {
 //        String desc = "introduce or resume";
@@ -328,4 +336,33 @@ public class TestUtils {
 //        }
 //        return plain == null? null:new String(plain);
 //    }
+
+    void report(ReportVO report) throws Exception {
+        String json = objectMapper.writeValueAsString(report);
+        MvcResult result = mvc.perform(post("/v1/daily_report/report")
+                        .header("Authorization", token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+    }
+
+    void getReport() throws Exception {
+        MvcResult result = mvc.perform(get("/v1/daily_report/report")
+                        .header("Authorization", token)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+    }
+
+    void getReportsOfDepartment() throws Exception {
+        MvcResult result = mvc.perform(get("/v1/daily_report/report/manager")
+                        .header("Authorization", token)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+    }
 }

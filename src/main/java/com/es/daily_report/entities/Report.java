@@ -5,32 +5,27 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "task")
-public class Task {
+@TableName(value = "report")
+public class Report {
     @TableId(value = "id", type = IdType.AUTO)
     private String id;
 
-    private String name;
+    private String authorId;
 
-    private String details;
+    private Date onDay;
 
-    private Integer cost;
-
-    private String inReport;
-
-    private String projectId;
-
-    private String productId;
+    private Date committed;
 
     @TableLogic
     @JsonIgnore

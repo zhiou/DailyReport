@@ -44,4 +44,12 @@ public class UserControllerTests {
         testUtils.login("ES0092", "123456ab");
     }
 
+    @Test
+    @Transactional
+    @Rollback
+    public void createStaff() throws Exception {
+        testUtils.create("ES0001", "张三", "1", "123456", "1");
+    }
+
+
 }

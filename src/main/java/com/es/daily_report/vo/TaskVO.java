@@ -6,17 +6,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserTokenVO {
-    @JsonProperty("account")
-    private String account;
+public class TaskVO {
+    private String name;
 
-    @JsonProperty("role")
-    private String roleName;
+    private String details;
 
-    @JsonProperty("token")
-    private String token;
+    private Integer cost;
+
+    @JsonProperty("project_id")
+    private String projectId;
+
+    @JsonProperty("product_id")
+    private String productId;
 }

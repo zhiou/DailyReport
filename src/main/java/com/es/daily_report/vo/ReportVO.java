@@ -6,17 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserTokenVO {
-    @JsonProperty("account")
-    private String account;
+public class ReportVO {
+    private List<TaskVO> tasks;
 
-    @JsonProperty("role")
-    private String roleName;
+    @JsonProperty("on_day")
+    private Date onDay;
 
-    @JsonProperty("token")
-    private String token;
+    private String author;
 }
