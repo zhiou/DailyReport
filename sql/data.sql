@@ -1,9 +1,11 @@
+
 BEGIN;
-INSERT INTO `department` VALUES (1, '研发X部', 0);
+INSERT INTO `department` VALUES (1, NULL, '研发体系', 0);
+INSERT INTO `department` VALUES (2, 1, '研发X部', 0);
 COMMIT;
 
 BEGIN;
-INSERT INTO `user` VALUES (1, 'ES0092', '周煌', 0, 1, 0);
+INSERT INTO `user` VALUES (1, 'ES0092', '周煌', 0, 2, 0);
 COMMIT;
 
 BEGIN;

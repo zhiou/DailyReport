@@ -1,5 +1,6 @@
 package com.es.daily_report.vo;
 
+import com.es.daily_report.enums.ReportStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,4 +21,6 @@ public class ReportVO {
     private Date onDay;
 
     private String author;
+
+    private ReportStatus status;
 }

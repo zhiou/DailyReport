@@ -1,5 +1,6 @@
 package com.es.daily_report.controllers;
 
+import com.es.daily_report.enums.ReportStatus;
 import com.es.daily_report.vo.ReportVO;
 import com.es.daily_report.vo.TaskVO;
 import org.junit.After;
@@ -57,6 +58,7 @@ public class ReportControllerTests {
         taskVOList.add(taskVO);
         ReportVO reportVO = ReportVO.builder()
                         .onDay(new Date())
+                        .status(ReportStatus.COMMITTED)
                         .tasks(taskVOList)
                         .build();
         testUtils.report(reportVO);

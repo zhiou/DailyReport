@@ -16,4 +16,10 @@ public class TaskDao extends ServiceImpl<TaskMapper, Task> {
         wrapper.eq("in_report", reportId);
         return list(wrapper);
     }
+
+    public void removeTasksOfReport(String reportId) {
+        QueryWrapper<Task> wrapper = new QueryWrapper<>();
+        wrapper.eq("in_report", reportId);
+        remove(wrapper);
+    }
 }

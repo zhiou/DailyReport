@@ -8,6 +8,7 @@ import com.es.daily_report.entities.Report;
 import com.es.daily_report.entities.Task;
 import com.es.daily_report.entities.User;
 import com.es.daily_report.enums.ErrorType;
+import com.es.daily_report.enums.ReportStatus;
 import com.es.daily_report.mapstruct.TaskVoMapper;
 import com.es.daily_report.shiro.JwtUtil;
 import com.es.daily_report.utils.Result;
@@ -105,22 +106,24 @@ public class ReportController {
 
     @PostMapping
     @Transactional
-    public Result<?> create(@RequestBody @Validated ReportVO reportVO,
+    public Result<?> create(@RequestBody ReportVO reportVO,
                             @RequestHeader(value = "Authorization") String token) {
         User user = userFromToken(token);
         if (user == null) {
             return Result.failure(ErrorType.USER_ID_INVALID);
         }
-        Report reportExisted = reportDao.query(user.getId(), reportVO.getOnDay());
-        if (reportExisted != null) {
-            return Result.failure(ErrorType.REPORT_EXISTED);
+        Report report = reportDao.query(user.getId(), reportVO.getOnDay());
+        if (report != null) { // remove origin report, override it
+            taskDao.removeTasksOfReport(report.getId());
+            reportDao.removeById(report.getId());
         }
-        Report report = Report.builder()
+        report = Report.builder()
                 .authorId(user.getId())
                 .onDay(reportVO.getOnDay())
+                .status(reportVO.getStatus())
                 .committed(new Date())
                 .build();
-        reportDao.save(report);
+        reportDao.saveOrUpdate(report);
 
         List<Task> tasks = new ArrayList<>();
         for (TaskVO taskVO : reportVO.getTasks()) {
