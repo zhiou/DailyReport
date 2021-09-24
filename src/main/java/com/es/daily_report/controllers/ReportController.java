@@ -4,6 +4,7 @@ import com.auth0.jwt.interfaces.Claim;
 import com.es.daily_report.dao.ReportDao;
 import com.es.daily_report.dao.TaskDao;
 import com.es.daily_report.dao.UserDao;
+import com.es.daily_report.dto.ReportQuery;
 import com.es.daily_report.entities.Report;
 import com.es.daily_report.entities.Task;
 import com.es.daily_report.entities.User;
@@ -14,9 +15,12 @@ import com.es.daily_report.shiro.JwtUtil;
 import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.ReportVO;
 import com.es.daily_report.vo.TaskVO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.codec.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -43,6 +47,8 @@ public class ReportController {
 
     @Autowired
     private TaskVoMapper taskVoMapper;
+
+    private ObjectMapper objectMapper;
 
     private User userFromToken(String token) {
         if (token == null || token.isEmpty()) {
@@ -75,8 +81,10 @@ public class ReportController {
     // PMO可以通过员工编号，员工部门
     @GetMapping("/pmo")
     @RequiresRoles(value={"admin","pmo"},logical = Logical.OR)
-    public Result<?> queryBy(@RequestParam("type") Integer type, @RequestParam("condition") String condition) {
-        List<Report> reports = reportDao.listByCondition(type, condition);
+    public Result<?> queryBy(@RequestParam("base64") String base64) throws Exception {
+        String query = Base64.decodeToString(base64);
+        ReportQuery reportQuery = objectMapper.readValue(query, ReportQuery.class);
+        List<Report> reports = reportDao.listByCondition(reportQuery);
         if (reports == null) {
             return Result.failure(ErrorType.INVALID_PARAM);
         }
@@ -90,7 +98,10 @@ public class ReportController {
         if (user == null) {
             return Result.failure(ErrorType.USER_ID_INVALID);
         }
-        List<Report> reports = reportDao.listByCondition(1, user.getDepartmentId());
+        ReportQuery reportQuery = ReportQuery.builder()
+                .departmentId(user.getDepartmentId())
+                .build();
+        List<Report> reports = reportDao.listByCondition(reportQuery);
         return Result.success(reportsWithTasks(reports));
     }
 
