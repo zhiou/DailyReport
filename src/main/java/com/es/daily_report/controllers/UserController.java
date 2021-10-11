@@ -2,14 +2,8 @@ package com.es.daily_report.controllers;
 
 import com.auth0.jwt.interfaces.Claim;
 
-import com.es.daily_report.dao.AuthDao;
-import com.es.daily_report.dao.RoleDao;
-import com.es.daily_report.dao.UserDao;
-import com.es.daily_report.dao.UserRoleDao;
-import com.es.daily_report.entities.Auth;
-import com.es.daily_report.entities.Role;
-import com.es.daily_report.entities.User;
-import com.es.daily_report.entities.UserRole;
+import com.es.daily_report.dao.*;
+import com.es.daily_report.entities.*;
 import com.es.daily_report.enums.ErrorType;
 import com.es.daily_report.enums.StaffState;
 import com.es.daily_report.redis.RedisUtil;
@@ -56,6 +50,9 @@ public class UserController {
 
     @Autowired
     private RedisUtil redisUtil;
+
+    @Autowired
+    private DepartmentDao departmentDao;
 
     private String queryRoleOfUser(User user) {
         UserRole userRole = userRoleDao.query(user.getId());
@@ -148,10 +145,13 @@ public class UserController {
         redisUtil.expire(Constants.PREFIX_USER_TOKEN + token, JwtUtil.REFRESH_TOKEN_EXPIRE_TIME / 1000);
 
         String roleName = queryRoleOfUser(user);
+        Department department = departmentDao.getById(user.getDepartmentId());
         UserTokenVO userTokenVO = UserTokenVO.builder()
                 .account(user.getNumber())
                 .roleName(roleName)
                 .token(token)
+                .name(user.getName())
+                .department(department.getName())
                 .build();
         return Result.success(userTokenVO);
     }

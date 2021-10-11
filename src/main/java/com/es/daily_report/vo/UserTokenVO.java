@@ -19,4 +19,8 @@ public class UserTokenVO {
 
     @JsonProperty("token")
     private String token;
+
+    private String name;
+
+    private String department;
 }
