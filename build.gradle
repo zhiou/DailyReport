@@ -34,6 +34,12 @@ dependencies {
     implementation 'org.apache.shiro:shiro-spring:1.7.1'
     implementation 'com.auth0:java-jwt:3.14.0'
 
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.11.4'
+
+    implementation 'org.apache.axis2:axis2-transport-http:1.8.0'
+    implementation 'org.apache.axis2:axis2-transport-local:1.8.0'
+    implementation 'org.apache.axis2:axis2-adb:1.8.0'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 

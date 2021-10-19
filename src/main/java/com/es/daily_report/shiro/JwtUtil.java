@@ -25,7 +25,8 @@ public class JwtUtil {
 
     private static final String SECRET_KEY = "storewebkey";
 
-    public static final String UID = "uid";
+//    public static final String UID = "uid";
+    public static  final String DEPART_ID = "depart_id";
 
     /**
      * 校验token是否正确
@@ -65,7 +66,7 @@ public class JwtUtil {
      * @param currentTimeMillis
      * @return
      */
-    public static String sign(String account, String uid, String currentTimeMillis) {
+    public static String sign(String account, String departId, String currentTimeMillis) {
         // 帐号加JWT私钥加密
         String secret = account + SECRET_KEY;
         // 此处过期时间，单位：毫秒
@@ -74,7 +75,7 @@ public class JwtUtil {
 
         return JWT.create()
             .withClaim(ACCOUNT, account)
-            .withClaim(UID, uid)
+            .withClaim(DEPART_ID, departId)
             .withClaim(CURRENT_TIME_MILLIS, currentTimeMillis)
             .withExpiresAt(date)
             .sign(algorithm);

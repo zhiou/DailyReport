@@ -50,17 +50,28 @@ public class ReportController {
 
     private ObjectMapper objectMapper;
 
-    private User userFromToken(String token) {
+    private String accountFromToken(String token) {
         if (token == null || token.isEmpty()) {
             return null;
         }
 
-        Claim claim = JwtUtil.getClaim(token, JwtUtil.UID);
+        Claim claim = JwtUtil.getClaim(token, JwtUtil.ACCOUNT);
         if (claim == null) {
             return null;
         }
-        String userId = claim.asString();
-        return userDao.getById(userId);
+        return claim.asString();
+    }
+
+    private String departmentFromToken(String token) {
+        if (token == null || token.isEmpty()) {
+            return null;
+        }
+
+        Claim claim = JwtUtil.getClaim(token, JwtUtil.DEPART_ID);
+        if (claim == null) {
+            return null;
+        }
+        return claim.asString();
     }
 
     private List<ReportVO> reportsWithTasks(List<Report> reports) {
@@ -94,12 +105,13 @@ public class ReportController {
     @GetMapping("/manager")
     @RequiresRoles("manager")
     public Result<?> queryFromManager(@RequestHeader(value = "Authorization") String token) {
-        User user = userFromToken(token);
-        if (user == null) {
+        //TODO: 要改数据库表才可以， 这里的部门ID来自OA
+        String departmentId = departmentFromToken(token);
+        if (departmentId == null) {
             return Result.failure(ErrorType.USER_ID_INVALID);
         }
         ReportQuery reportQuery = ReportQuery.builder()
-                .departmentId(user.getDepartmentId())
+                .departmentId(departmentId)
                 .build();
         List<Report> reports = reportDao.listByCondition(reportQuery);
         return Result.success(reportsWithTasks(reports));
@@ -107,11 +119,12 @@ public class ReportController {
 
     @GetMapping
     public Result<?> query(@RequestHeader(value = "Authorization") String token) {
-        User user = userFromToken(token);
-        if (user == null) {
+        //TODO: 查询字段要改为用户编号
+        String account = accountFromToken(token);
+        if (account == null) {
             return Result.failure(ErrorType.USER_ID_INVALID);
         }
-        List<Report> reports = reportDao.listByUser(user.getId());
+        List<Report> reports = reportDao.listByUser(account);
         return Result.success(reportsWithTasks(reports));
     }
 
@@ -119,17 +132,17 @@ public class ReportController {
     @Transactional
     public Result<?> create(@RequestBody ReportVO reportVO,
                             @RequestHeader(value = "Authorization") String token) {
-        User user = userFromToken(token);
-        if (user == null) {
+        String account = accountFromToken(token);
+        if (account == null) {
             return Result.failure(ErrorType.USER_ID_INVALID);
         }
-        Report report = reportDao.query(user.getId(), reportVO.getOnDay());
+        Report report = reportDao.query(account, reportVO.getOnDay());
         if (report != null) { // remove origin report, override it
             taskDao.removeTasksOfReport(report.getId());
             reportDao.removeById(report.getId());
         }
         report = Report.builder()
-                .authorId(user.getId())
+                .authorId(account)
                 .onDay(reportVO.getOnDay())
                 .status(reportVO.getStatus())
                 .committed(new Date())

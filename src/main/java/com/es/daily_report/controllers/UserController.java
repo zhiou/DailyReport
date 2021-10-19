@@ -3,11 +3,13 @@ package com.es.daily_report.controllers;
 import com.auth0.jwt.interfaces.Claim;
 
 import com.es.daily_report.dao.*;
+import com.es.daily_report.dto.UserInfoDTO;
 import com.es.daily_report.entities.*;
 import com.es.daily_report.enums.ErrorType;
 import com.es.daily_report.enums.StaffState;
 import com.es.daily_report.redis.RedisUtil;
 import com.es.daily_report.services.PasswordHelper;
+import com.es.daily_report.services.WebService;
 import com.es.daily_report.shiro.JwtUtil;
 import com.es.daily_report.utils.Constants;
 import com.es.daily_report.utils.Result;
@@ -54,6 +56,9 @@ public class UserController {
     @Autowired
     private DepartmentDao departmentDao;
 
+    @Autowired
+    private WebService webService;
+
     private String queryRoleOfUser(User user) {
         UserRole userRole = userRoleDao.query(user.getId());
         Role role = roleDao.getById(userRole.getRoleId());
@@ -64,32 +69,22 @@ public class UserController {
     @Transactional
     public Result<?> modify(@RequestBody @Validated PasswordUpdateVO passwordUpdateVO,
                                     @RequestHeader(value = "Authorization") String token) {
-        if (passwordUpdateVO.getPassword().equals(passwordUpdateVO.getNewPassword()))
-        {
-            return Result.failure(ErrorType.SAME_PASSWORD);
-        }
-
-        User user = userFromToken(token);
-        if (user == null) {
-            return Result.failure(ErrorType.USER_ID_INVALID);
-        }
-        Auth auth = authDao.queryByUserId(user.getId());
-        if (auth == null) {
-            return Result.failure(ErrorType.ACCOUNT_MISSING);
-        }
-        if(!passwordHelper.verifyPassword(auth, passwordUpdateVO.getPassword())) {
+        String account = JwtUtil.getClaim(token, JwtUtil.ACCOUNT).asString();
+        if (!webService.check(account, passwordUpdateVO.getPassword())) {
             return Result.failure(ErrorType.WRONG_PASSWORD);
         }
-        auth.setCredential(passwordUpdateVO.getNewPassword());
-        passwordHelper.encryptPassword(auth);
-        authDao.updateById(auth);
-        return Result.success();
+
+       if (webService.changePassword(account, passwordUpdateVO.getNewPassword())) {
+           return Result.success();
+       }
+       //TODO: 用webService返回的错误代替， 或者另外定义错误码
+       return Result.failure(ErrorType.WRONG_PASSWORD);
     }
 
     @Transactional
     @PostMapping
     @RequiresRoles(value={"admin","pmo"},logical = Logical.OR)
-    public Result<?> create(@RequestBody @Validated NewStaffVO newStaffVO) {
+    public Result<?> create(@RequestBody NewStaffVO newStaffVO) {
         User userExisted = userDao.queryByNo(newStaffVO.getStaffNumber());
         if (userExisted != null) {
             return Result.failure(ErrorType.ACCOUNT_EXISTED);
@@ -122,59 +117,32 @@ public class UserController {
 
     @PostMapping("/login")
     public Result<?> login(@RequestBody @Validated LoginVO loginVO) {
-        // 检查用户名是否存在
-        User user = userDao.queryByNo(loginVO.getAccount());
-        if (user == null) {
-            return Result.failure(ErrorType.ACCOUNT_INVALID);
-        }
-
-        Auth auth = authDao.queryByUserId(user.getId());
-        if (auth == null) {
-            //TODO: 回错误码，账号不存在
-            return Result.failure(ErrorType.ACCOUNT_MISSING);
-        }
-        // 验证密码是否正确
-        if(!passwordHelper.verifyPassword(auth, loginVO.getPassword())) {
+//        // 检查用户名是否存在
+        if (!webService.check(loginVO.getAccount(), loginVO.getPassword())) {
             return Result.failure(ErrorType.LOGIN_FAILED);
         }
-        String token = JwtUtil.sign(user.getNumber(), user.getId(), String.valueOf(System.currentTimeMillis()));
+
+        UserInfoDTO userInfoDTO = webService.getUserInfoByNumber(loginVO.getAccount());
+
+        String token = JwtUtil.sign(loginVO.getAccount(), userInfoDTO.getDepartmentid(), String.valueOf(System.currentTimeMillis()));
 
         // 将登录token信息保存到redis
         redisUtil.set(Constants.PREFIX_USER_TOKEN + token, token);
         // 设置超时时间
         redisUtil.expire(Constants.PREFIX_USER_TOKEN + token, JwtUtil.REFRESH_TOKEN_EXPIRE_TIME / 1000);
 
-        String roleName = queryRoleOfUser(user);
-        Department department = departmentDao.getById(user.getDepartmentId());
         UserTokenVO userTokenVO = UserTokenVO.builder()
-                .account(user.getNumber())
-                .roleName(roleName)
+                .account(userInfoDTO.getWorkcode())
                 .token(token)
-                .name(user.getName())
-                .department(department.getName())
+                .name(userInfoDTO.getLastname())
+                .department(userInfoDTO.getDepartmentname())
                 .build();
         return Result.success(userTokenVO);
     }
 
-    private User userFromToken(String token) {
-        if (token == null || token.isEmpty()) {
-            return null;
-        }
-
-        Claim claim = JwtUtil.getClaim(token, JwtUtil.UID);
-        if (claim == null) {
-            return null;
-        }
-        String userId = claim.asString();
-        return userDao.getById(userId);
-    }
-
     @PostMapping("/logout")
     public Result<?> logout(@RequestHeader(value = "Authorization") String token) {
-        User user = userFromToken(token);
-        if (user != null) {
-            redisUtil.del(Constants.PREFIX_USER_TOKEN + token);
-        }
+        redisUtil.del(Constants.PREFIX_USER_TOKEN + token);
 
         Subject subject = SecurityUtils.getSubject();
         if (subject != null) {

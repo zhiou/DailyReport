@@ -84,13 +84,9 @@ public class JwtRealm extends AuthorizingRealm {
         if (staffNo == null) {
             throw new AuthenticationException("token is invalid!");
         }
-        User user = userDao.queryByNo(staffNo);
-        if (user == null) {
-            throw new AuthenticationException("user doesn't exist!");
-        }
 
-        Auth auth = authDao.queryByUserId(user.getId());
-        if (auth == null) {
+        String departId = JwtUtil.getClaim(credentials, JwtUtil.DEPART_ID).asString();
+        if (departId == null) {
             throw new AuthenticationException("token is invalid!");
         }
 
@@ -101,7 +97,7 @@ public class JwtRealm extends AuthorizingRealm {
             throw new AuthenticationException("token expried!");
         }
         // 刷新token
-        if (!jwtTokenRefresh(credentials, staffNo, user.getId())) {
+        if (!jwtTokenRefresh(credentials, staffNo, departId)) {
             throw new AuthenticationException("Token失效请重新登录!");
         }
 

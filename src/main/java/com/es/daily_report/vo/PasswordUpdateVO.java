@@ -13,7 +13,6 @@ public class PasswordUpdateVO {
     String password;
 
     @NotBlank(message = "密码不能为空")
-    @Pattern(regexp = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$", message = "密码必须为6-18位数字和字母的组合")
     @JsonProperty("new_password")
     String newPassword;
 }

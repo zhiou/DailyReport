@@ -28,7 +28,7 @@ public class UserControllerTests {
 
     @Before
     public void setUp() throws Exception {
-        testUtils.login("ES0092", "admin");
+        testUtils.login("ES0092", "3");
     }
 
     @After
@@ -40,15 +40,15 @@ public class UserControllerTests {
     @Transactional
     @Rollback
     public void modifyAdminPassword() throws Exception {
-        testUtils.modify("admin", "123456ab");
-        testUtils.login("ES0092", "123456ab");
+        testUtils.modify("3", "2");
+        testUtils.login("ES0092", "2");
     }
 
     @Test
     @Transactional
     @Rollback
     public void createStaff() throws Exception {
-        testUtils.create("ES0001", "张三", "1", "123456", "1");
+
     }
 
 

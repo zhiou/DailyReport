@@ -43,17 +43,16 @@ public class ReportQueryController {
     @Autowired
     private TaskVoMapper taskVoMapper;
 
-    private User userFromToken(String token) {
+    private String userNumberFromToken(String token) {
         if (token == null || token.isEmpty()) {
             return null;
         }
 
-        Claim claim = JwtUtil.getClaim(token, JwtUtil.UID);
+        Claim claim = JwtUtil.getClaim(token, JwtUtil.ACCOUNT);
         if (claim == null) {
             return null;
         }
-        String userId = claim.asString();
-        return userDao.getById(userId);
+        return claim.asString();
     }
 
     private List<ReportVO> reportsWithTasks(List<Report> reports) {
@@ -93,17 +92,18 @@ public class ReportQueryController {
     public Result<?> queryOnDay(@RequestHeader(value = "Authorization") String token,
                                 @RequestParam("type") String type,
                                 @RequestParam("date") String dateString) throws ParseException {
-        User user = userFromToken(token);
-        if (user == null) {
+        String account = userNumberFromToken(token);
+        if (account == null) {
             return Result.failure(ErrorType.USER_ID_INVALID);
         }
         Date date = DateFormat.getDateInstance().parse(dateString);
         List<Report> reports = new ArrayList<>();
         if (type.equals("day")) {
-            Report report = reportDao.query(user.getId(), date);
+            //TODO: 用用户编码代替用户ID做查询
+            Report report = null;//reportDao.query(user.getId(), date);
             reports.add(report);
         } else if (type.equals("month")) {
-            ReportQuery reportQuery = ReportQuery.builder().staffNo(user.getNumber())
+            ReportQuery reportQuery = ReportQuery.builder().staffNo(account)
                     .start(firstDayInMonth(date))
                     .end(lastDayInMonth(date))
                     .build();
