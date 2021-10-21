@@ -48,10 +48,10 @@ public class UserInfoDTO {
     private String weight;          //体重
     private String residentplace;    //居住地
     private String homeaddress;    //家庭住址
-    private String startdate = "" ;    //合同开始日期
-    private String enddate = "" ;      //合同结束日期
-    private String createdate="";       //创建日期
-    private String lastChangdate="";    //最后修改日期
+    private String startdate;    //合同开始日期
+    private String enddate;      //合同结束日期
+    private String createdate;       //创建日期
+    private String lastChangdate;    //最后修改日期
     private int accounttype;            //账号类型
     private String dsporder;               //显示顺序
 }

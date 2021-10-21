@@ -35,7 +35,7 @@ public class ReportControllerTests {
 
     @Before
     public void setUp() throws Exception {
-        testUtils.login("ES0092", "admin");
+        testUtils.login("ES0092", "2");
     }
 
     @After

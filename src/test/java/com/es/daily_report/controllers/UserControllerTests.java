@@ -28,7 +28,7 @@ public class UserControllerTests {
 
     @Before
     public void setUp() throws Exception {
-        testUtils.login("ES0092", "3");
+        testUtils.login("ES0092", "2");
     }
 
     @After
@@ -39,17 +39,11 @@ public class UserControllerTests {
     @Test
     @Transactional
     @Rollback
+    //现在是调用OA的接口，所以Rollback无法还原密码了
     public void modifyAdminPassword() throws Exception {
+        testUtils.modify("2", "3");
+        testUtils.login("ES0092", "3");
         testUtils.modify("3", "2");
-        testUtils.login("ES0092", "2");
     }
-
-    @Test
-    @Transactional
-    @Rollback
-    public void createStaff() throws Exception {
-
-    }
-
 
 }

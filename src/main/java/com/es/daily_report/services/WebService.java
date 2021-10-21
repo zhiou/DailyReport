@@ -1,5 +1,7 @@
 package com.es.daily_report.services;
 
+import com.es.daily_report.dto.DepartmentInfoDTO;
+import com.es.daily_report.dto.JobTitleInfoDTO;
 import com.es.daily_report.dto.UserInfoDTO;
 import com.es.daily_report.soap.HrmServiceStub;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -59,10 +61,9 @@ public class WebService {
         return false;
     }
 
-    public UserInfoDTO getUserInfoByNumber(String workNumber) {
+    public UserInfoDTO getUserInfoByWorkCode(String workNumber) {
         HrmServiceStub.GetHrmUserInfoXML getHrmUserInfoParam =
                 new HrmServiceStub.GetHrmUserInfoXML();
-        // TODO : Fill in the getHrmUserInfoXML36 here
         getHrmUserInfoParam.setIn0(ip);
         getHrmUserInfoParam.setIn1(workNumber);
         try {
@@ -72,6 +73,88 @@ public class WebService {
                 if (result.length > 0) {
                     return result[0];
                 }
+            }
+        } catch (RemoteException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public UserInfoDTO[] getUserInfoByDepartmentId(String departmentId) {
+        HrmServiceStub.GetHrmUserInfoXML getHrmUserInfoParam =
+                new HrmServiceStub.GetHrmUserInfoXML();
+        getHrmUserInfoParam.setIn0(ip);
+        getHrmUserInfoParam.setIn3(departmentId);
+        try {
+            String userInfoXml = stub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
+            if (userInfoXml != null) {
+                return xmlMapper.readValue(userInfoXml, UserInfoDTO[].class);
+            }
+        } catch (RemoteException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public UserInfoDTO[] getUserInfoByJobTitleId(String jobTitleId) {
+        HrmServiceStub.GetHrmUserInfoXML getHrmUserInfoParam =
+                new HrmServiceStub.GetHrmUserInfoXML();
+        getHrmUserInfoParam.setIn0(ip);
+        getHrmUserInfoParam.setIn4(jobTitleId);
+        try {
+            String userInfoXml = stub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
+            if (userInfoXml != null) {
+                return xmlMapper.readValue(userInfoXml, UserInfoDTO[].class);
+            }
+        } catch (RemoteException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public DepartmentInfoDTO[] getDepartmentInfo() {
+        HrmServiceStub.GetHrmDepartmentInfoXML getHrmDepartmentInfoParam = new HrmServiceStub.GetHrmDepartmentInfoXML();
+        getHrmDepartmentInfoParam.setIn0(ip);
+        // 文鼎创公司ID为6， 深圳总公司为1， 北京分公司为5
+        getHrmDepartmentInfoParam.setIn1("6");
+        try {
+            String departmentInfoXml = stub.getHrmDepartmentInfoXML(getHrmDepartmentInfoParam).getOut();
+            if (departmentInfoXml != null) {
+                return xmlMapper.readValue(departmentInfoXml, DepartmentInfoDTO[].class);
+            }
+        } catch (RemoteException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public JobTitleInfoDTO[] getJobTitleInfo() {
+        HrmServiceStub.GetHrmJobTitleInfoXML getJobTitleInfoParam = new HrmServiceStub.GetHrmJobTitleInfoXML();
+        getJobTitleInfoParam.setIn0(ip);
+        // 文鼎创公司ID为6， 深圳总公司为1， 北京分公司为5
+        getJobTitleInfoParam.setIn1("6");
+
+        try {
+            String getHrmJobTitleInfoXML = stub.getHrmJobTitleInfoXML(getJobTitleInfoParam).getOut();
+            if (getHrmJobTitleInfoXML != null) {
+                return xmlMapper.readValue(getHrmJobTitleInfoXML, JobTitleInfoDTO[].class);
+            }
+        } catch (RemoteException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public JobTitleInfoDTO[] getJobTitleInfoOfDepartment(String departmentId) {
+        HrmServiceStub.GetHrmJobTitleInfoXML getJobTitleInfoParam = new HrmServiceStub.GetHrmJobTitleInfoXML();
+        getJobTitleInfoParam.setIn0(ip);
+        // 文鼎创公司ID为6， 深圳总公司为1， 北京分公司为5
+        getJobTitleInfoParam.setIn2(departmentId);
+
+        try {
+            String getHrmJobTitleInfoXML = stub.getHrmJobTitleInfoXML(getJobTitleInfoParam).getOut();
+            if (getHrmJobTitleInfoXML != null) {
+                return xmlMapper.readValue(getHrmJobTitleInfoXML, JobTitleInfoDTO[].class);
             }
         } catch (RemoteException | JsonProcessingException e) {
             e.printStackTrace();

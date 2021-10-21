@@ -94,7 +94,7 @@ public class HrmServiceTest extends junit.framework.TestCase {
             getTestObject(com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXML.class);
     // TODO : Fill in the getHrmDepartmentInfoXML40 here
     getHrmDepartmentInfoXML40.setIn0("192.168.0.127");
-    getHrmDepartmentInfoXML40.setIn1("1");
+    getHrmDepartmentInfoXML40.setIn1("6");
     String response = stub.getHrmDepartmentInfoXML(getHrmDepartmentInfoXML40).getOut();
     assertNotNull(response);
   }
@@ -111,7 +111,7 @@ public class HrmServiceTest extends junit.framework.TestCase {
             getTestObject(com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXML.class);
     // TODO : Fill in the getHrmJobTitleInfoXML44 here
     getHrmJobTitleInfoXML44.setIn0("192.168.0.127");
-    getHrmJobTitleInfoXML44.setIn1("1");
+    getHrmJobTitleInfoXML44.setIn1("6");
     String response = stub.getHrmJobTitleInfoXML(getHrmJobTitleInfoXML44).getOut();
     assertNotNull(response);
   }

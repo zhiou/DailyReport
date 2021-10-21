@@ -1,12 +1,9 @@
 package com.es.daily_report.controllers;
 
-import com.auth0.jwt.interfaces.Claim;
-
 import com.es.daily_report.dao.*;
 import com.es.daily_report.dto.UserInfoDTO;
 import com.es.daily_report.entities.*;
 import com.es.daily_report.enums.ErrorType;
-import com.es.daily_report.enums.StaffState;
 import com.es.daily_report.redis.RedisUtil;
 import com.es.daily_report.services.PasswordHelper;
 import com.es.daily_report.services.WebService;
@@ -15,15 +12,12 @@ import com.es.daily_report.utils.Constants;
 import com.es.daily_report.utils.Result;
 
 import com.es.daily_report.vo.LoginVO;
-import com.es.daily_report.vo.NewStaffVO;
 import com.es.daily_report.vo.PasswordUpdateVO;
 import com.es.daily_report.vo.UserTokenVO;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,40 +75,6 @@ public class UserController {
        return Result.failure(ErrorType.WRONG_PASSWORD);
     }
 
-    @Transactional
-    @PostMapping
-    @RequiresRoles(value={"admin","pmo"},logical = Logical.OR)
-    public Result<?> create(@RequestBody NewStaffVO newStaffVO) {
-        User userExisted = userDao.queryByNo(newStaffVO.getStaffNumber());
-        if (userExisted != null) {
-            return Result.failure(ErrorType.ACCOUNT_EXISTED);
-        }
-        User user = User.builder()
-                .name(newStaffVO.getName())
-                .departmentId(newStaffVO.getDepartmentId())
-                .number(newStaffVO.getStaffNumber())
-                .state(StaffState.WORKING)
-                .build();
-        userDao.save(user);
-
-        // 存储用户密钥
-        Auth auth = Auth.builder()
-                .userId(user.getId())
-                .credential(newStaffVO.getDefaultPassword())
-                .type("password")
-                .build();
-        passwordHelper.encryptPassword(auth);
-        authDao.save(auth);
-
-        Role role = roleDao.query(newStaffVO.getRole().getName());
-        UserRole userRole = UserRole.builder()
-                .userId(user.getId())
-                .roleId(role.getId())
-                .build();
-        userRoleDao.save(userRole);
-        return Result.success();
-    }
-
     @PostMapping("/login")
     public Result<?> login(@RequestBody @Validated LoginVO loginVO) {
 //        // 检查用户名是否存在
@@ -122,7 +82,7 @@ public class UserController {
             return Result.failure(ErrorType.LOGIN_FAILED);
         }
 
-        UserInfoDTO userInfoDTO = webService.getUserInfoByNumber(loginVO.getAccount());
+        UserInfoDTO userInfoDTO = webService.getUserInfoByWorkCode(loginVO.getAccount());
 
         String token = JwtUtil.sign(loginVO.getAccount(), userInfoDTO.getDepartmentid(), String.valueOf(System.currentTimeMillis()));
 
