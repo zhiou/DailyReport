@@ -3,14 +3,16 @@ package com.es.daily_report.controllers;
 import com.auth0.jwt.interfaces.Claim;
 import com.es.daily_report.dao.ReportDao;
 import com.es.daily_report.dao.TaskDao;
-import com.es.daily_report.dao.UserDao;
+
 import com.es.daily_report.dto.ReportQuery;
+
 import com.es.daily_report.entities.Report;
 import com.es.daily_report.entities.Task;
-import com.es.daily_report.entities.User;
+
 import com.es.daily_report.enums.ErrorType;
-import com.es.daily_report.enums.ReportStatus;
+
 import com.es.daily_report.mapstruct.TaskVoMapper;
+import com.es.daily_report.services.WebService;
 import com.es.daily_report.shiro.JwtUtil;
 import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.ReportVO;
@@ -43,12 +45,12 @@ public class ReportController {
     private TaskDao taskDao;
 
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
     private TaskVoMapper taskVoMapper;
 
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private WebService webService;
 
     private String accountFromToken(String token) {
         if (token == null || token.isEmpty()) {
@@ -74,9 +76,20 @@ public class ReportController {
         return claim.asString();
     }
 
+    private String userNameFromToken(String token) {
+        if (token == null || token.isEmpty()) {
+            return null;
+        }
+
+        Claim claim = JwtUtil.getClaim(token, JwtUtil.USER_NAME);
+        if (claim == null) {
+            return null;
+        }
+        return claim.asString();
+    }
+
     private List<ReportVO> reportsWithTasks(List<Report> reports) {
         return reports.stream().map(report -> {
-            User user = userDao.getById(report.getAuthorId());
             List<Task> tasks = taskDao.queryByReport(report.getId());
             List<TaskVO> taskVOList = tasks.stream().map(task -> {
                 return taskVoMapper.taskToTaskVO(task);
@@ -84,7 +97,7 @@ public class ReportController {
             return ReportVO.builder()
                     .onDay(report.getOnDay())
                     .tasks(taskVOList)
-                    .author(user.getName())
+                    .author(report.getAuthorName())
                     .build();
         }).collect(Collectors.toList());
     }
@@ -134,7 +147,11 @@ public class ReportController {
                             @RequestHeader(value = "Authorization") String token) {
         String account = accountFromToken(token);
         if (account == null) {
-            return Result.failure(ErrorType.USER_ID_INVALID);
+            return Result.failure(ErrorType.TOKEN_INVALID);
+        }
+        String username = userNameFromToken(token);
+        if (username == null) {
+            return Result.failure(ErrorType.TOKEN_INVALID);
         }
         Report report = reportDao.query(account, reportVO.getOnDay());
         if (report != null) { // remove origin report, override it
@@ -142,7 +159,8 @@ public class ReportController {
             reportDao.removeById(report.getId());
         }
         report = Report.builder()
-                .authorId(account)
+                .authorNo(account)
+                .authorName(username)
                 .onDay(reportVO.getOnDay())
                 .status(reportVO.getStatus())
                 .committed(new Date())

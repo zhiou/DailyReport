@@ -22,7 +22,9 @@ public class Report {
     @TableId(value = "id", type = IdType.AUTO)
     private String id;
 
-    private String authorId;
+    private String authorNo;
+
+    private String authorName;
 
     private ReportStatus status;
 

@@ -16,24 +16,16 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "project")
+@TableName(value = "department")
 public class Department {
     @TableId(value = "id", type = IdType.AUTO)
     private String id;
 
+    private String oaId;
+
     private String name;
 
-    private String managerId;
-
-    private Integer cost;
-
-    private Date onDay;
-
-    private String productId;
-
-    private String projectId;
-
-    private Date committed;
+    private String superiorId;
 
     @TableLogic
     @JsonIgnore

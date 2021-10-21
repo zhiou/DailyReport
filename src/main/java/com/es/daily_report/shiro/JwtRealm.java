@@ -1,8 +1,10 @@
 package com.es.daily_report.shiro;
 
 import com.es.daily_report.dao.*;
+import com.es.daily_report.dto.UserInfoDTO;
 import com.es.daily_report.entities.*;
 import com.es.daily_report.redis.RedisUtil;
+import com.es.daily_report.services.WebService;
 import com.es.daily_report.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
@@ -23,25 +25,10 @@ import java.util.Set;
 public class JwtRealm extends AuthorizingRealm {
 
     @Autowired
-    AuthDao authDao;
-
-    @Autowired
-    UserDao userDao;
-
-    @Autowired
-    UserRoleDao userRoleDao;
-
-    @Autowired
-    RolePermissionDao rolePermissionDao;
-
-    @Autowired
-    PermissionDao permissionDao;
-
-    @Autowired
-    RoleDao roleDao;
-
-    @Autowired
     private RedisUtil redisUtil;
+
+    @Autowired
+    private WebService webService;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -56,20 +43,11 @@ public class JwtRealm extends AuthorizingRealm {
         Set<String> roles = new HashSet<>();
         Set<String> permissions = new HashSet<>();
 
-        User user = userDao.queryByNo(staffNo);
-        UserRole userRole = userRoleDao.query(user.getId());
-        Role role = roleDao.getById(userRole.getRoleId());
-
-        roles.add(role.getName());
-
-        List<RolePermission> rolePermissions = rolePermissionDao.query(role.getId());
-
-        rolePermissions.stream()
-                .map(rolePermission -> permissionDao.getById(rolePermission.getPermissionId()))
-                .forEach(permission -> permissions.add(permission.getName()));
-
+        UserInfoDTO userInfo = webService.getUserInfoByWorkCode(staffNo);
+        //TODO: 根据职位判断角色权限
+        roles.add("staff");
         simpleAuthorizationInfo.setRoles(roles);
-        simpleAuthorizationInfo.setStringPermissions(permissions);
+
         return simpleAuthorizationInfo;
     }
 
@@ -90,6 +68,11 @@ public class JwtRealm extends AuthorizingRealm {
             throw new AuthenticationException("token is invalid!");
         }
 
+        String username = JwtUtil.getClaim(credentials, JwtUtil.USER_NAME).asString();
+        if (username == null) {
+            throw new AuthenticationException("token is invalid!");
+        }
+
         // 检查redis中的token是否存在
         String credential = String.valueOf(redisUtil.get(Constants.PREFIX_USER_TOKEN + credentials));
         log.error("redis中的credential:{}",credential);
@@ -97,7 +80,7 @@ public class JwtRealm extends AuthorizingRealm {
             throw new AuthenticationException("token expried!");
         }
         // 刷新token
-        if (!jwtTokenRefresh(credentials, staffNo, departId)) {
+        if (!jwtTokenRefresh(credentials, staffNo, departId, username)) {
             throw new AuthenticationException("Token失效请重新登录!");
         }
 
@@ -120,16 +103,16 @@ public class JwtRealm extends AuthorizingRealm {
      * 5、当该用户这次请求jwt在生成的token值已经超时，并在cache中不存在对应的k，则表示该用户账户空闲超时，返回用户信息已失效，请重新登录。
      * 6、每次当返回为true情况下，都会给Response的Header中设置Authorization，该Authorization映射的v为cache对应的v值。
      * 7、注：当前端接收到Response的Header中的Authorization值会存储起来，作为以后请求token使用
-     * @param userName
-     * @param uid
+     * @param account
+     * @param departmentId
      * @return
      */
-    private boolean jwtTokenRefresh(String token, String userName, String uid) {
+    private boolean jwtTokenRefresh(String token, String account, String departmentId, String userName) {
         String cacheToken = String.valueOf(redisUtil.get(Constants.PREFIX_USER_TOKEN + token));
         if (cacheToken != null && !cacheToken.isEmpty()) {
             // 校验token有效性
             if (!JwtUtil.verify(cacheToken)) {
-                String newAuthorization = JwtUtil.sign(userName, uid, String.valueOf(System.currentTimeMillis()));
+                String newAuthorization = JwtUtil.sign(account, departmentId, userName, String.valueOf(System.currentTimeMillis()));
                 redisUtil.set(Constants.PREFIX_USER_TOKEN + token, newAuthorization);
                 // 设置超时时间
                 redisUtil.expire(Constants.PREFIX_USER_TOKEN + token, JwtUtil.REFRESH_TOKEN_EXPIRE_TIME / 1000);

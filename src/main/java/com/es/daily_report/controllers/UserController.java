@@ -2,10 +2,10 @@ package com.es.daily_report.controllers;
 
 import com.es.daily_report.dao.*;
 import com.es.daily_report.dto.UserInfoDTO;
-import com.es.daily_report.entities.*;
+
 import com.es.daily_report.enums.ErrorType;
 import com.es.daily_report.redis.RedisUtil;
-import com.es.daily_report.services.PasswordHelper;
+
 import com.es.daily_report.services.WebService;
 import com.es.daily_report.shiro.JwtUtil;
 import com.es.daily_report.utils.Constants;
@@ -30,21 +30,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
-    private AuthDao authDao;
-
-    @Autowired
-    private RoleDao roleDao;
-
-    @Autowired
-    private UserRoleDao userRoleDao;
-
-    @Autowired
-    private PasswordHelper passwordHelper;
-
-    @Autowired
     private RedisUtil redisUtil;
 
     @Autowired
@@ -53,11 +38,6 @@ public class UserController {
     @Autowired
     private WebService webService;
 
-    private String queryRoleOfUser(User user) {
-        UserRole userRole = userRoleDao.query(user.getId());
-        Role role = roleDao.getById(userRole.getRoleId());
-        return role.getName();
-    }
 //
     @PutMapping("/password")
     @Transactional
@@ -84,7 +64,7 @@ public class UserController {
 
         UserInfoDTO userInfoDTO = webService.getUserInfoByWorkCode(loginVO.getAccount());
 
-        String token = JwtUtil.sign(loginVO.getAccount(), userInfoDTO.getDepartmentid(), String.valueOf(System.currentTimeMillis()));
+        String token = JwtUtil.sign(loginVO.getAccount(), userInfoDTO.getDepartmentid(), userInfoDTO.getLastname(), String.valueOf(System.currentTimeMillis()));
 
         // 将登录token信息保存到redis
         redisUtil.set(Constants.PREFIX_USER_TOKEN + token, token);

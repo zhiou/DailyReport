@@ -3,11 +3,10 @@ package com.es.daily_report.controllers;
 import com.auth0.jwt.interfaces.Claim;
 import com.es.daily_report.dao.ReportDao;
 import com.es.daily_report.dao.TaskDao;
-import com.es.daily_report.dao.UserDao;
+
 import com.es.daily_report.dto.ReportQuery;
 import com.es.daily_report.entities.Report;
 import com.es.daily_report.entities.Task;
-import com.es.daily_report.entities.User;
 import com.es.daily_report.enums.ErrorType;
 import com.es.daily_report.mapstruct.TaskVoMapper;
 import com.es.daily_report.shiro.JwtUtil;
@@ -38,9 +37,6 @@ public class ReportQueryController {
     private TaskDao taskDao;
 
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
     private TaskVoMapper taskVoMapper;
 
     private String userNumberFromToken(String token) {
@@ -57,7 +53,6 @@ public class ReportQueryController {
 
     private List<ReportVO> reportsWithTasks(List<Report> reports) {
         return reports.stream().map(report -> {
-            User user = userDao.getById(report.getAuthorId());
             List<Task> tasks = taskDao.queryByReport(report.getId());
             List<TaskVO> taskVOList = tasks.stream().map(task -> {
                 return taskVoMapper.taskToTaskVO(task);
@@ -65,7 +60,7 @@ public class ReportQueryController {
             return ReportVO.builder()
                     .onDay(report.getOnDay())
                     .tasks(taskVOList)
-                    .author(user.getName())
+                    .author(report.getAuthorName())
                     .build();
         }).collect(Collectors.toList());
     }
