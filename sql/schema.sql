@@ -5,7 +5,7 @@ CREATE TABLE `project` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `number` varchar(64) COMMENT '项目编号',
     `name` varchar(255) NOT NULL COMMENT '项目名称',
-    `manager` bigint NOT NULL COMMENT '项目经理ID',
+    `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '项目状态',
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
@@ -15,7 +15,7 @@ CREATE TABLE `product` (
      `id` bigint NOT NULL AUTO_INCREMENT,
      `number` varchar(64) COMMENT '产品编号',
      `name` varchar(255) COMMENT '产品名',
-     `project_id` bigint NULL DEFAULT NULL COMMENT '所属项目',
+     `in_line` varchar(255) COMMENT '产品线名',
      `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
       PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `oa_id` bigint NOT NULL COMMENT 'OA 部门ID',
-    `superiorId` bigint NULL DEFAULT NULL COMMENT '上级部门',
+    `superior_id` bigint NULL DEFAULT NULL COMMENT '上级部门',
     `name` varchar(64) NOT NULL COMMENT '部门名称',
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE
@@ -79,6 +79,7 @@ DROP TABLE IF EXISTS `report`;
 CREATE TABLE `report` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `work_code` varchar(10) COMMENT '员工编号',
+    `author_name` varchar(64) COMMENT '员工姓名',
     `on_day` date COMMENT '日志日期',
     `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态0：保存 1：提交',
     `committed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '提交时间',

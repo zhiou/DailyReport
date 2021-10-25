@@ -6,6 +6,7 @@ import com.es.daily_report.dao.TaskDao;
 
 import com.es.daily_report.dto.ReportQuery;
 
+import com.es.daily_report.dto.UserInfoDTO;
 import com.es.daily_report.entities.Report;
 import com.es.daily_report.entities.Task;
 
@@ -28,6 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -88,59 +91,6 @@ public class ReportController {
         return claim.asString();
     }
 
-    private List<ReportVO> reportsWithTasks(List<Report> reports) {
-        return reports.stream().map(report -> {
-            List<Task> tasks = taskDao.queryByReport(report.getId());
-            List<TaskVO> taskVOList = tasks.stream().map(task -> {
-                return taskVoMapper.taskToTaskVO(task);
-            }).collect(Collectors.toList());
-            return ReportVO.builder()
-                    .onDay(report.getOnDay())
-                    .tasks(taskVOList)
-                    .author(report.getAuthorName())
-                    .build();
-        }).collect(Collectors.toList());
-    }
-
-    // PMO可以通过员工编号，员工部门
-    @GetMapping("/pmo")
-    @RequiresRoles(value={"admin","pmo"},logical = Logical.OR)
-    public Result<?> queryBy(@RequestParam("base64") String base64) throws Exception {
-        String query = Base64.decodeToString(base64);
-        ReportQuery reportQuery = objectMapper.readValue(query, ReportQuery.class);
-        List<Report> reports = reportDao.listByCondition(reportQuery);
-        if (reports == null) {
-            return Result.failure(ErrorType.INVALID_PARAM);
-        }
-        return Result.success(reportsWithTasks(reports));
-    }
-
-    @GetMapping("/manager")
-    @RequiresRoles("manager")
-    public Result<?> queryFromManager(@RequestHeader(value = "Authorization") String token) {
-        //TODO: 要改数据库表才可以， 这里的部门ID来自OA
-        String departmentId = departmentFromToken(token);
-        if (departmentId == null) {
-            return Result.failure(ErrorType.USER_ID_INVALID);
-        }
-        ReportQuery reportQuery = ReportQuery.builder()
-                .departmentId(departmentId)
-                .build();
-        List<Report> reports = reportDao.listByCondition(reportQuery);
-        return Result.success(reportsWithTasks(reports));
-    }
-
-    @GetMapping
-    public Result<?> query(@RequestHeader(value = "Authorization") String token) {
-        //TODO: 查询字段要改为用户编号
-        String account = accountFromToken(token);
-        if (account == null) {
-            return Result.failure(ErrorType.USER_ID_INVALID);
-        }
-        List<Report> reports = reportDao.listByUser(account);
-        return Result.success(reportsWithTasks(reports));
-    }
-
     @PostMapping
     @Transactional
     public Result<?> create(@RequestBody ReportVO reportVO,
@@ -153,13 +103,13 @@ public class ReportController {
         if (username == null) {
             return Result.failure(ErrorType.TOKEN_INVALID);
         }
-        Report report = reportDao.query(account, reportVO.getOnDay());
+        Report report = reportDao.queryOnDay(account, reportVO.getOnDay());
         if (report != null) { // remove origin report, override it
             taskDao.removeTasksOfReport(report.getId());
             reportDao.removeById(report.getId());
         }
         report = Report.builder()
-                .authorNo(account)
+                .workCode(account)
                 .authorName(username)
                 .onDay(reportVO.getOnDay())
                 .status(reportVO.getStatus())
@@ -181,5 +131,69 @@ public class ReportController {
         }
         taskDao.saveBatch(tasks);
         return Result.success();
+    }
+
+    private List<ReportVO> reportsWithTasks(List<Report> reports) {
+        return reports.stream().map(report -> {
+            List<Task> tasks = taskDao.queryByReport(report.getId());
+            List<TaskVO> taskVOList = tasks.stream().map(task -> {
+                return taskVoMapper.taskToTaskVO(task);
+            }).collect(Collectors.toList());
+            return ReportVO.builder()
+                    .onDay(report.getOnDay())
+                    .tasks(taskVOList)
+                    .author(report.getAuthorName())
+                    .build();
+        }).collect(Collectors.toList());
+    }
+
+    @GetMapping
+    public Result<?> query(@RequestParam("type") String type,
+                           @RequestParam("condition") String content,
+                           @RequestParam("from") String from,
+                           @RequestParam("to") String to) {
+
+        List<String> staffNumbers = new ArrayList<>();
+
+        switch (type) {
+            case "0":
+                staffNumbers.add(content);
+                break;
+            case "1":
+                UserInfoDTO[] staffsInDepartment = webService.getUserInfoByDepartmentId(content);
+                for (UserInfoDTO staff : staffsInDepartment) {
+                    staffNumbers.add(staff.getWorkcode());
+                }
+                break;
+            case "2":
+                UserInfoDTO[] staffsInCompany = webService.getUserInfoByCompany(content);
+                for (UserInfoDTO staff : staffsInCompany) {
+                    staffNumbers.add(staff.getWorkcode());
+                }
+                break;
+            case "3":
+                UserInfoDTO[] staffInJobTitle = webService.getUserInfoByJobTitleId(content);
+                for (UserInfoDTO staff : staffInJobTitle) {
+                    staffNumbers.add(staff.getWorkcode());
+                }
+                break;
+        }
+        List<Report> reports = new ArrayList<Report>();
+        try {
+            final Date fromDate = DateFormat.getDateInstance().parse(from);
+            final Date toDate = DateFormat.getDateInstance().parse(to);
+            staffNumbers.forEach(workCode -> {
+                ReportQuery reportQuery = ReportQuery.builder()
+                        .staffNo(workCode)
+                        .start(fromDate)
+                        .end(toDate)
+                        .build();
+                reports.addAll(reportDao.listByRange(reportQuery));
+            });
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return Result.success(reportsWithTasks(reports));
     }
 }

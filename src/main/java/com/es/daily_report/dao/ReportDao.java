@@ -12,38 +12,32 @@ import java.util.List;
 
 @Service
 public class ReportDao extends ServiceImpl<ReportMapper, Report> {
-    public Report query(String authorId, Date onDay) {
+    public Report queryOnDay(String workCode, Date onDay) {
         QueryWrapper<Report> wrapper = new QueryWrapper<>();
-        wrapper.eq("author_id", authorId);
+        wrapper.eq("work_code", workCode);
         wrapper.eq("on_day", onDay);
         wrapper.last("LIMIT 1");
         return getOne(wrapper);
     }
 
-    public List<Report> listByUser(String authorId) {
+    public List<Report> listAll(String workCode) {
         QueryWrapper<Report> wrapper = new QueryWrapper<>();
-        wrapper.eq("author_id", authorId);
+        wrapper.eq("work_code", workCode);
         return list(wrapper);
     }
 
-    public List<Report> listByCondition(ReportQuery query) {
+    public List<Report> listByRange(ReportQuery query) {
         QueryWrapper<Report> wrapper = new QueryWrapper<>();
-        Date endDate = query.getEnd();
-        if (endDate == null) {
-            endDate = new Date();
-        }
-        if (query.getStaffNo() != null) {
-            wrapper.eq("author_id", query.getStaffNo());
 
-            if (query.getStart() != null) {
-                wrapper.between("on_day", query.getStart(), endDate);
-            }
-        }
-        else if (query.getDepartmentId() != null) {
-            if (query.getStart() != null) {
-                return baseMapper.listByDepartment(query.getDepartmentId(), query.getStart(), endDate);
-            } else {
-                return baseMapper.listByDepartment(query.getDepartmentId());
+        if (query.getStaffNo() != null) {
+            wrapper.eq("work_code", query.getStaffNo());
+
+            if (query.getStart() != null && query.getEnd() != null) {
+                wrapper.between("on_day", query.getStart(), query.getEnd());
+            } else if (query.getStart() != null) {
+                wrapper.ge("on_day", query.getStart());
+            } else if (query.getEnd() != null) {
+                wrapper.le("on_day", query.getEnd());
             }
         }
         return list(wrapper);

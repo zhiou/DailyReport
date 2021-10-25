@@ -16,7 +16,7 @@ import java.util.Date;
 public class JwtUtil {
 
     //JWT-account
-    public static final String ACCOUNT = "username";
+    public static final String ACCOUNT = "account";
 
     //JWT-currentTimeMillis
     private final static String CURRENT_TIME_MILLIS = "currentTimeMillis";

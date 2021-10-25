@@ -15,5 +15,4 @@ public class ReportQuery {
     private Date start;
     private Date end;
     private String staffNo;
-    private String departmentId;
 }

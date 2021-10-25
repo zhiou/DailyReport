@@ -23,7 +23,7 @@ public class Product {
 
     private String name;
 
-    private String projectId;
+    private String inLine;
 
     @TableLogic
     @JsonIgnore

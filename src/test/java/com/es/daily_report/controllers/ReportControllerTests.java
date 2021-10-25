@@ -47,8 +47,6 @@ public class ReportControllerTests {
     @Transactional
     @Rollback
     public void create() throws Exception {
-        testUtils.create("ES0001", "张三", "1", "123456", "2");
-        testUtils.login("ES0001", "123456");
         TaskVO taskVO = TaskVO.builder()
                 .name("某个任务")
                 .details("就是完成了这个任务呗")
@@ -68,8 +66,6 @@ public class ReportControllerTests {
     @Transactional
     @Rollback
     public void query() throws Exception {
-        testUtils.create("ES0001", "张三", "1", "123456", "2");
-        testUtils.login("ES0001", "123456");
         TaskVO taskVO = TaskVO.builder()
                 .name("某个任务")
                 .details("就是完成了这个任务呗")
@@ -89,9 +85,7 @@ public class ReportControllerTests {
     @Transactional
     @Rollback
     public void queryDepartment() throws Exception {
-        testUtils.create("ES0001", "张三", "1", "123456", "3");
-        testUtils.create("ES0002", "李四", "1", "123456", "2");
-        testUtils.login("ES0001", "123456");
+
         TaskVO taskVO1 = TaskVO.builder()
                 .name("task of zhang san")
                 .details("still working on it")
@@ -104,7 +98,6 @@ public class ReportControllerTests {
                 .tasks(taskVOList1)
                 .build());
 
-        testUtils.login("ES0002", "123456");
         TaskVO taskVO2 = TaskVO.builder()
                 .name("task of li si")
                 .details("finished")

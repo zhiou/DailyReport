@@ -5,10 +5,12 @@ import com.es.daily_report.dao.ReportDao;
 import com.es.daily_report.dao.TaskDao;
 
 import com.es.daily_report.dto.ReportQuery;
+import com.es.daily_report.dto.UserInfoDTO;
 import com.es.daily_report.entities.Report;
 import com.es.daily_report.entities.Task;
 import com.es.daily_report.enums.ErrorType;
 import com.es.daily_report.mapstruct.TaskVoMapper;
+import com.es.daily_report.services.WebService;
 import com.es.daily_report.shiro.JwtUtil;
 import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.ReportVO;
@@ -39,71 +41,8 @@ public class ReportQueryController {
     @Autowired
     private TaskVoMapper taskVoMapper;
 
-    private String userNumberFromToken(String token) {
-        if (token == null || token.isEmpty()) {
-            return null;
-        }
+    @Autowired
+    private WebService webService;
 
-        Claim claim = JwtUtil.getClaim(token, JwtUtil.ACCOUNT);
-        if (claim == null) {
-            return null;
-        }
-        return claim.asString();
-    }
 
-    private List<ReportVO> reportsWithTasks(List<Report> reports) {
-        return reports.stream().map(report -> {
-            List<Task> tasks = taskDao.queryByReport(report.getId());
-            List<TaskVO> taskVOList = tasks.stream().map(task -> {
-                return taskVoMapper.taskToTaskVO(task);
-            }).collect(Collectors.toList());
-            return ReportVO.builder()
-                    .onDay(report.getOnDay())
-                    .tasks(taskVOList)
-                    .author(report.getAuthorName())
-                    .build();
-        }).collect(Collectors.toList());
-    }
-
-    private Date firstDayInMonth(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        System.out.println (new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime()));
-        return cal.getTime();
-
-    }
-
-    private Date lastDayInMonth(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        cal.roll(Calendar.DAY_OF_MONTH, -1);
-        System.out.println (new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime()));
-        return cal.getTime();
-    }
-
-    @GetMapping
-    public Result<?> queryOnDay(@RequestHeader(value = "Authorization") String token,
-                                @RequestParam("type") String type,
-                                @RequestParam("date") String dateString) throws ParseException {
-        String account = userNumberFromToken(token);
-        if (account == null) {
-            return Result.failure(ErrorType.USER_ID_INVALID);
-        }
-        Date date = DateFormat.getDateInstance().parse(dateString);
-        List<Report> reports = new ArrayList<>();
-        if (type.equals("day")) {
-            //TODO: 用用户编码代替用户ID做查询
-            Report report = null;//reportDao.query(user.getId(), date);
-            reports.add(report);
-        } else if (type.equals("month")) {
-            ReportQuery reportQuery = ReportQuery.builder().staffNo(account)
-                    .start(firstDayInMonth(date))
-                    .end(lastDayInMonth(date))
-                    .build();
-            reports = reportDao.listByCondition(reportQuery);
-        }
-        return Result.success(reportsWithTasks(reports));
-    }
 }

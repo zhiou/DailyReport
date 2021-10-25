@@ -37,4 +37,10 @@ public class WebServiceTests extends junit.framework.TestCase {
         JobTitleInfoDTO[] jobTitles = webService.getJobTitleInfoOfDepartment("103");
         assertNotNull(jobTitles);
     }
+
+    public void testGetProjectInfo() throws AxisFault {
+        WebService webService = new WebService();
+        webService.getProjectInfo();
+
+    }
 }

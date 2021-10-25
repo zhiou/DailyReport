@@ -22,7 +22,7 @@ public class Report {
     @TableId(value = "id", type = IdType.AUTO)
     private String id;
 
-    private String authorNo;
+    private String workCode;
 
     private String authorName;
 

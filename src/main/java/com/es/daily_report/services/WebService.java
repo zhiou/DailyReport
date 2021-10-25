@@ -2,8 +2,10 @@ package com.es.daily_report.services;
 
 import com.es.daily_report.dto.DepartmentInfoDTO;
 import com.es.daily_report.dto.JobTitleInfoDTO;
+import com.es.daily_report.dto.ProjectInfoDTO;
 import com.es.daily_report.dto.UserInfoDTO;
 import com.es.daily_report.soap.HrmServiceStub;
+import com.es.daily_report.soap.ProjectServiceStub;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -16,15 +18,16 @@ import java.rmi.RemoteException;
 
 @Service
 public class WebService {
-    private HrmServiceStub stub = null; // the default implementation should point to the right endpoint
-
+    private HrmServiceStub hrmStub;
+    private ProjectServiceStub projectStub;
     XmlMapper xmlMapper = new XmlMapper();
 
     @Value("${webservice.client.ip}")
     private String ip;
 
     public WebService() throws AxisFault {
-        stub = new HrmServiceStub();
+        hrmStub = new HrmServiceStub();
+        projectStub = new ProjectServiceStub();
     }
 
     public Boolean check(String username, String password) {
@@ -34,7 +37,7 @@ public class WebService {
         checkUserParam.setIn2(password);
         HrmServiceStub.CheckUserResponse response = null;
         try {
-            response = stub.checkUser(checkUserParam);
+            response = hrmStub.checkUser(checkUserParam);
             if (response != null) {
                 return response.getOut();
             }
@@ -51,7 +54,7 @@ public class WebService {
         changePasswordParam.setIn2(newPassword);
         HrmServiceStub.ChangeUserPasswordResponse response = null;
         try {
-            response = stub.changeUserPassword(changePasswordParam);
+            response = hrmStub.changeUserPassword(changePasswordParam);
             if (response != null) {
                 return response.getOut();
             }
@@ -67,12 +70,28 @@ public class WebService {
         getHrmUserInfoParam.setIn0(ip);
         getHrmUserInfoParam.setIn1(workNumber);
         try {
-            String userInfoXml = stub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
+            String userInfoXml = hrmStub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
             if (userInfoXml != null) {
                 UserInfoDTO[] result = xmlMapper.readValue(userInfoXml, UserInfoDTO[].class);
                 if (result.length > 0) {
                     return result[0];
                 }
+            }
+        } catch (RemoteException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public UserInfoDTO[] getUserInfoByCompany(String companyId) {
+        HrmServiceStub.GetHrmUserInfoXML getHrmUserInfoParam =
+                new HrmServiceStub.GetHrmUserInfoXML();
+        getHrmUserInfoParam.setIn0(ip);
+        getHrmUserInfoParam.setIn2(companyId);
+        try {
+            String userInfoXml = hrmStub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
+            if (userInfoXml != null) {
+                return xmlMapper.readValue(userInfoXml, UserInfoDTO[].class);
             }
         } catch (RemoteException | JsonProcessingException e) {
             e.printStackTrace();
@@ -86,7 +105,7 @@ public class WebService {
         getHrmUserInfoParam.setIn0(ip);
         getHrmUserInfoParam.setIn3(departmentId);
         try {
-            String userInfoXml = stub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
+            String userInfoXml = hrmStub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
             if (userInfoXml != null) {
                 return xmlMapper.readValue(userInfoXml, UserInfoDTO[].class);
             }
@@ -102,7 +121,7 @@ public class WebService {
         getHrmUserInfoParam.setIn0(ip);
         getHrmUserInfoParam.setIn4(jobTitleId);
         try {
-            String userInfoXml = stub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
+            String userInfoXml = hrmStub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
             if (userInfoXml != null) {
                 return xmlMapper.readValue(userInfoXml, UserInfoDTO[].class);
             }
@@ -118,7 +137,7 @@ public class WebService {
         // 文鼎创公司ID为6， 深圳总公司为1， 北京分公司为5
         getHrmDepartmentInfoParam.setIn1("6");
         try {
-            String departmentInfoXml = stub.getHrmDepartmentInfoXML(getHrmDepartmentInfoParam).getOut();
+            String departmentInfoXml = hrmStub.getHrmDepartmentInfoXML(getHrmDepartmentInfoParam).getOut();
             if (departmentInfoXml != null) {
                 return xmlMapper.readValue(departmentInfoXml, DepartmentInfoDTO[].class);
             }
@@ -135,7 +154,7 @@ public class WebService {
         getJobTitleInfoParam.setIn1("6");
 
         try {
-            String getHrmJobTitleInfoXML = stub.getHrmJobTitleInfoXML(getJobTitleInfoParam).getOut();
+            String getHrmJobTitleInfoXML = hrmStub.getHrmJobTitleInfoXML(getJobTitleInfoParam).getOut();
             if (getHrmJobTitleInfoXML != null) {
                 return xmlMapper.readValue(getHrmJobTitleInfoXML, JobTitleInfoDTO[].class);
             }
@@ -152,7 +171,7 @@ public class WebService {
         getJobTitleInfoParam.setIn2(departmentId);
 
         try {
-            String getHrmJobTitleInfoXML = stub.getHrmJobTitleInfoXML(getJobTitleInfoParam).getOut();
+            String getHrmJobTitleInfoXML = hrmStub.getHrmJobTitleInfoXML(getJobTitleInfoParam).getOut();
             if (getHrmJobTitleInfoXML != null) {
                 return xmlMapper.readValue(getHrmJobTitleInfoXML, JobTitleInfoDTO[].class);
             }
@@ -160,5 +179,32 @@ public class WebService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public ProjectInfoDTO[] getProjectInfo() {
+        ProjectServiceStub.QueryProject queryProjectParam = new ProjectServiceStub.QueryProject();
+        queryProjectParam.setIn0(queryProjectXml());
+        try {
+            String projectInfoXML = projectStub.queryProject(queryProjectParam).getOut();
+            //TODO: convert return type
+            return null;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String queryProjectXml(){
+        String queryParam = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<project>" +
+                "<user>" +
+                "<loginid>" + "ES0092" + "</loginid>" +
+                "<password>" + "2" + "</password>" +
+                "</user>" +
+                "<base>" +
+                "<procode>" + "EST2013R01" + "</procode>" +
+                "</base>" +
+                "</project>";
+        return queryParam;
     }
 }

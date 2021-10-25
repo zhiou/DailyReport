@@ -1,5 +1,6 @@
 package com.es.daily_report.controllers;
 
+import com.es.daily_report.dto.ReportQuery;
 import com.es.daily_report.vo.ReportVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -349,16 +354,25 @@ public class TestUtils {
     }
 
     void getReport() throws Exception {
-        MvcResult result = mvc.perform(get("/v1/daily_report/report")
+        SimpleDateFormat formator = new SimpleDateFormat("yyyy-MM-dd");
+        int type = 0;
+        String workcode = "ES0092";
+        String url = String.format("/v1/daily_report/report?type=%d&condition=%s&from=%s&to=%s", type, workcode, formator.format(new Date()), formator.format(new Date()));
+        MvcResult result = mvc.perform(get(url)
                         .header("Authorization", token)
                         .contentType(MediaType.APPLICATION_JSON))
+
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
     }
 
     void getReportsOfDepartment() throws Exception {
-        MvcResult result = mvc.perform(get("/v1/daily_report/report/manager")
+        int type = 1;
+        String departId = "106";
+        SimpleDateFormat formator = new SimpleDateFormat("yyyy-MM-dd");
+        String url = String.format("/v1/daily_report/report?type=%d&condition=%s&from=%s&to=%s", type, departId, formator.format(new Date()), formator.format(new Date()));
+        MvcResult result = mvc.perform(get(url)
                         .header("Authorization", token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
