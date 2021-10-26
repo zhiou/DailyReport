@@ -25,6 +25,8 @@ public class Project {
 
     private String name;
 
+    private String managerNumber;
+
     private ProjectState status;
 
     @TableLogic

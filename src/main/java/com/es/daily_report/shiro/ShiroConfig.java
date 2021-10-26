@@ -45,9 +45,9 @@ public class ShiroConfig {
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         //过滤链定义，从上向下顺序执行，一般将/**放在最为下边
         //swagger start
-        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/swagger-ui/**", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
-        filterChainDefinitionMap.put("/v2/api-docs", "anon");
+        filterChainDefinitionMap.put("/v3/api-docs", "anon");
         filterChainDefinitionMap.put("/csrf", "anon");
         //swagger end
         filterChainDefinitionMap.put("/webjars/**", "anon");

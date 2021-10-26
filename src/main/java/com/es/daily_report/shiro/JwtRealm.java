@@ -58,29 +58,34 @@ public class JwtRealm extends AuthorizingRealm {
            throw new AuthenticationException("token is empty!");
        }
 
-       String staffNo = JwtUtil.getClaim(credentials, JwtUtil.ACCOUNT).asString();
+       String[] parts = credentials.split(" ");
+        if (parts.length < 1) {
+            throw new AuthenticationException("token is invalid!");
+        }
+       String jwt = parts[parts.length - 1];
+       String staffNo = JwtUtil.getClaim(jwt, JwtUtil.ACCOUNT).asString();
         if (staffNo == null) {
             throw new AuthenticationException("token is invalid!");
         }
 
-        String departId = JwtUtil.getClaim(credentials, JwtUtil.DEPART_ID).asString();
+        String departId = JwtUtil.getClaim(jwt, JwtUtil.DEPART_ID).asString();
         if (departId == null) {
             throw new AuthenticationException("token is invalid!");
         }
 
-        String username = JwtUtil.getClaim(credentials, JwtUtil.USER_NAME).asString();
+        String username = JwtUtil.getClaim(jwt, JwtUtil.USER_NAME).asString();
         if (username == null) {
             throw new AuthenticationException("token is invalid!");
         }
 
         // 检查redis中的token是否存在
-        String credential = String.valueOf(redisUtil.get(Constants.PREFIX_USER_TOKEN + credentials));
+        String credential = String.valueOf(redisUtil.get(Constants.PREFIX_USER_TOKEN + jwt));
         log.error("redis中的credential:{}",credential);
         if (credential == null || credential.equals("null") || credential.isEmpty()){
             throw new AuthenticationException("token expried!");
         }
         // 刷新token
-        if (!jwtTokenRefresh(credentials, staffNo, departId, username)) {
+        if (!jwtTokenRefresh(jwt, staffNo, departId, username)) {
             throw new AuthenticationException("Token失效请重新登录!");
         }
 

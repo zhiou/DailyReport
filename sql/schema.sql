@@ -5,6 +5,7 @@ CREATE TABLE `project` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `number` varchar(64) COMMENT '项目编号',
     `name` varchar(255) NOT NULL COMMENT '项目名称',
+    `manager_number` varchar(64) NOT NULL COMMENT '项目经理编号',
     `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '项目状态',
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE

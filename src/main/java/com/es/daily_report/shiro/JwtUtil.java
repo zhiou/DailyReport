@@ -51,8 +51,13 @@ public class JwtUtil {
      * @param claim
      * @return
      */
-    public static Claim getClaim(String token, String claim) {
+    public static Claim getClaim(String jwtToken, String claim) {
         try {
+            String[] parts = jwtToken.split(" ");
+            if (parts.length < 1) {
+                return null;
+            }
+            String token = parts[parts.length - 1];
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim(claim);
         } catch (JWTDecodeException e) {

@@ -11,7 +11,9 @@ public enum ErrorType {
     INVALID_PARAM(101007, "无效的参数"),
     WRONG_PASSWORD(101011, "密码错误"),
     SAME_PASSWORD(101012, "新旧密码相同"),
-    REPORT_EXISTED(101013, "当日报告已存在");
+    REPORT_EXISTED(101013, "当日报告已存在"),
+    PROJECT_EXISTED(101014, "项目已存在"),
+    PRODUCT_EXISTED(101015, "产品已存在");
 
     private Integer code;
     private String message;
