@@ -1,5 +1,6 @@
 package com.es.daily_report.controllers;
 
+import com.alibaba.excel.EasyExcel;
 import com.auth0.jwt.interfaces.Claim;
 import com.es.daily_report.dao.ReportDao;
 import com.es.daily_report.dao.TaskDao;
@@ -29,6 +30,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -195,5 +199,70 @@ public class ReportController {
         }
 
         return Result.success(reportsWithTasks(reports));
+    }
+
+    //TODO: 组织任务和日志
+    @GetMapping("/download")
+    public void download(@RequestParam("type") String type,
+                         @RequestParam("condition") String content,
+                         @RequestParam("from") String from,
+                         @RequestParam("to") String to,
+                         HttpServletResponse response) throws IOException {
+        List<String> staffNumbers = new ArrayList<>();
+        String sheetName = "文鼎创";
+        switch (type) {
+            case "0":
+                UserInfoDTO targetStaff = webService.getUserInfoByWorkCode(content);
+                staffNumbers.add(targetStaff.getWorkcode());
+                sheetName = targetStaff.getLastname();
+                break;
+            case "1":
+                UserInfoDTO[] staffsInDepartment = webService.getUserInfoByDepartmentId(content);
+                for (UserInfoDTO staff : staffsInDepartment) {
+                    staffNumbers.add(staff.getWorkcode());
+                }
+                if (staffsInDepartment.length > 0) {
+                    sheetName = staffsInDepartment[0].getDepartmentname();
+                }
+                break;
+            case "2":
+                UserInfoDTO[] staffsInCompany = webService.getUserInfoByCompany(content);
+                for (UserInfoDTO staff : staffsInCompany) {
+                    staffNumbers.add(staff.getWorkcode());
+                }
+                sheetName = "文鼎创";
+                break;
+            case "3":
+                UserInfoDTO[] staffInJobTitle = webService.getUserInfoByJobTitleId(content);
+                for (UserInfoDTO staff : staffInJobTitle) {
+                    staffNumbers.add(staff.getWorkcode());
+                }
+                if (staffInJobTitle.length > 0) {
+                    sheetName = staffInJobTitle[0].getJobtitle();
+                }
+                break;
+        }
+        List<Report> reports = new ArrayList<Report>();
+        try {
+            final Date fromDate = DateFormat.getDateInstance().parse(from);
+            final Date toDate = DateFormat.getDateInstance().parse(to);
+            staffNumbers.forEach(workCode -> {
+                ReportQuery reportQuery = ReportQuery.builder()
+                        .staffNo(workCode)
+                        .start(fromDate)
+                        .end(toDate)
+                        .build();
+                reports.addAll(reportDao.listByRange(reportQuery));
+            });
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        String fileName = URLEncoder.encode("工作日志", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), Report.class).sheet(sheetName).doWrite(reportsWithTasks(reports));
     }
 }

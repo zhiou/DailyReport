@@ -1,5 +1,6 @@
 package com.es.daily_report.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -16,9 +17,14 @@ import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
+
+    @Value("${swagger.enable}")
+    private Boolean enable;
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.OAS_30)
+                .enable(enable)
                 .apiInfo(apiInfo())
                 .securitySchemes(Collections.singletonList(HttpAuthenticationScheme.JWT_BEARER_BUILDER
                         .name("JWT")

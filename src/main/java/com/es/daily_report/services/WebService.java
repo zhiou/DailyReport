@@ -2,10 +2,8 @@ package com.es.daily_report.services;
 
 import com.es.daily_report.dto.DepartmentInfoDTO;
 import com.es.daily_report.dto.JobTitleInfoDTO;
-import com.es.daily_report.dto.ProjectInfoDTO;
 import com.es.daily_report.dto.UserInfoDTO;
 import com.es.daily_report.soap.HrmServiceStub;
-import com.es.daily_report.soap.ProjectServiceStub;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -19,7 +17,6 @@ import java.rmi.RemoteException;
 @Service
 public class WebService {
     private HrmServiceStub hrmStub;
-    private ProjectServiceStub projectStub;
     XmlMapper xmlMapper = new XmlMapper();
 
     @Value("${webservice.client.ip}")
@@ -27,7 +24,6 @@ public class WebService {
 
     public WebService() throws AxisFault {
         hrmStub = new HrmServiceStub();
-        projectStub = new ProjectServiceStub();
     }
 
     public Boolean check(String username, String password) {
@@ -179,32 +175,5 @@ public class WebService {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public ProjectInfoDTO[] getProjectInfo() {
-        ProjectServiceStub.QueryProject queryProjectParam = new ProjectServiceStub.QueryProject();
-        queryProjectParam.setIn0(queryProjectXml());
-        try {
-            String projectInfoXML = projectStub.queryProject(queryProjectParam).getOut();
-            //TODO: convert return type
-            return null;
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private String queryProjectXml(){
-        String queryParam = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                "<project>" +
-                "<user>" +
-                "<loginid>" + "ES0092" + "</loginid>" +
-                "<password>" + "2" + "</password>" +
-                "</user>" +
-                "<base>" +
-                "<procode>" + "EST2013R01" + "</procode>" +
-                "</base>" +
-                "</project>";
-        return queryParam;
     }
 }
