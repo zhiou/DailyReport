@@ -81,6 +81,7 @@ CREATE TABLE `report` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `work_code` varchar(10) COMMENT '员工编号',
     `author_name` varchar(64) COMMENT '员工姓名',
+    `department` varchar(64) COMMENT '所属部门',
     `on_day` date COMMENT '日志日期',
     `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态0：保存 1：提交',
     `committed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '提交时间',

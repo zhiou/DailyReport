@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.es.daily_report.entities.Project;
 import com.es.daily_report.entities.Report;
 import com.es.daily_report.mapper.ProjectMapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,5 +39,9 @@ public class ProjectDao extends ServiceImpl<ProjectMapper, Project> {
             }
         }
         return removedNumbers.toArray(new String[0]);
+    }
+
+    public List<String> queryMemberNumber(String projectNumber) {
+        return baseMapper.queryMembers(projectNumber);
     }
 }

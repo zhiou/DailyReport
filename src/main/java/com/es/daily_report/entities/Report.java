@@ -22,26 +22,21 @@ import java.util.Date;
 @TableName(value = "report")
 public class Report {
     @TableId(value = "id", type = IdType.AUTO)
-    @ExcelIgnore
     private String id;
 
-    @ExcelProperty("员工编号")
     private String workCode;
 
-    @ExcelProperty("员工姓名")
     private String authorName;
 
-    @ExcelIgnore
+    private String department;
+
     private ReportStatus status;
 
-    @ExcelProperty("日志日期")
     private Date onDay;
 
-    @ExcelProperty("提交日期")
     private Date committed;
 
     @TableLogic
     @JsonIgnore
-    @ExcelIgnore
     private Boolean deleted;
 }
