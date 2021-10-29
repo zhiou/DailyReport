@@ -1,11 +1,19 @@
 package com.es.daily_report.vo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.write.style.*;
 import lombok.Builder;
 import lombok.Data;
+import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
+
+
+import java.util.Date;
 
 @Data
 @Builder
+@HeadRowHeight(20)
+@HeadStyle(horizontalAlignment = HorizontalAlignmentEnum.CENTER)//表头样式
+@ContentStyle(horizontalAlignment = HorizontalAlignmentEnum.CENTER)//内容样式
 public class ExcelVO {
 
     @ExcelProperty("产品线")
@@ -21,13 +29,13 @@ public class ExcelVO {
     private String staffName;
 
     @ExcelProperty("工时")
-    private String taskCost;
+    private Integer taskCost;
 
     @ExcelProperty("项目")
     private String projectName;
 
     @ExcelProperty("报告日期")
-    private String reportDate;
+    private Date reportDate;
 
     @ExcelProperty("任务名")
     private String taskName;
@@ -36,5 +44,5 @@ public class ExcelVO {
     private String taskDetail;
 
     @ExcelProperty("提交日期")
-    private String commitDate;
+    private Date commitDate;
 }

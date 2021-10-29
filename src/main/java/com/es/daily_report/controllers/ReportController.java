@@ -24,6 +24,7 @@ import com.es.daily_report.enums.ErrorType;
 import com.es.daily_report.mapstruct.TaskVoMapper;
 import com.es.daily_report.services.WebService;
 import com.es.daily_report.shiro.JwtUtil;
+import com.es.daily_report.utils.CustomCellWriteHandler;
 import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.ExcelVO;
 import com.es.daily_report.vo.ReportVO;
@@ -265,10 +266,10 @@ public class ReportController {
                 ExcelVO excelVO = ExcelVO.builder()
                         .staffName(report.getAuthorName())
                         .department(report.getDepartment())
-                        .reportDate(DateFormat.getDateInstance().format(report.getOnDay()))
-                        .commitDate(DateFormat.getDateInstance().format(report.getCommitted()))
+                        .reportDate(report.getOnDay())
+                        .commitDate(report.getCommitted())
                         .taskName(task.getName())
-                        .taskCost(task.getCost().toString())
+                        .taskCost(task.getCost())
                         .taskDetail(task.getDetails())
                         .productName(product.getName())
                         .projectName(project.getName())
@@ -287,7 +288,11 @@ public class ReportController {
         ExcelWriter excelWriter = EasyExcel.write(response.getOutputStream()).build();
         excel.forEach((key, value) -> {
                 WriteSheet writeSheet = EasyExcel.writerSheet(key).build();
-                WriteTable writeTable = EasyExcel.writerTable().head(ExcelVO.class).needHead(true).build();
+                WriteTable writeTable = EasyExcel.writerTable()
+                        .head(ExcelVO.class)
+                        .registerWriteHandler(new CustomCellWriteHandler())
+                        .needHead(true)
+                        .build();
                 excelWriter.write(value, writeSheet, writeTable);
         });
         excelWriter.finish();
