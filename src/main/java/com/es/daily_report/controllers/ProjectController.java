@@ -1,16 +1,13 @@
 package com.es.daily_report.controllers;
 
 import com.es.daily_report.dao.ProjectDao;
-import com.es.daily_report.entities.Product;
 import com.es.daily_report.entities.Project;
 import com.es.daily_report.enums.ErrorType;
 import com.es.daily_report.utils.Result;
-import com.es.daily_report.vo.ProductVO;
 import com.es.daily_report.vo.ProjectRemoveVO;
 import com.es.daily_report.vo.ProjectVO;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

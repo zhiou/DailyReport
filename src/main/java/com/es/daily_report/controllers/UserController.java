@@ -64,7 +64,7 @@ public class UserController {
 
         UserInfoDTO userInfoDTO = webService.getUserInfoByWorkCode(loginVO.getAccount());
 
-        String token = JwtUtil.sign(loginVO.getAccount(), userInfoDTO.getDepartmentid(), userInfoDTO.getLastname(), String.valueOf(System.currentTimeMillis()));
+        String token = JwtUtil.sign(loginVO.getAccount(), userInfoDTO.getDepartmentid(), userInfoDTO.getDepartmentname(), userInfoDTO.getLastname(), String.valueOf(System.currentTimeMillis()));
 
         // 将登录token信息保存到redis
         redisUtil.set(Constants.PREFIX_USER_TOKEN + token, token);

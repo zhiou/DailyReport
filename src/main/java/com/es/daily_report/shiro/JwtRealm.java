@@ -73,6 +73,11 @@ public class JwtRealm extends AuthorizingRealm {
             throw new AuthenticationException("token is invalid!");
         }
 
+        String depart = JwtUtil.getClaim(jwt, JwtUtil.DEPART).asString();
+        if (depart == null) {
+            throw new AuthenticationException("token is invalid!");
+        }
+
         String username = JwtUtil.getClaim(jwt, JwtUtil.USER_NAME).asString();
         if (username == null) {
             throw new AuthenticationException("token is invalid!");
@@ -85,7 +90,7 @@ public class JwtRealm extends AuthorizingRealm {
             throw new AuthenticationException("token expried!");
         }
         // 刷新token
-        if (!jwtTokenRefresh(jwt, staffNo, departId, username)) {
+        if (!jwtTokenRefresh(jwt, staffNo, departId, depart, username)) {
             throw new AuthenticationException("Token失效请重新登录!");
         }
 
@@ -112,12 +117,12 @@ public class JwtRealm extends AuthorizingRealm {
      * @param departmentId
      * @return
      */
-    private boolean jwtTokenRefresh(String token, String account, String departmentId, String userName) {
+    private boolean jwtTokenRefresh(String token, String account, String departmentId, String department, String userName) {
         String cacheToken = String.valueOf(redisUtil.get(Constants.PREFIX_USER_TOKEN + token));
         if (cacheToken != null && !cacheToken.isEmpty()) {
             // 校验token有效性
             if (!JwtUtil.verify(cacheToken)) {
-                String newAuthorization = JwtUtil.sign(account, departmentId, userName, String.valueOf(System.currentTimeMillis()));
+                String newAuthorization = JwtUtil.sign(account, departmentId, department, userName, String.valueOf(System.currentTimeMillis()));
                 redisUtil.set(Constants.PREFIX_USER_TOKEN + token, newAuthorization);
                 // 设置超时时间
                 redisUtil.expire(Constants.PREFIX_USER_TOKEN + token, JwtUtil.REFRESH_TOKEN_EXPIRE_TIME / 1000);

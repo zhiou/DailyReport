@@ -30,6 +30,8 @@ public class Report {
 
     private String department;
 
+    private String departmentId;
+
     private ReportStatus status;
 
     private Date onDay;

@@ -1,7 +1,9 @@
 package com.es.daily_report.vo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.*;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Builder;
 import lombok.Data;
 import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
@@ -25,6 +27,9 @@ public class ExcelVO {
     @ExcelProperty("部门")
     private String department;
 
+    @ExcelIgnore
+    private String workCode;
+
     @ExcelProperty("员工姓名")
     private String staffName;
 
@@ -45,4 +50,8 @@ public class ExcelVO {
 
     @ExcelProperty("提交日期")
     private Date commitDate;
+
+    public String groupName() {
+        return workCode + "-" + staffName;
+    }
 }

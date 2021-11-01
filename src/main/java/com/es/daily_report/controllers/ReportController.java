@@ -2,53 +2,38 @@ package com.es.daily_report.controllers;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
-import com.alibaba.excel.write.merge.LoopMergeStrategy;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.WriteTable;
 import com.auth0.jwt.interfaces.Claim;
-import com.es.daily_report.dao.ProductDao;
-import com.es.daily_report.dao.ProjectDao;
 import com.es.daily_report.dao.ReportDao;
 import com.es.daily_report.dao.TaskDao;
-
-import com.es.daily_report.dto.ReportQuery;
-
-import com.es.daily_report.dto.UserInfoDTO;
-import com.es.daily_report.entities.Product;
-import com.es.daily_report.entities.Project;
 import com.es.daily_report.entities.Report;
 import com.es.daily_report.entities.Task;
-
 import com.es.daily_report.enums.ErrorType;
-
-import com.es.daily_report.mapstruct.TaskVoMapper;
-import com.es.daily_report.services.WebService;
+import com.es.daily_report.exception.FileDownloadException;
+import com.es.daily_report.handler.CustomCellWriteHandler;
 import com.es.daily_report.shiro.JwtUtil;
-import com.es.daily_report.utils.CustomCellWriteHandler;
 import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.ExcelVO;
 import com.es.daily_report.vo.ReportVO;
 import com.es.daily_report.vo.TaskVO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.codec.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -61,20 +46,6 @@ public class ReportController {
 
     @Autowired
     private TaskDao taskDao;
-
-    @Autowired
-    private TaskVoMapper taskVoMapper;
-
-    @Autowired
-    private ProductDao productDao;
-
-    @Autowired
-    private ProjectDao projectDao;
-
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private WebService webService;
 
     private String accountFromToken(String token) {
         if (token == null || token.isEmpty()) {
@@ -89,6 +60,18 @@ public class ReportController {
     }
 
     private String departmentFromToken(String token) {
+        if (token == null || token.isEmpty()) {
+            return null;
+        }
+
+        Claim claim = JwtUtil.getClaim(token, JwtUtil.DEPART);
+        if (claim == null) {
+            return null;
+        }
+        return claim.asString();
+    }
+
+    private String departmentIdFromToken(String token) {
         if (token == null || token.isEmpty()) {
             return null;
         }
@@ -128,7 +111,11 @@ public class ReportController {
         if (department == null) {
             return Result.failure(ErrorType.TOKEN_INVALID);
         }
-        Report report = reportDao.queryOnDay(account, reportVO.getOnDay());
+        String departmentId = departmentIdFromToken(token);
+        if (departmentId == null) {
+            return Result.failure(ErrorType.TOKEN_INVALID);
+        }
+        Report report = reportDao.query(account, reportVO.getOnDay());
         if (report != null) { // remove origin report, override it
             taskDao.removeTasksOfReport(report.getId());
             reportDao.removeById(report.getId());
@@ -137,6 +124,7 @@ public class ReportController {
                 .workCode(account)
                 .authorName(username)
                 .department(department)
+                .departmentId(departmentId)
                 .onDay(reportVO.getOnDay())
                 .status(reportVO.getStatus())
                 .committed(new Date())
@@ -159,142 +147,81 @@ public class ReportController {
         return Result.success();
     }
 
-    private List<ReportVO> reportsWithTasks(List<Report> reports) {
-        return reports.stream().map(report -> {
-            List<Task> tasks = taskDao.queryByReport(report.getId());
-            List<TaskVO> taskVOList = tasks.stream().map(task -> {
-                return taskVoMapper.taskToTaskVO(task);
-            }).collect(Collectors.toList());
-            return ReportVO.builder()
-                    .onDay(report.getOnDay())
-                    .tasks(taskVOList)
-                    .author(report.getAuthorName())
-                    .build();
-        }).collect(Collectors.toList());
-    }
-
-    List<Report> reportsByCondition(String type,
-                                    String content,
-                                    String from,
-                                    String to) {
-        List<String> staffNumbers = new ArrayList<>();
-
-        switch (type) {
-            case "0":
-                staffNumbers.add(content);
-                break;
-            case "1":
-                UserInfoDTO[] staffsInDepartment = webService.getUserInfoByDepartmentId(content);
-                for (UserInfoDTO staff : staffsInDepartment) {
-                    staffNumbers.add(staff.getWorkcode());
-                }
-                break;
-            case "2":
-                UserInfoDTO[] staffsInCompany = webService.getUserInfoByCompany(content);
-                for (UserInfoDTO staff : staffsInCompany) {
-                    staffNumbers.add(staff.getWorkcode());
-                }
-                break;
-            case "3":
-                UserInfoDTO[] staffInJobTitle = webService.getUserInfoByJobTitleId(content);
-                for (UserInfoDTO staff : staffInJobTitle) {
-                    staffNumbers.add(staff.getWorkcode());
-                }
-                break;
-            case "4":
-                List<String> projectMembers = projectDao.queryMemberNumber(content);
-                staffNumbers.addAll(projectMembers);
-        }
-        List<Report> reports = new ArrayList<>();
-        try {
-            final Date fromDate = DateFormat.getDateInstance().parse(from);
-            final Date toDate = DateFormat.getDateInstance().parse(to);
-            staffNumbers.forEach(workCode -> {
-                ReportQuery reportQuery = ReportQuery.builder()
-                        .staffNo(workCode)
-                        .start(fromDate)
-                        .end(toDate)
-                        .build();
-                reports.addAll(reportDao.listByRange(reportQuery));
-            });
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return reports;
-    }
-
     @GetMapping
-    public Result<?> query(@RequestParam("type") String type,
+    public Result<?> query(@RequestParam("type") Integer type,
                            @RequestParam("condition") String content,
-                           @RequestParam("from") String from,
-                           @RequestParam("to") String to) {
-        List<Report> reports = reportsByCondition(type, content, from, to);
-        return Result.success(reportsWithTasks(reports));
+                           @RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") Date from,
+                           @RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") Date to
+    ) {
+        Map<String, List<ExcelVO>> sheets = taskDao.queryByCondition(type, content, from, to)
+                .stream()
+                .collect(Collectors.groupingBy(ExcelVO::getWorkCode));
+        return Result.success(sheets);
     }
 
     //TODO: 组织任务和日志
     @GetMapping("/download")
     @ApiOperation("根据条件下载符合要求的员工日志表格")
     @ApiImplicitParams({
-        @ApiImplicitParam(name="type",value="查询类型0: 用户编号 1: 部门编号 2: 公司编号 3: 职位编号 4: 项目编号",dataType="string", paramType = "query"),
+        @ApiImplicitParam(name="type",value="查询类型0: 用户编号 1: 部门编号 2: 项目编号",dataType="integer", paramType = "query"),
         @ApiImplicitParam(name="condition",value="查询条件",dataType="string", paramType = "query"),
-            @ApiImplicitParam(name="from",value="起始日期：\"yyyy-MM-dd hh:mm:ss\"",dataType="string", paramType = "query"),
-            @ApiImplicitParam(name="to",value="截止日期：\"yyyy-MM-dd hh:mm:ss\"",dataType="string", paramType = "query")
+            @ApiImplicitParam(name="from",value="起始日期：\"yyyy-MM-dd\"",dataType="string", paramType = "query"),
+            @ApiImplicitParam(name="to",value="截止日期：\"yyyy-MM-dd\"",dataType="string", paramType = "query")
     })
-    public void download(@RequestParam("type") String type,
+    public void download(@RequestParam("type") Integer type,
                          @RequestParam("condition") String content,
-                         @RequestParam("from") String from,
-                         @RequestParam("to") String to,
-                         HttpServletResponse response) throws IOException {
-        // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        String fileName = URLEncoder.encode(content, "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+                         @RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
+                         @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to,
+                         HttpServletResponse response) throws FileDownloadException {
+        Map<String, List<ExcelVO>> sheets = taskDao.queryByCondition(type, content, from, to)
+                .stream()
+                .collect(Collectors.groupingBy(ExcelVO::groupName));
 
-        List<Report> reports = reportsByCondition(type, content, from, to);
+        String expectFileName = makeFileName(type, sheets);
+        if (expectFileName.isEmpty()) {
+            throw new FileDownloadException("创建文件名失败");
+        }
+        try {
+            String fileName = URLEncoder.encode(expectFileName, "UTF-8");
+            response.setCharacterEncoding("utf-8");
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+            writeExcel(sheets, response.getOutputStream());
+        } catch (IOException e) {
+            throw new FileDownloadException(e.getMessage());
+        }
+    }
 
-        Map<String, List<ExcelVO>> excel= new HashMap<>();
-        reports.forEach(report -> {
-            List<Task> tasks = taskDao.queryByReport(report.getId());
-            tasks.forEach(task -> {
-                if (type.equals("4") && !task.getProjectId().equals(content)) {
-                    return;
-                }
-                Project project = projectDao.queryByNumber(task.getProjectId());
-                Product product = productDao.queryByNumber(task.getProductId());
-                ExcelVO excelVO = ExcelVO.builder()
-                        .staffName(report.getAuthorName())
-                        .department(report.getDepartment())
-                        .reportDate(report.getOnDay())
-                        .commitDate(report.getCommitted())
-                        .taskName(task.getName())
-                        .taskCost(task.getCost())
-                        .taskDetail(task.getDetails())
-                        .productName(product.getName())
-                        .projectName(project.getName())
-                        .productLine(product.getInLine())
-                        .build();
-                List<ExcelVO> sheet = excel.get(report.getWorkCode() + "-" + report.getAuthorName());
-                if (sheet == null) {
-                    sheet = new ArrayList<>();
-                    sheet.add(excelVO);
-                    excel.put(report.getWorkCode() + "-" + report.getAuthorName(), sheet);
-                } else {
-                    sheet.add(excelVO);
-                }
-            });
-        });
-        ExcelWriter excelWriter = EasyExcel.write(response.getOutputStream()).build();
-        excel.forEach((key, value) -> {
-                WriteSheet writeSheet = EasyExcel.writerSheet(key).build();
-                WriteTable writeTable = EasyExcel.writerTable()
-                        .head(ExcelVO.class)
-                        .registerWriteHandler(new CustomCellWriteHandler())
-                        .needHead(true)
-                        .build();
-                excelWriter.write(value, writeSheet, writeTable);
+    private void writeExcel(Map<String, List<ExcelVO>> sheets, OutputStream outputStream) {
+        ExcelWriter excelWriter = EasyExcel.write(outputStream).build();
+        sheets.forEach((key, value) -> {
+            WriteSheet writeSheet = EasyExcel.writerSheet(key).build();
+            WriteTable writeTable = EasyExcel.writerTable()
+                    .head(ExcelVO.class)
+                    .registerWriteHandler(new CustomCellWriteHandler())
+                    .needHead(true)
+                    .build();
+            excelWriter.write(value, writeSheet, writeTable);
         });
         excelWriter.finish();
+    }
+
+    private String makeFileName(Integer type, Map<String, List<ExcelVO>> sheets) {
+        for (List<ExcelVO> sheet : sheets.values()) {
+            if (sheet.size() == 0) {
+                continue;
+            }
+            ExcelVO evo = sheet.get(0);
+            switch (type) {
+                case 0:
+                    return evo.getWorkCode() + "_" + evo.getStaffName();
+                case 1:
+                    return evo.getDepartment();
+                case 2:
+                    return evo.getProjectName();
+            }
+            break;
+        }
+        return "";
     }
 }
