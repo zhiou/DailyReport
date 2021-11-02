@@ -54,7 +54,6 @@ public class JwtRealm extends AuthorizingRealm {
         if (rolesConfig.getManagers().get(workCode).equals(userInfo.getDepartmentid())) {
             roles.add("dm");
         }
-        roles.add("staff");
         simpleAuthorizationInfo.setRoles(roles);
 
         return simpleAuthorizationInfo;

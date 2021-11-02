@@ -8,6 +8,7 @@ import com.es.daily_report.vo.ProjectRemoveVO;
 import com.es.daily_report.vo.ProjectVO;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class ProjectController {
 
     @PostMapping
     @ApiOperation("创建新项目")
+    @RequiresRoles("pmo")
     public Result<?> create(@RequestBody ProjectVO projectVO) {
         if (projectDao.isNumberExisted(projectVO.getNumber())){
             return Result.failure(ErrorType.PROJECT_EXISTED);
@@ -42,6 +44,7 @@ public class ProjectController {
 
 
     @PutMapping
+    @RequiresRoles("pmo")
     public Result<?> update(@RequestBody ProjectVO projectVO) {
         Project project = projectDao.queryByNumber(projectVO.getNumber());
         if (projectVO.getStatus() != null) {
@@ -76,6 +79,7 @@ public class ProjectController {
     }
 
     @DeleteMapping
+    @RequiresRoles("pmo")
     public Result<?> remove(@RequestBody ProjectRemoveVO projectRemoveVO) {
         return Result.success(projectDao.batchRemoveByNumber(projectRemoveVO.getNumbers()));
     }

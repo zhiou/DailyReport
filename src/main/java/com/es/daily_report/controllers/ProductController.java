@@ -7,6 +7,7 @@ import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.ProductRemoveVO;
 import com.es.daily_report.vo.ProductVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-//TODO: @RequiresRoles("admin")
 @RequestMapping(value = "/v1/daily_report/product", produces = "application/json;charset=utf-8")
 public class ProductController {
 
@@ -24,6 +24,7 @@ public class ProductController {
     private ProductDao productDao;
 
     @PostMapping
+    @RequiresRoles("pmo")
     public Result<?> create(@RequestBody ProductVO productVO) {
         if (productDao.isNumberExisted(productVO.getNumber())) {
             return Result.failure(ErrorType.PRODUCT_EXISTED);
@@ -39,6 +40,7 @@ public class ProductController {
 
 
     @PutMapping
+    @RequiresRoles("pmo")
     public Result<?> update(@RequestBody ProductVO productVO) {
         Product product = productDao.queryByNumber(productVO.getNumber());
         if (productVO.getInLine() != null) {
@@ -69,6 +71,7 @@ public class ProductController {
     }
 
     @DeleteMapping
+    @RequiresRoles("pmo")
     public Result<?> remove(@RequestBody ProductRemoveVO productRemoveVO) {
         return Result.success(productDao.batchRemoveByNumber(productRemoveVO.getNumbers()));
     }

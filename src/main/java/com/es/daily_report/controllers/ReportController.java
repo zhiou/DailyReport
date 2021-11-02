@@ -152,7 +152,6 @@ public class ReportController {
     }
 
     @GetMapping
-    @RequiresRoles(value = {"staff"}, logical = Logical.OR)
     public Result<?> querySelf(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
                                @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to,
                                @RequestHeader(value = "Authorization") String token
@@ -193,6 +192,7 @@ public class ReportController {
 
     //TODO: 组织任务和日志
     @GetMapping("/download")
+    @RequiresRoles("pmo")
     @ApiOperation("根据条件下载符合要求的员工日志表格")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "查询类型0: 用户编号 1: 部门编号 2: 项目编号", dataType = "integer", paramType = "query"),
