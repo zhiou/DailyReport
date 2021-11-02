@@ -61,21 +61,28 @@ public class ProjectController {
     }
 
     @GetMapping
-    public Result<?> query(@RequestParam(value="number", required = false) String projectNumber) {
-        List<Project> projects = new ArrayList<>();
-        if (projectNumber != null) {
-            Project project = projectDao.queryByNumber(projectNumber);
-            projects.add(project);
-        } else {
-            projects = projectDao.list();
-        }
-        List<ProjectVO> projectVOS = projects.stream().map(product -> ProjectVO.builder()
+    public Result<?> query() {
+        List<ProjectVO> projectVOS = projectDao.list()
+                .stream()
+                .map(product -> ProjectVO.builder()
                 .number(product.getNumber())
                 .managerNumber(product.getManagerNumber())
                 .status(product.getStatus())
                 .name(product.getName())
                 .build()).collect(Collectors.toList());
         return Result.success(projectVOS);
+    }
+
+    @GetMapping("/{number}")
+    public Result<?> query(@PathVariable String number) {
+        Project project = projectDao.queryByNumber(number);
+        ProjectVO projectVO = ProjectVO.builder()
+                .number(project.getNumber())
+                .managerNumber(project.getManagerNumber())
+                .status(project.getStatus())
+                .name(project.getName())
+                .build();
+        return Result.success(projectVO);
     }
 
     @DeleteMapping

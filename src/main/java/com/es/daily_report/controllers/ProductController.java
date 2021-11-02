@@ -54,20 +54,26 @@ public class ProductController {
     }
 
     @GetMapping
-    public Result<?> query(@RequestParam(value="number", required = false) String productNumber) {
-        List<Product> products = new ArrayList<>();
-        if (productNumber != null) {
-            Product product = productDao.queryByNumber(productNumber);
-            products.add(product);
-        } else {
-            products = productDao.list();
-        }
-        List<ProductVO> productVOS = products.stream().map(product -> ProductVO.builder()
+    public Result<?> query() {
+        List<ProductVO> productVOS = productDao.list()
+                .stream()
+                .map(product -> ProductVO.builder()
                 .number(product.getNumber())
                 .inLine(product.getInLine())
                 .name(product.getName())
                 .build()).collect(Collectors.toList());
         return Result.success(productVOS);
+    }
+
+    @GetMapping("/{number}")
+    public Result<?> query(@PathVariable String number) {
+        Product product = productDao.queryByNumber(number);
+        ProductVO productVO = ProductVO.builder()
+                .number(product.getNumber())
+                .inLine(product.getInLine())
+                .name(product.getName())
+                .build();
+        return Result.success(productVO);
     }
 
     @DeleteMapping
