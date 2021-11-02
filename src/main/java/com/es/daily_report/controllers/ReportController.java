@@ -21,6 +21,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
@@ -148,10 +152,37 @@ public class ReportController {
     }
 
     @GetMapping
-    public Result<?> query(@RequestParam("type") Integer type,
-                           @RequestParam("condition") String content,
-                           @RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") Date from,
-                           @RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") Date to
+    @RequiresRoles(value = {"staff"}, logical = Logical.OR)
+    public Result<?> querySelf(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
+                               @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to,
+                               @RequestHeader(value = "Authorization") String token
+    ) {
+        String account = JwtUtil.getClaim(token, JwtUtil.ACCOUNT).asString();
+        Map<String, List<ExcelVO>> sheets = taskDao.queryByCondition(0, account, from, to)
+                .stream()
+                .collect(Collectors.groupingBy(ExcelVO::getWorkCode));
+        return Result.success(sheets);
+    }
+
+    @GetMapping("/dm")
+    @RequiresRoles("dm")
+    public Result<?> queryDepartment(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
+                                     @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to,
+                                     @RequestHeader(value = "Authorization") String token
+    ) {
+        String departmentId = JwtUtil.getClaim(token, JwtUtil.DEPART_ID).asString();
+        Map<String, List<ExcelVO>> sheets = taskDao.queryByCondition(1, departmentId, from, to)
+                .stream()
+                .collect(Collectors.groupingBy(ExcelVO::getWorkCode));
+        return Result.success(sheets);
+    }
+
+    @GetMapping("/pmo")
+    @RequiresRoles("pmo")
+    public Result<?> queryByCondition(@RequestParam("type") Integer type,
+                                      @RequestParam("condition") String content,
+                                      @RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
+                                      @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to
     ) {
         Map<String, List<ExcelVO>> sheets = taskDao.queryByCondition(type, content, from, to)
                 .stream()
@@ -159,21 +190,23 @@ public class ReportController {
         return Result.success(sheets);
     }
 
+
     //TODO: 组织任务和日志
     @GetMapping("/download")
     @ApiOperation("根据条件下载符合要求的员工日志表格")
     @ApiImplicitParams({
-        @ApiImplicitParam(name="type",value="查询类型0: 用户编号 1: 部门编号 2: 项目编号",dataType="integer", paramType = "query"),
-        @ApiImplicitParam(name="condition",value="查询条件",dataType="string", paramType = "query"),
-            @ApiImplicitParam(name="from",value="起始日期：\"yyyy-MM-dd\"",dataType="string", paramType = "query"),
-            @ApiImplicitParam(name="to",value="截止日期：\"yyyy-MM-dd\"",dataType="string", paramType = "query")
+            @ApiImplicitParam(name = "type", value = "查询类型0: 用户编号 1: 部门编号 2: 项目编号", dataType = "integer", paramType = "query"),
+            @ApiImplicitParam(name = "condition", value = "查询条件", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "from", value = "起始日期：\"yyyy-MM-dd\"", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "to", value = "截止日期：\"yyyy-MM-dd\"", dataType = "string", paramType = "query")
     })
     public void download(@RequestParam("type") Integer type,
                          @RequestParam("condition") String content,
                          @RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
                          @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to,
                          HttpServletResponse response) throws FileDownloadException {
-        Map<String, List<ExcelVO>> sheets = taskDao.queryByCondition(type, content, from, to)
+        Map<String, List<ExcelVO>> sheets = taskDao
+                .queryByCondition(type, content, from, to)
                 .stream()
                 .collect(Collectors.groupingBy(ExcelVO::groupName));
 

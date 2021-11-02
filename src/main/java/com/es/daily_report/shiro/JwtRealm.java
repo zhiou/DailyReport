@@ -1,5 +1,6 @@
 package com.es.daily_report.shiro;
 
+import com.es.daily_report.config.RolesConfig;
 import com.es.daily_report.dao.*;
 import com.es.daily_report.dto.UserInfoDTO;
 import com.es.daily_report.entities.*;
@@ -16,10 +17,9 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 public class JwtRealm extends AuthorizingRealm {
@@ -29,6 +29,9 @@ public class JwtRealm extends AuthorizingRealm {
 
     @Autowired
     private WebService webService;
+
+    @Autowired
+    private RolesConfig rolesConfig;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -44,7 +47,13 @@ public class JwtRealm extends AuthorizingRealm {
         Set<String> permissions = new HashSet<>();
 
         UserInfoDTO userInfo = webService.getUserInfoByWorkCode(staffNo);
-        //TODO: 根据职位判断角色权限
+        String workCode = userInfo.getWorkcode();
+        if (rolesConfig.getPmos().contains(workCode)) {
+            roles.add("pmo");
+        }
+        if (rolesConfig.getManagers().get(workCode).equals(userInfo.getDepartmentid())) {
+            roles.add("dm");
+        }
         roles.add("staff");
         simpleAuthorizationInfo.setRoles(roles);
 
