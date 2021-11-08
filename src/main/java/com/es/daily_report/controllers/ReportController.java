@@ -12,19 +12,17 @@ import com.es.daily_report.entities.Task;
 import com.es.daily_report.enums.ErrorType;
 import com.es.daily_report.exception.FileDownloadException;
 import com.es.daily_report.handler.CustomCellWriteHandler;
+import com.es.daily_report.mapstruct.ReportVOMapper;
+import com.es.daily_report.mapstruct.TaskVOMapper;
 import com.es.daily_report.shiro.JwtUtil;
 import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.ExcelVO;
 import com.es.daily_report.vo.ReportVO;
-import com.es.daily_report.vo.TaskVO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +32,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +47,12 @@ public class ReportController {
 
     @Autowired
     private TaskDao taskDao;
+
+    @Autowired
+    private ReportVOMapper reportVOMapper;
+
+    @Autowired
+    private TaskVOMapper taskVOMapper;
 
     private String accountFromToken(String token) {
         if (token == null || token.isEmpty()) {
@@ -124,29 +127,10 @@ public class ReportController {
             taskDao.removeTasksOfReport(report.getId());
             reportDao.removeById(report.getId());
         }
-        report = Report.builder()
-                .workCode(account)
-                .authorName(username)
-                .department(department)
-                .departmentId(departmentId)
-                .onDay(reportVO.getOnDay())
-                .status(reportVO.getStatus())
-                .committed(new Date())
-                .build();
-        reportDao.saveOrUpdate(report);
+        report = reportVOMapper.vo2do(reportVO, account, username, department, departmentId);
+        reportDao.save(report);
 
-        List<Task> tasks = new ArrayList<>();
-        for (TaskVO taskVO : reportVO.getTasks()) {
-            Task task = Task.builder()
-                    .name(taskVO.getName())
-                    .details(taskVO.getDetails())
-                    .cost(taskVO.getCost())
-                    .productId(taskVO.getProductId())
-                    .projectId(taskVO.getProjectId())
-                    .inReport(report.getId())
-                    .build();
-            tasks.add(task);
-        }
+        List<Task> tasks = taskVOMapper.vos2dos(reportVO.getTasks(), report.getId());
         taskDao.saveBatch(tasks);
         return Result.success();
     }

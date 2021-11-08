@@ -1,34 +1,51 @@
 package com.es.daily_report.entities;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@TableName(value = "product")
-public class Product {
-    @JsonIgnore
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author zhiou
+ * @since 2021-11-08
+ */
+@Getter
+@Setter
+@TableName("product")
+@ApiModel(value = "Product对象", description = "")
+public class Product implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @TableId(value = "id", type = IdType.AUTO)
-    private String id;
+    private Long id;
 
+    @ApiModelProperty("产品编号")
+    @TableField("number")
     private String number;
 
+    @ApiModelProperty("产品名")
+    @TableField("name")
     private String name;
 
-    @JsonProperty("in_line")
+    @ApiModelProperty("产品线名")
+    @TableField("in_line")
     private String inLine;
 
+    @ApiModelProperty("删除状态")
+    @TableField("deleted")
     @TableLogic
-    @JsonIgnore
-    private Boolean deleted;
+    private Integer deleted;
+
+
 }

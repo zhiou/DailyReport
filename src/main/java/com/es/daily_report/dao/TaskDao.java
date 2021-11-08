@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class TaskDao extends ServiceImpl<TaskMapper, Task> {
 
-    public void removeTasksOfReport(String reportId) {
+    public void removeTasksOfReport(Long reportId) {
         QueryWrapper<Task> wrapper = new QueryWrapper<>();
         wrapper.eq("in_report", reportId);
         remove(wrapper);
