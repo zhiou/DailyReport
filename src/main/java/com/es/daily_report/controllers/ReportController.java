@@ -157,9 +157,7 @@ public class ReportController {
                                @RequestHeader(value = "Authorization") String token
     ) {
         String account = JwtUtil.getClaim(token, JwtUtil.ACCOUNT).asString();
-        Map<String, List<ExcelVO>> sheets = taskDao.queryByCondition(0, account, from, to)
-                .stream()
-                .collect(Collectors.groupingBy(ExcelVO::getWorkCode));
+        List<ExcelVO> sheets = taskDao.queryByCondition(0, account, from, to);
         return Result.success(sheets);
     }
 
@@ -170,9 +168,7 @@ public class ReportController {
                                      @RequestHeader(value = "Authorization") String token
     ) {
         String departmentId = JwtUtil.getClaim(token, JwtUtil.DEPART_ID).asString();
-        Map<String, List<ExcelVO>> sheets = taskDao.queryByCondition(1, departmentId, from, to)
-                .stream()
-                .collect(Collectors.groupingBy(ExcelVO::getWorkCode));
+        List<ExcelVO> sheets = taskDao.queryByCondition(1, departmentId, from, to);
         return Result.success(sheets);
     }
 
@@ -183,9 +179,7 @@ public class ReportController {
                                       @RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
                                       @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to
     ) {
-        Map<String, List<ExcelVO>> sheets = taskDao.queryByCondition(type, content, from, to)
-                .stream()
-                .collect(Collectors.groupingBy(ExcelVO::getWorkCode));
+       List<ExcelVO> sheets = taskDao.queryByCondition(type, content, from, to);
         return Result.success(sheets);
     }
 
@@ -208,7 +202,7 @@ public class ReportController {
         Map<String, List<ExcelVO>> sheets = taskDao
                 .queryByCondition(type, content, from, to)
                 .stream()
-                .collect(Collectors.groupingBy(ExcelVO::groupName));
+                .collect(Collectors.groupingBy(ExcelVO::sheetName));
 
         String expectFileName = makeFileName(type, sheets);
         if (expectFileName.isEmpty()) {

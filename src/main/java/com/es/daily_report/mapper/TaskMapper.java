@@ -11,8 +11,8 @@ import java.util.List;
 
 @Mapper
 public interface TaskMapper extends BaseMapper<Task> {
-    @Select("select in_line as product_line, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
-            "t.cost as task_cost, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +
+    @Select("select in_line as product_line, prod.number as product_number, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
+            "t.cost as task_cost, proj.number as project_number, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +
             "from task t \n" +
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
@@ -21,8 +21,8 @@ public interface TaskMapper extends BaseMapper<Task> {
             "and r.on_day between #{from} and #{to};")
     List<ExcelVO> listByProject(String projectNumber, Date from, Date to);
 
-    @Select("select in_line as product_line, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
-            "t.cost as task_cost, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +
+    @Select("select in_line as product_line, prod.number as product_number, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
+            "t.cost as task_cost, proj.number as project_number, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +
             "from task t \n" +
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
@@ -31,8 +31,8 @@ public interface TaskMapper extends BaseMapper<Task> {
             "and r.on_day between #{from} and #{to};")
     List<ExcelVO> listByWorkCode(String workCode, Date from, Date to);
 
-    @Select("select in_line as product_line, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
-            "t.cost as task_cost, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +
+    @Select("select in_line as product_line, prod.number as product_number, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
+            "t.cost as task_cost, proj.number as project_number, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +
             "from task t \n" +
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +

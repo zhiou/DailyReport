@@ -1,6 +1,7 @@
 package com.es.daily_report.vo;
 
 import com.es.daily_report.enums.ProjectState;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class ProjectVO {
     private String name;
 
     @Nullable
+    @JsonProperty("manager_number")
     private String managerNumber;
 
     @Nullable
