@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import reactor.util.annotation.Nullable;
 
 @Data
 @Builder
@@ -15,13 +14,10 @@ import reactor.util.annotation.Nullable;
 public class ProjectVO {
     private String number;
 
-    @Nullable
     private String name;
 
-    @Nullable
     @JsonProperty("manager_number")
     private String managerNumber;
 
-    @Nullable
     private ProjectState status;
 }

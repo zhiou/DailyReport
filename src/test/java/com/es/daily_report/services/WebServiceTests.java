@@ -39,8 +39,8 @@ public class WebServiceTests extends junit.framework.TestCase {
     }
 
     public void testGetProjectInfo() throws AxisFault {
-        WebService webService = new WebService();
-        webService.getProjectInfo();
+//        WebService webService = new WebService();
+//        webService.getProjectInfo();
 
     }
 }

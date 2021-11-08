@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @TableName(value = "project")
 public class Project {
+    @JsonIgnore
     @TableId(value = "id", type = IdType.AUTO)
     private String id;
 
@@ -25,6 +26,7 @@ public class Project {
 
     private String name;
 
+    @JsonProperty("manager_number")
     private String managerNumber;
 
     private ProjectState status;

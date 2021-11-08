@@ -33,9 +33,6 @@ public class UserController {
     private RedisUtil redisUtil;
 
     @Autowired
-    private DepartmentDao departmentDao;
-
-    @Autowired
     private WebService webService;
 
 //
