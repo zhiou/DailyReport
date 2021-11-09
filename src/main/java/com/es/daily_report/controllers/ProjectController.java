@@ -48,7 +48,7 @@ public class ProjectController {
     public Result<?> update(@RequestBody ProjectVO projectVO) {
         Project project = projectDao.queryByNumber(projectVO.getNumber());
         if (projectVO.getStatus() != null) {
-            project.setStatus(projectVO.getStatus().ordinal());
+            project.setStatus(projectVO.getStatus().getValue());
         }
         if (projectVO.getManagerNumber() != null) {
             project.setManagerNumber(projectVO.getManagerNumber());

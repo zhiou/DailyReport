@@ -18,6 +18,7 @@ import com.es.daily_report.shiro.JwtUtil;
 import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.ExcelVO;
 import com.es.daily_report.vo.ReportVO;
+import com.es.daily_report.vo.TaskVO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -130,7 +132,10 @@ public class ReportController {
         report = reportVOMapper.vo2do(reportVO, account, username, department, departmentId);
         reportDao.save(report);
 
-        List<Task> tasks = taskVOMapper.vos2dos(reportVO.getTasks(), report.getId());
+        List<Task> tasks = new ArrayList<>();
+        for (TaskVO taskVO: reportVO.getTasks()) {
+            taskVOMapper.vo2do(taskVO, report.getId());
+        }
         taskDao.saveBatch(tasks);
         return Result.success();
     }

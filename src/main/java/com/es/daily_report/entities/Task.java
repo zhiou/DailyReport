@@ -58,6 +58,4 @@ public class Task implements Serializable {
     @TableField("deleted")
     @TableLogic
     private Integer deleted;
-
-
 }

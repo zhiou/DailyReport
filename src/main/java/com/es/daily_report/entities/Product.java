@@ -46,6 +46,4 @@ public class Product implements Serializable {
     @TableField("deleted")
     @TableLogic
     private Integer deleted;
-
-
 }

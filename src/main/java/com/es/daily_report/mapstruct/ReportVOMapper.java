@@ -1,6 +1,7 @@
 package com.es.daily_report.mapstruct;
 
 import com.es.daily_report.entities.Report;
+import com.es.daily_report.enums.ReportStatus;
 import com.es.daily_report.vo.ReportVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
@@ -14,9 +15,17 @@ import java.util.List;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ReportVOMapper {
-    ReportVO do2Vo(Report report);
+    ReportVO do2vo(Report report);
 
     Report vo2do(ReportVO report, String workCode, String authorName, String department, String departmentId);
 
-    List<ReportVO> dos2Vos(List<Report> reports);
+    List<ReportVO> dos2vos(List<Report> reports);
+
+    default ReportStatus from(Integer status) {
+        return ReportStatus.values()[status];
+    }
+
+    default Integer from(ReportStatus status) {
+        return status.getValue();
+    }
 }

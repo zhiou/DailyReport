@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.generator.config.OutputFile;
 
 import java.util.Collections;
 
-// 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
+// entity, mapper, dao代码生成， mybatis-plus 3.5.1版本
 public class CodeGenerator {
 
     public static void main(String[] args) {
@@ -25,6 +25,8 @@ public class CodeGenerator {
                 .strategyConfig(builder -> {
                     builder.addInclude("product", "project", "report", "task")
                             .serviceBuilder()
+                            .formatServiceFileName("%sDao")
+                            .formatServiceImplFileName("%sDaoImpl")
                             .entityBuilder()
                             .enableLombok()
                             .logicDeleteColumnName("deleted")

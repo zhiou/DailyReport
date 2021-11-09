@@ -2,7 +2,9 @@ package com.es.daily_report.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Getter;
 
+@Getter
 public enum ReportStatus {
     SAVED(0, "已保存"),
     COMMITTED(1, "已提交");

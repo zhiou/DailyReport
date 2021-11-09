@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = DrException.class)
-    public Result<?> handleFebsException(DrException e) {
+    public Result<?> handleDrException(DrException e) {
         log.debug("系统错误", e);
         return Result.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getLocalizedMessage());
     }

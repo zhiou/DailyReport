@@ -2,7 +2,9 @@ package com.es.daily_report.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Getter;
 
+@Getter
 public enum ProjectState {
     ACTIVE(0, "激活"),
     COMPLETE(1, "结项"),

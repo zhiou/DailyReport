@@ -1,11 +1,9 @@
 package com.es.daily_report.mapstruct;
 
 import com.es.daily_report.entities.Project;
+import com.es.daily_report.enums.ProjectState;
 import com.es.daily_report.vo.ProjectVO;
-import org.mapstruct.Mapper;
-import org.mapstruct.NullValueMappingStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -19,4 +17,12 @@ public interface ProjectVOMapper {
     Project vo2do(ProjectVO projectVO);
 
     List<ProjectVO> dos2vos(List<Project> projects);
+
+    default ProjectState from(Integer state) {
+        return ProjectState.values()[state];
+    }
+
+    default Integer from(ProjectState state) {
+        return state.getValue();
+    }
 }

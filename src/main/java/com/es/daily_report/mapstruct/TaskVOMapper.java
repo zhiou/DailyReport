@@ -11,10 +11,8 @@ import java.util.List;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TaskVOMapper {
-    TaskVO do2Vo(Task task);
+    TaskVO do2vo(Task task);
 
-    Task vo2Do(TaskVO taskVO);
-
-    @Mapping(target="in_report",source="reportId")
-    List<Task> vos2dos(List<TaskVO> vos, Long reportId);
+    @Mapping(target="inReport", source="reportId")
+    Task vo2do(TaskVO taskVO, Long reportId);
 }
