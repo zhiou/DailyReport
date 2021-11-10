@@ -202,6 +202,7 @@ public class ReportController {
             response.setCharacterEncoding("utf-8");
             response.setContentType("application/vnd.ms-excel");
             response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+            response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
             writeExcel(sheets, response.getOutputStream());
         } catch (IOException e) {
             throw new FileDownloadException(e.getMessage());
