@@ -1,6 +1,5 @@
 package com.es.daily_report.enums;
 
-import org.omg.CORBA.UNKNOWN;
 
 public enum ErrorType {
     SUCCESS(0, "成功"),

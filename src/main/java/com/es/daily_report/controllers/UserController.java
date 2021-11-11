@@ -13,16 +13,22 @@ import com.es.daily_report.utils.Result;
 
 import com.es.daily_report.vo.LoginVO;
 import com.es.daily_report.vo.PasswordUpdateVO;
+import com.es.daily_report.vo.StaffVO;
 import com.es.daily_report.vo.UserTokenVO;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -35,6 +41,19 @@ public class UserController {
     @Autowired
     private WebService webService;
 
+    @GetMapping
+    @RequiresRoles("pmo")
+    public Result<?> list() {
+        UserInfoDTO[] users = webService.getUserInfoByCompany("6");
+        List<StaffVO> staffs = Arrays.stream(users).map(user ->
+             StaffVO.builder()
+                    .workCode(user.getWorkcode())
+                    .name(user.getLastname())
+                    .department(user.getDepartmentname())
+                    .build()
+        ).collect(Collectors.toList());
+        return Result.success(staffs);
+    }
 //
     @PutMapping("/password")
     @Transactional

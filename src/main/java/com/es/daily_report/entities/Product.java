@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -41,6 +43,14 @@ public class Product implements Serializable {
     @ApiModelProperty("产品线名")
     @TableField("in_line")
     private String inLine;
+
+    @ApiModelProperty("产品状态")
+    @TableField("status")
+    private Integer status;
+
+    @ApiModelProperty("产品备注")
+    @TableField("remark")
+    private String remark;
 
     @ApiModelProperty("删除状态")
     @TableField("deleted")

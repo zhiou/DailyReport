@@ -19,20 +19,25 @@ import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.ExcelVO;
 import com.es.daily_report.vo.ReportVO;
 import com.es.daily_report.vo.TaskVO;
+
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import javax.mail.internet.MimeUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -172,6 +177,19 @@ public class ReportController {
         return Result.success(sheets);
     }
 
+    private String encodeFileName(String name, String agent) throws IOException {
+        if (agent != null) {
+            agent = agent.toLowerCase();
+//            if (agent.contains("chrome")) {
+//                return MimeUtility.encodeText(name, "UTF-8", "B");
+//            }
+            if (agent.contains("safari")) {
+                return new String(name.getBytes(StandardCharsets.UTF_8), "ISO8859-1");
+            }
+        }
+        return URLEncoder.encode(name, StandardCharsets.UTF_8);
+    }
+
 
     //TODO: 组织任务和日志
     @GetMapping("/download")
@@ -187,21 +205,20 @@ public class ReportController {
                          @RequestParam("condition") String content,
                          @RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
                          @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to,
+                         HttpServletRequest request,
                          HttpServletResponse response) throws FileDownloadException {
         Map<String, List<ExcelVO>> sheets = taskDao
                 .queryByCondition(type, content, from, to)
                 .stream()
                 .collect(Collectors.groupingBy(ExcelVO::sheetName));
 
-        String expectFileName = makeFileName(type, sheets);
-        if (expectFileName.isEmpty()) {
-            throw new FileDownloadException("创建文件名失败");
-        }
+        String expectFileName = makeFileName(type, sheets) + ".xls";
         try {
-            String fileName = URLEncoder.encode(expectFileName, "UTF-8");
+            String agent = request.getHeader("USER-AGENT");
+            String filename = encodeFileName(expectFileName, agent);
             response.setCharacterEncoding("utf-8");
             response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+            response.setHeader("Content-disposition", "attachment;filename=" + filename);
             response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
             writeExcel(sheets, response.getOutputStream());
         } catch (IOException e) {
@@ -239,6 +256,6 @@ public class ReportController {
             }
             break;
         }
-        return "";
+        return "Empty";
     }
 }

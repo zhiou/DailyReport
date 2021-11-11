@@ -19,5 +19,10 @@ public class ProjectVO {
     @JsonProperty("manager_number")
     private String managerNumber;
 
+    @JsonProperty("manager_name")
+    private String managerName;
+
     private ProjectState status;
+
+    private String remark;
 }

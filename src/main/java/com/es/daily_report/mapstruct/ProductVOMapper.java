@@ -1,6 +1,7 @@
 package com.es.daily_report.mapstruct;
 
 import com.es.daily_report.entities.Product;
+import com.es.daily_report.enums.ProductState;
 import com.es.daily_report.vo.ProductVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
@@ -19,4 +20,12 @@ public interface ProductVOMapper {
     Product vo2do(ProductVO projectVO);
 
     List<ProductVO> dos2vos(List<Product> projects);
+
+    default ProductState from(Integer state) {
+        return ProductState.values()[state];
+    }
+
+    default Integer from(ProductState state) {
+        return state.getValue();
+    }
 }

@@ -42,9 +42,17 @@ public class Project implements Serializable {
     @TableField("manager_number")
     private String managerNumber;
 
+    @ApiModelProperty("项目经理")
+    @TableField("manager_name")
+    private String managerName;
+
     @ApiModelProperty("项目状态")
     @TableField("status")
     private Integer status;
+
+    @ApiModelProperty("项目备注")
+    @TableField("remark")
+    private String remark;
 
     @ApiModelProperty("删除状态")
     @TableField("deleted")

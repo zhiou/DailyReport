@@ -6,7 +6,9 @@ CREATE TABLE `project` (
     `number` varchar(64) COMMENT '项目编号',
     `name` varchar(255) NOT NULL COMMENT '项目名称',
     `manager_number` varchar(64) NOT NULL COMMENT '项目经理编号',
+    `manager_name` varchar(64) NOT NULL COMMENT '项目经理',
     `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '项目状态',
+    `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE,
     INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
@@ -18,6 +20,8 @@ CREATE TABLE `product` (
      `number` varchar(64) COMMENT '产品编号',
      `name` varchar(255) COMMENT '产品名',
      `in_line` varchar(255) COMMENT '产品线名',
+     `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '产品状态',
+     `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
      `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
       PRIMARY KEY (`id`) USING BTREE,
     INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
