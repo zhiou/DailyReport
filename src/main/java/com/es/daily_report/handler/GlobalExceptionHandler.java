@@ -1,5 +1,6 @@
 package com.es.daily_report.handler;
 
+import com.es.daily_report.enums.ErrorType;
 import com.es.daily_report.exception.DrException;
 import com.es.daily_report.exception.FileDownloadException;
 import com.es.daily_report.utils.Result;
@@ -38,13 +39,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public Result<?> handleException(Exception e) {
         log.error("系统内部异常，异常信息", e);
-        return Result.failure(500, e.getLocalizedMessage());
+        return Result.failure(ErrorType.UNKNOWN_ERROR);
     }
 
     @ExceptionHandler(value = DrException.class)
     public Result<?> handleDrException(DrException e) {
         log.debug("系统错误", e);
-        return Result.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getLocalizedMessage());
+        return Result.failure(ErrorType.UNKNOWN_ERROR);
     }
 
     /**
@@ -61,7 +62,7 @@ public class GlobalExceptionHandler {
             message.append(error.getField()).append(error.getDefaultMessage()).append(",");
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
-        return Result.failure(HttpStatus.BAD_REQUEST.value(), message.toString());
+        return Result.failure(ErrorType.DATA_BINDING, message.toString());
     }
 
     /**
@@ -80,7 +81,7 @@ public class GlobalExceptionHandler {
             message.append(pathArr[1]).append(violation.getMessage()).append(",");
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
-        return Result.failure(HttpStatus.BAD_REQUEST.value(),message.toString());
+        return Result.failure(ErrorType.INVALID_PARAM,message.toString());
     }
 
     /**
@@ -97,22 +98,22 @@ public class GlobalExceptionHandler {
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
         log.error(message.toString(), e);
-        return Result.failure(HttpStatus.BAD_REQUEST.value(),message.toString());
+        return Result.failure(ErrorType.INVALID_PARAM,message.toString());
     }
 
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public Result<?> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         String message = "该方法不支持请求";
         log.error(message, e.getMessage());
-        return Result.failure(HttpStatus.METHOD_NOT_ALLOWED.value(), e.getMessage());
+        return Result.failure(ErrorType.INVALID_REQUEST, e.getMessage());
     }
 
-    @ExceptionHandler(value = MaxUploadSizeExceededException.class)
-    public Result<?> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
-        String message = "文件大小超出限制";
-        log.error(message, e.getMessage());
-        return Result.failure(HttpStatus.PAYLOAD_TOO_LARGE.value(), e.getMessage());
-    }
+//    @ExceptionHandler(value = MaxUploadSizeExceededException.class)
+//    public Result<?> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
+//        String message = "文件大小超出限制";
+//        log.error(message, e.getMessage());
+//        return Result.failure(HttpStatus.PAYLOAD_TOO_LARGE.value(), e.getMessage());
+//    }
 
 //    @ExceptionHandler(value = LimitAccessException.class)
 //    public Result<?> handleLimitAccessException(LimitAccessException e) {
@@ -123,25 +124,25 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = UnauthorizedException.class)
     public Result<?> handleUnauthorizedException(UnauthorizedException e) {
         log.error("UnauthorizedException, {}", e.getMessage());
-        return Result.failure(HttpStatus.FORBIDDEN.value(), e.getMessage());
+        return Result.failure(ErrorType.TOKEN_INVALID, e.getMessage());
     }
 
     @ExceptionHandler(value = AuthenticationException.class)
     public Result<?> handleAuthenticationException(AuthenticationException e) {
         log.error("AuthenticationException, {}", e.getMessage());
-        return Result.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        return Result.failure(ErrorType.TOKEN_INVALID, e.getMessage());
     }
 
     @ExceptionHandler(value = AuthorizationException.class)
     public Result<?> handleAuthorizationException(AuthorizationException e) {
         log.error("AuthorizationException, {}", e.getMessage());
-        return Result.failure(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+        return Result.failure(ErrorType.TOKEN_INVALID, e.getMessage());
     }
 
     @ExceptionHandler(value = ExpiredSessionException.class)
     public Result<?> handleExpiredSessionException(ExpiredSessionException e) {
         log.error("ExpiredSessionException", e);
-        return Result.failure(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+        return Result.failure(ErrorType.TOKEN_INVALID, e.getMessage());
     }
 
     @ExceptionHandler(value = FileDownloadException.class)

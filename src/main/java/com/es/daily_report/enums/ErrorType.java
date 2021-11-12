@@ -14,7 +14,10 @@ public enum ErrorType {
     SAME_PASSWORD(101012, "新旧密码相同"),
     REPORT_EXISTED(101013, "当日报告已存在"),
     PROJECT_EXISTED(101014, "项目已存在"),
-    PRODUCT_EXISTED(101015, "产品已存在");
+    PRODUCT_EXISTED(101015, "产品已存在"),
+    UNKNOWN_ERROR(101016, "未知错误"),
+    DATA_BINDING(101017, "数据绑定错误"),
+    INVALID_REQUEST(101018, "不支持的请求");
 
     private Integer code;
     private String message;

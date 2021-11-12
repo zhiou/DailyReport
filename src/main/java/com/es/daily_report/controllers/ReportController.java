@@ -178,15 +178,6 @@ public class ReportController {
     }
 
     private String encodeFileName(String name, String agent) throws IOException {
-        if (agent != null) {
-            agent = agent.toLowerCase();
-//            if (agent.contains("chrome")) {
-//                return MimeUtility.encodeText(name, "UTF-8", "B");
-//            }
-            if (agent.contains("safari")) {
-                return new String(name.getBytes(StandardCharsets.UTF_8), "ISO8859-1");
-            }
-        }
         return URLEncoder.encode(name, StandardCharsets.UTF_8);
     }
 
