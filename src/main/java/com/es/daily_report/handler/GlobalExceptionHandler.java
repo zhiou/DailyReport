@@ -17,6 +17,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -99,6 +100,13 @@ public class GlobalExceptionHandler {
         message = new StringBuilder(message.substring(0, message.length() - 1));
         log.error(message.toString(), e);
         return Result.failure(ErrorType.INVALID_PARAM,message.toString());
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public Result<?> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        String message = "缺少类型为" + e.getParameterType() + "的参数" + e.getParameterName();
+        log.error(message, e);
+        return Result.failure(ErrorType.INVALID_PARAM,message);
     }
 
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
