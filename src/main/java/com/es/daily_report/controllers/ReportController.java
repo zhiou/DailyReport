@@ -214,6 +214,16 @@ public class ReportController {
         return Result.success(result);
     }
 
+    @GetMapping("/pm/page")
+    public Result<?> pageByCondition(@RequestParam("project_number") String project,
+                                     @RequestParam("page_index") Integer pageIndex,
+                                     @RequestParam("page_size") Integer pageSize
+    ) {
+        Page<ExcelVO> page = new Page<>(pageIndex, pageSize);
+        IPage<ExcelVO> result = taskDao.pageByCondition(page, 2, project);
+        return Result.success(result);
+    }
+
     private String encodeFileName(String name, String agent) throws IOException {
         return URLEncoder.encode(name, StandardCharsets.UTF_8);
     }

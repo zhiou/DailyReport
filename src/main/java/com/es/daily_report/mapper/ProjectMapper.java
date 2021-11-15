@@ -11,4 +11,5 @@ import java.util.List;
 public interface ProjectMapper extends BaseMapper<Project> {
     @Select("select distinct work_code from report r where #{projectNumber} = (select project_id from task t where t.in_report = r.id)")
     List<String> queryMembers(String projectNumber);
+
 }

@@ -46,6 +46,12 @@ public class ProjectDaoImpl extends ServiceImpl<ProjectMapper, Project> implemen
         return removedNumbers.toArray(new String[0]);
     }
 
+    public List<Project> queryByManagerNumber(String workCode) {
+        QueryWrapper<Project> wrapper = new QueryWrapper<>();
+        wrapper.eq("manager_number", workCode);
+        return list(wrapper);
+    }
+
     public List<String> queryMemberNumber(String projectNumber) {
         return baseMapper.queryMembers(projectNumber);
     }

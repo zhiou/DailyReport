@@ -3,7 +3,10 @@ package com.es.daily_report.controllers;
 import com.es.daily_report.dao.*;
 import com.es.daily_report.dto.UserInfoDTO;
 
+import com.es.daily_report.entities.Project;
 import com.es.daily_report.enums.ErrorType;
+import com.es.daily_report.mapper.ProjectMapper;
+import com.es.daily_report.mapstruct.ProjectVOMapper;
 import com.es.daily_report.redis.RedisUtil;
 
 import com.es.daily_report.services.WebService;
@@ -11,10 +14,7 @@ import com.es.daily_report.shiro.JwtUtil;
 import com.es.daily_report.utils.Constants;
 import com.es.daily_report.utils.Result;
 
-import com.es.daily_report.vo.LoginVO;
-import com.es.daily_report.vo.PasswordUpdateVO;
-import com.es.daily_report.vo.StaffVO;
-import com.es.daily_report.vo.UserTokenVO;
+import com.es.daily_report.vo.*;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -41,6 +41,12 @@ public class UserController {
     @Autowired
     private WebService webService;
 
+    @Autowired
+    private ProjectDao projectDao;
+
+    @Autowired
+    private ProjectVOMapper projectVOMapper;
+
     @GetMapping
     @RequiresRoles("pmo")
     public Result<?> list() {
@@ -53,6 +59,24 @@ public class UserController {
                     .build()
         ).collect(Collectors.toList());
         return Result.success(staffs);
+    }
+
+    @GetMapping("/info")
+    public Result<?> info(@RequestHeader(value = "Authorization") String token) {
+        String account = JwtUtil.getClaim(token, JwtUtil.ACCOUNT).asString();
+        UserInfoDTO userInfoDTO = webService.getUserInfoByWorkCode(account);
+        UserInfoVO userInfoVO = UserInfoVO.builder()
+                .name(userInfoDTO.getLastname())
+                .department(userInfoDTO.getDepartmentname())
+                .account(userInfoDTO.getWorkcode())
+                .projects(projectsInCharge(account))
+                .build();
+        return Result.success(userInfoVO);
+    }
+
+    private List<ProjectVO> projectsInCharge(String workCode) {
+        List<Project> projects = projectDao.queryByManagerNumber(workCode);
+        return projectVOMapper.dos2vos(projects);
     }
 //
     @PutMapping("/password")
