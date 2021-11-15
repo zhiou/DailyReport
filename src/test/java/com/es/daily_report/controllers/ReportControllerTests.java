@@ -83,7 +83,6 @@ public class ReportControllerTests {
 
     @Test
     @Transactional
-    @Rollback
     public void queryDepartment() throws Exception {
 
         TaskVO taskVO1 = TaskVO.builder()

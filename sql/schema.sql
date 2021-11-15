@@ -94,8 +94,8 @@ CREATE TABLE `task` (
     `name` varchar(64) NOT NULL COMMENT '任务名',
     `details` varchar(255) COMMENT '任务内容',
     `cost` tinyint NOT NULL COMMENT '任务工时',
-    `project_id` bigint DEFAULT NULL COMMENT '项目ID',
-    `product_id` bigint DEFAULT NULL COMMENT '产品ID',
+    `project_id` varchar(64) DEFAULT NULL COMMENT '项目ID',
+    `product_id` varchar(64) DEFAULT NULL COMMENT '产品ID',
     `in_report` bigint NOT NULL COMMENT '报告ID',
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE

@@ -1,6 +1,8 @@
 package com.es.daily_report.dao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.es.daily_report.entities.Task;
 import com.es.daily_report.mapper.TaskMapper;
 import com.es.daily_report.dao.TaskDao;
@@ -37,5 +39,17 @@ public class TaskDaoImpl extends ServiceImpl<TaskMapper, Task> implements TaskDa
                 return baseMapper.listByProject(condition, from, to);
         }
         return null;
+    }
+
+    public IPage<ExcelVO> pageByCondition(Page<ExcelVO> page, Integer type, String condition) {
+        switch (type) {
+            case 0:
+                return baseMapper.pageByWorkCode(page, condition);
+            case 1:
+                return baseMapper.pageByDepartment(page, condition);
+            case 2:
+                return baseMapper.pageByProject(page, condition);
+        }
+        return baseMapper.pageAll(page);
     }
 }

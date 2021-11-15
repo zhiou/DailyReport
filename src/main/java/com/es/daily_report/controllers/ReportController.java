@@ -5,6 +5,8 @@ import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.WriteTable;
 import com.auth0.jwt.interfaces.Claim;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.es.daily_report.dao.ReportDao;
 import com.es.daily_report.dao.TaskDao;
 import com.es.daily_report.entities.Report;
@@ -175,6 +177,41 @@ public class ReportController {
     ) {
        List<ExcelVO> sheets = taskDao.queryByCondition(type, content, from, to);
         return Result.success(sheets);
+    }
+
+    @GetMapping("/page")
+    public Result<?> pageSelf(@RequestParam("page_index") Integer pageIndex,
+                              @RequestParam("page_size") Integer pageSize,
+                              @RequestHeader(value = "Authorization") String token
+    ) {
+        Page<ExcelVO> page = new Page<>(pageIndex, pageSize);
+        String account = JwtUtil.getClaim(token, JwtUtil.ACCOUNT).asString();
+        IPage<ExcelVO> result = taskDao.pageByCondition(page, 0, account);
+        return Result.success(result);
+    }
+
+    @GetMapping("/dm/page")
+    @RequiresRoles("dm")
+    public Result<?> queryDepartment(@RequestParam("page_index") Integer pageIndex,
+                                     @RequestParam("page_size") Integer pageSize,
+                                     @RequestHeader(value = "Authorization") String token
+    ) {
+        String departmentId = JwtUtil.getClaim(token, JwtUtil.DEPART_ID).asString();
+        Page<ExcelVO> page = new Page<>(pageIndex, pageSize);
+        IPage<ExcelVO> result = taskDao.pageByCondition(page, 1, departmentId);
+        return Result.success(result);
+    }
+
+    @GetMapping("/pmo/page")
+    @RequiresRoles("pmo")
+    public Result<?> pageByCondition(@RequestParam("type") Integer type,
+                                      @RequestParam("condition") String content,
+                                      @RequestParam("page_index") Integer pageIndex,
+                                      @RequestParam("page_size") Integer pageSize
+    ) {
+        Page<ExcelVO> page = new Page<>(pageIndex, pageSize);
+        IPage<ExcelVO> result = taskDao.pageByCondition(page, type, content);
+        return Result.success(result);
     }
 
     private String encodeFileName(String name, String agent) throws IOException {

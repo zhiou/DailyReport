@@ -44,11 +44,11 @@ public class Task implements Serializable {
 
     @ApiModelProperty("项目ID")
     @TableField("project_id")
-    private Long projectId;
+    private String projectId;
 
     @ApiModelProperty("产品ID")
     @TableField("product_id")
-    private Long productId;
+    private String productId;
 
     @ApiModelProperty("报告ID")
     @TableField("in_report")
