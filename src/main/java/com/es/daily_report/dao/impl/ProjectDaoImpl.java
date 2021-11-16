@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -50,6 +52,15 @@ public class ProjectDaoImpl extends ServiceImpl<ProjectMapper, Project> implemen
         QueryWrapper<Project> wrapper = new QueryWrapper<>();
         wrapper.eq("manager_number", workCode);
         return list(wrapper);
+    }
+
+    @Override
+    public Boolean beingPm(String workCode) {
+        return queryByManagerNumber(workCode)
+                .stream()
+                .map(Project::getManagerNumber)
+                .collect(Collectors.toList())
+                .contains(workCode);
     }
 
     public List<String> queryMemberNumber(String projectNumber) {

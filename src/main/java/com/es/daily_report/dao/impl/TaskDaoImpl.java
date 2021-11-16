@@ -36,7 +36,7 @@ public class TaskDaoImpl extends ServiceImpl<TaskMapper, Task> implements TaskDa
             case 1:
                 return baseMapper.listByDepartment(condition, from, to);
             case 2:
-                return baseMapper.listByProject(condition, from, to);
+                return baseMapper.listByProject(condition);
         }
         return null;
     }

@@ -23,7 +23,7 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "generated/mybatis-xml")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("product", "project", "report", "task")
+                    builder.addInclude("pmo", "dm", "product", "project", "report", "task")
                             .serviceBuilder()
                             .formatServiceFileName("%sDao")
                             .formatServiceImplFileName("%sDaoImpl")

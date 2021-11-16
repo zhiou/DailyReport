@@ -215,12 +215,21 @@ public class ReportController {
     }
 
     @GetMapping("/pm/page")
+    @RequiresRoles("pm")
     public Result<?> pageByCondition(@RequestParam("project_number") String project,
                                      @RequestParam("page_index") Integer pageIndex,
                                      @RequestParam("page_size") Integer pageSize
     ) {
         Page<ExcelVO> page = new Page<>(pageIndex, pageSize);
         IPage<ExcelVO> result = taskDao.pageByCondition(page, 2, project);
+        return Result.success(result);
+    }
+
+    @GetMapping("/pm")
+    @RequiresRoles("pm")
+    public Result<?> queryByProjectNumber(@RequestParam("project_number") String project
+    ) {
+        List<ExcelVO> result = taskDao.queryByCondition(2, project, null, null);
         return Result.success(result);
     }
 

@@ -19,4 +19,5 @@ public interface ProjectDao extends IService<Project> {
   String[] batchRemoveByNumber(String[] numbers);
   List<String> queryMemberNumber(String projectNumber);
   List<Project> queryByManagerNumber(String number);
+  Boolean beingPm(String workCode);
 }

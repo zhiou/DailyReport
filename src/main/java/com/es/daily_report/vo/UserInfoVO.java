@@ -16,8 +16,8 @@ public class UserInfoVO {
     @JsonProperty("account")
     private String account;
 
-    @JsonProperty("role")
-    private String roleName;
+    @JsonProperty("roles")
+    private List<String> roles;
 
     private String name;
 

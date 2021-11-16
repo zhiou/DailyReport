@@ -31,7 +31,13 @@ public class JwtRealm extends AuthorizingRealm {
     private WebService webService;
 
     @Autowired
-    private RolesConfig rolesConfig;
+    private DmDao dmDao;
+
+    @Autowired
+    private PmoDao pmoDao;
+
+    @Autowired
+    private ProjectDao projectDao;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -48,12 +54,16 @@ public class JwtRealm extends AuthorizingRealm {
 
         UserInfoDTO userInfo = webService.getUserInfoByWorkCode(staffNo);
         String workCode = userInfo.getWorkcode();
-        if (rolesConfig.getPmos().contains(workCode)) {
+        if (pmoDao.hasMember(workCode)) {
             roles.add("pmo");
         }
-        if (rolesConfig.getManagers().get(workCode).equals(userInfo.getDepartmentid())) {
+        if (dmDao.inCharge(workCode, userInfo.getDepartmentid())) {
             roles.add("dm");
         }
+        if (projectDao.beingPm(workCode)) {
+            roles.add("pm");
+        }
+
         simpleAuthorizationInfo.setRoles(roles);
 
         return simpleAuthorizationInfo;

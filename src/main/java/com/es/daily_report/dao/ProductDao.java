@@ -12,9 +12,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-11-09
  */
 public interface ProductDao extends IService<Product> {
-    public Boolean isNumberExisted(String number);
+    Boolean isNumberExisted(String number);
 
-    public Product queryByNumber(String number);
+    Product queryByNumber(String number);
 
-    public String[] batchRemoveByNumber(String[] numbers);
+    String[] batchRemoveByNumber(String[] numbers);
 }

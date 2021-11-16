@@ -1,7 +1,7 @@
-USE `daily_report`;
+use `daily_report`;
 
 DROP TABLE IF EXISTS `project`;
-CREATE TABLE `project` (
+create TABLE `project` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `number` varchar(64) COMMENT '项目编号',
     `name` varchar(255) NOT NULL COMMENT '项目名称',
@@ -15,7 +15,7 @@ CREATE TABLE `project` (
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `product`;
-CREATE TABLE `product` (
+create TABLE `product` (
      `id` bigint NOT NULL AUTO_INCREMENT,
      `number` varchar(64) COMMENT '产品编号',
      `name` varchar(255) COMMENT '产品名',
@@ -28,7 +28,7 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `permission`;
-CREATE TABLE `permission` (
+create TABLE `permission` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL COMMENT '权限名称',
   `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
@@ -36,7 +36,7 @@ CREATE TABLE `permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `role`;
-CREATE TABLE `role` (
+create TABLE `role` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL COMMENT '角色名称',
   `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
@@ -44,7 +44,7 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+create TABLE `user` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `work_code` varchar(10) COMMENT '员工编号',
     `name` varchar(64) NOT NULL COMMENT '员工姓名',
@@ -55,7 +55,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `user_role`;
-CREATE TABLE `user_role` (
+create TABLE `user_role` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `role_id` bigint NOT NULL COMMENT '角色ID',
   `user_id` bigint NOT NULL COMMENT '系统用户ID',
@@ -64,7 +64,7 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `role_permission`;
-CREATE TABLE `role_permission` (
+create TABLE `role_permission` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `role_id` bigint NOT NULL COMMENT '用户ID',
   `permission_id` bigint NOT NULL COMMENT '权限ID',
@@ -73,7 +73,7 @@ CREATE TABLE `role_permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `report`;
-CREATE TABLE `report` (
+create TABLE `report` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `work_code` varchar(10) COMMENT '员工编号',
     `author_name` varchar(64) COMMENT '员工姓名',
@@ -89,7 +89,7 @@ CREATE TABLE `report` (
 
 
 DROP TABLE IF EXISTS `task`;
-CREATE TABLE `task` (
+create TABLE `task` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `name` varchar(64) NOT NULL COMMENT '任务名',
     `details` varchar(255) COMMENT '任务内容',
@@ -101,3 +101,19 @@ CREATE TABLE `task` (
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `pmo`;
+create TABLE `pmo` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `member_number` varchar(64) NOT NULL COMMENT 'pmo成员编号',
+  `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `dm`;
+create TABLE `dm` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `manager_number` varchar(64) NOT NULL COMMENT 'pmo成员编号',
+  `department_id` bigint NULL DEFAULT NULL COMMENT '所在部门编号',
+  `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;

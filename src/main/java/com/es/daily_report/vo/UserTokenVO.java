@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -14,8 +16,8 @@ public class UserTokenVO {
     @JsonProperty("account")
     private String account;
 
-    @JsonProperty("role")
-    private String roleName;
+    @JsonProperty("roles")
+    private List<String> roles;
 
     @JsonProperty("token")
     private String token;
@@ -23,4 +25,6 @@ public class UserTokenVO {
     private String name;
 
     private String department;
+
+    private List<ProjectVO> projects;
 }

@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,6 +48,12 @@ public class UserController {
     @Autowired
     private ProjectVOMapper projectVOMapper;
 
+    @Autowired
+    private PmoDao pmoDao;
+
+    @Autowired
+    private DmDao dmDao;
+
     @GetMapping
     @RequiresRoles("pmo")
     public Result<?> list() {
@@ -61,6 +68,21 @@ public class UserController {
         return Result.success(staffs);
     }
 
+    List<String> roles(UserInfoDTO userInfo) {
+        String workCode = userInfo.getWorkcode();
+        List<String> roles = new ArrayList<>();
+        if (pmoDao.hasMember(workCode)) {
+            roles.add("pmo");
+        }
+        if (dmDao.inCharge(workCode, userInfo.getDepartmentid())) {
+            roles.add("dm");
+        }
+        if (projectDao.beingPm(workCode)) {
+            roles.add("pm");
+        }
+        return roles;
+    }
+
     @GetMapping("/info")
     public Result<?> info(@RequestHeader(value = "Authorization") String token) {
         String account = JwtUtil.getClaim(token, JwtUtil.ACCOUNT).asString();
@@ -70,12 +92,18 @@ public class UserController {
                 .department(userInfoDTO.getDepartmentname())
                 .account(userInfoDTO.getWorkcode())
                 .projects(projectsInCharge(account))
+                .roles(roles(userInfoDTO))
                 .build();
         return Result.success(userInfoVO);
     }
 
     private List<ProjectVO> projectsInCharge(String workCode) {
-        List<Project> projects = projectDao.queryByManagerNumber(workCode);
+        List<Project> projects = new ArrayList<>();
+        if (SecurityUtils.getSubject().hasRole("pmo")) {
+            projects = projectDao.list();
+        } else if(SecurityUtils.getSubject().hasRole("pm")) {
+            projects = projectDao.queryByManagerNumber(workCode);
+        }
         return projectVOMapper.dos2vos(projects);
     }
 //
@@ -104,7 +132,8 @@ public class UserController {
 
         UserInfoDTO userInfoDTO = webService.getUserInfoByWorkCode(loginVO.getAccount());
 
-        String token = JwtUtil.sign(loginVO.getAccount(), userInfoDTO.getDepartmentid(), userInfoDTO.getDepartmentname(), userInfoDTO.getLastname(), String.valueOf(System.currentTimeMillis()));
+        String token = JwtUtil.sign(loginVO.getAccount(), userInfoDTO.getDepartmentid(), userInfoDTO.getDepartmentname(),
+                userInfoDTO.getLastname(), String.valueOf(System.currentTimeMillis()));
 
         // 将登录token信息保存到redis
         redisUtil.set(Constants.PREFIX_USER_TOKEN + token, token);
@@ -116,6 +145,8 @@ public class UserController {
                 .token(token)
                 .name(userInfoDTO.getLastname())
                 .department(userInfoDTO.getDepartmentname())
+                .projects(projectsInCharge(userInfoDTO.getWorkcode()))
+                .roles(roles(userInfoDTO))
                 .build();
         return Result.success(userTokenVO);
     }
