@@ -1,5 +1,6 @@
 package com.es.daily_report.handler;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.es.daily_report.enums.ErrorType;
 import com.es.daily_report.exception.DrException;
 import com.es.daily_report.exception.FileDownloadException;
@@ -150,6 +151,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = ExpiredSessionException.class)
     public Result<?> handleExpiredSessionException(ExpiredSessionException e) {
         log.error("ExpiredSessionException", e);
+        return Result.failure(ErrorType.TOKEN_INVALID, e.getMessage());
+    }
+
+    @ExceptionHandler(value = TokenExpiredException.class)
+    public Result<?> handleExpiredTokenException(TokenExpiredException e) {
+        log.error("TokenExpiredException", e);
+
         return Result.failure(ErrorType.TOKEN_INVALID, e.getMessage());
     }
 

@@ -245,8 +245,8 @@ public class ReportController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "查询类型0: 用户编号 1: 部门编号 2: 项目编号", dataType = "integer", paramType = "query"),
             @ApiImplicitParam(name = "condition", value = "查询条件", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "from", value = "起始日期：\"yyyy-MM-dd\"", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "to", value = "截止日期：\"yyyy-MM-dd\"", dataType = "string", paramType = "query")
+            @ApiImplicitParam(name = "from", value = "起始日期：yyyy-MM-dd", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "to", value = "截止日期：yyyy-MM-dd", dataType = "string", paramType = "query")
     })
     public void download(@RequestParam("type") Integer type,
                          @RequestParam("condition") String content,
@@ -268,6 +268,7 @@ public class ReportController {
             response.setHeader("Content-disposition", "attachment;filename=" + filename);
             response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
             writeExcel(sheets, response.getOutputStream());
+
         } catch (IOException e) {
             throw new FileDownloadException(e.getMessage());
         }

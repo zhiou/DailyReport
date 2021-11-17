@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
@@ -42,14 +43,16 @@ public class JwtUtil {
         Algorithm algorithm = Algorithm.HMAC256(secret);
         JWTVerifier verifier = JWT.require(algorithm)
             .build();
+
         verifier.verify(token);
+
         return true;
     }
 
     /**
      * 获得Token中的信息无需secret解密也能获得
      *
-     * @param token
+     * @param jwtToken
      * @param claim
      * @return
      */

@@ -119,7 +119,6 @@ public class UserController {
        if (webService.changePassword(account, passwordUpdateVO.getNewPassword())) {
            return Result.success();
        }
-       //TODO: 用webService返回的错误代替， 或者另外定义错误码
        return Result.failure(ErrorType.WRONG_PASSWORD);
     }
 

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.es.daily_report.entities.Task;
 import com.es.daily_report.vo.ExcelVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.Date;
@@ -21,7 +22,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join project proj on t.project_id=proj.number\n" +
             "where t.project_id=#{projectNumber}\n" +
             "order by r.on_day desc;")
-    List<ExcelVO> listByProject(String projectNumber);
+    List<ExcelVO> listByProject(@Param("projectNumber") String projectNumber);
 
     @Select("select in_line as product_line, prod.number as product_number, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
             "t.cost as task_cost, proj.number as project_number, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +
@@ -30,9 +31,9 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
             "where r.work_code=#{workCode}\n" +
-            "and r.on_day between #{from} and #{to} " +
+            "and r.on_day between #{from} and #{to}\n" +
             "order by r.on_day desc;")
-    List<ExcelVO> listByWorkCode(String workCode, Date from, Date to);
+    List<ExcelVO> listByWorkCode(@Param("workCode") String workCode, @Param("from") Date from, @Param("to") Date to);
 
     @Select("select in_line as product_line, prod.number as product_number, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
             "t.cost as task_cost, proj.number as project_number, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +
@@ -41,9 +42,9 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
             "where r.department_id=#{departmentId}\n" +
-            "and r.on_day between #{from} and #{to}" +
+            "and r.on_day between #{from} and #{to}\n" +
             "order by r.on_day desc;")
-    List<ExcelVO> listByDepartment(String departmentId, Date from, Date to);
+    List<ExcelVO> listByDepartment(@Param("departmentId") String departmentId, @Param("from") Date from, @Param("to") Date to);
 
     @Select("select in_line as product_line, prod.number as product_number, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
             "t.cost as task_cost, proj.number as project_number, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +
@@ -53,7 +54,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join project proj on t.project_id=proj.number\n" +
             "where t.project_id=#{projectNumber}\n" +
             "order by r.on_day desc")
-    IPage<ExcelVO> pageByProject(Page<?> page, String projectNumber);
+    IPage<ExcelVO> pageByProject(Page<?> page, @Param("projectNumber") String projectNumber);
 
     @Select("select in_line as product_line, prod.number as product_number, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
             "t.cost as task_cost, proj.number as project_number, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +
@@ -63,7 +64,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join project proj on t.project_id=proj.number\n" +
             "where r.work_code=#{workCode}\n" +
             "order by r.on_day desc")
-    IPage<ExcelVO> pageByWorkCode(Page<?> page, String workCode);
+    IPage<ExcelVO> pageByWorkCode(Page<?> page, @Param("workCode") String workCode);
 
     @Select("select in_line as product_line, prod.number as product_number, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
             "t.cost as task_cost, proj.number as project_number, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +
@@ -73,7 +74,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join project proj on t.project_id=proj.number\n" +
             "where r.department_id=#{departmentId}\n" +
             "order by r.on_day desc")
-    IPage<ExcelVO> pageByDepartment(Page<?> page, String departmentId);
+    IPage<ExcelVO> pageByDepartment(Page<?> page, @Param("departmentId") String departmentId);
 
     @Select("select in_line as product_line, prod.number as product_number, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
             "t.cost as task_cost, proj.number as project_number, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +

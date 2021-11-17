@@ -1,5 +1,6 @@
 package com.es.daily_report.shiro;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.es.daily_report.config.RolesConfig;
 import com.es.daily_report.dao.*;
 import com.es.daily_report.dto.UserInfoDTO;
@@ -139,15 +140,19 @@ public class JwtRealm extends AuthorizingRealm {
         String cacheToken = String.valueOf(redisUtil.get(Constants.PREFIX_USER_TOKEN + token));
         if (cacheToken != null && !cacheToken.isEmpty()) {
             // 校验token有效性
-            if (!JwtUtil.verify(cacheToken)) {
-                String newAuthorization = JwtUtil.sign(account, departmentId, department, userName, String.valueOf(System.currentTimeMillis()));
-                redisUtil.set(Constants.PREFIX_USER_TOKEN + token, newAuthorization);
-                // 设置超时时间
-                redisUtil.expire(Constants.PREFIX_USER_TOKEN + token, JwtUtil.REFRESH_TOKEN_EXPIRE_TIME / 1000);
-            } else {
-                redisUtil.set(Constants.PREFIX_USER_TOKEN + token, cacheToken);
-                // 设置超时时间
-                redisUtil.expire(Constants.PREFIX_USER_TOKEN + token, JwtUtil.REFRESH_TOKEN_EXPIRE_TIME / 1000);
+            try {
+                if (!JwtUtil.verify(cacheToken)) {
+                    String newAuthorization = JwtUtil.sign(account, departmentId, department, userName, String.valueOf(System.currentTimeMillis()));
+                    redisUtil.set(Constants.PREFIX_USER_TOKEN + token, newAuthorization);
+                    // 设置超时时间
+                    redisUtil.expire(Constants.PREFIX_USER_TOKEN + token, JwtUtil.REFRESH_TOKEN_EXPIRE_TIME / 1000);
+                } else {
+                    redisUtil.set(Constants.PREFIX_USER_TOKEN + token, cacheToken);
+                    // 设置超时时间
+                    redisUtil.expire(Constants.PREFIX_USER_TOKEN + token, JwtUtil.REFRESH_TOKEN_EXPIRE_TIME / 1000);
+                }
+            } catch (TokenExpiredException e) {
+                return false;
             }
             return true;
         }
