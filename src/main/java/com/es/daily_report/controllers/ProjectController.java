@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class ProjectController {
     @PostMapping
     @ApiOperation("创建新项目")
     @RequiresRoles("pmo")
+    @Transactional
     public Result<?> create(@RequestBody ProjectVO projectVO) {
         if (projectDao.isNumberExisted(projectVO.getNumber())) {
             return Result.failure(ErrorType.PROJECT_EXISTED);
@@ -45,6 +47,7 @@ public class ProjectController {
 
     @PutMapping
     @RequiresRoles("pmo")
+    @Transactional
     public Result<?> update(@RequestBody ProjectVO projectVO) {
         Project project = projectDao.queryByNumber(projectVO.getNumber());
         if (projectVO.getStatus() != null) {
@@ -73,6 +76,7 @@ public class ProjectController {
 
     @DeleteMapping
     @RequiresRoles("pmo")
+    @Transactional
     public Result<?> remove(@RequestBody ProjectRemoveVO projectRemoveVO) {
         return Result.success(projectDao.batchRemoveByNumber(projectRemoveVO.getNumbers()));
     }

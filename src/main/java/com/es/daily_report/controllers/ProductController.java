@@ -10,6 +10,7 @@ import com.es.daily_report.vo.ProductVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -25,6 +26,7 @@ public class ProductController {
 
     @PostMapping
     @RequiresRoles("pmo")
+    @Transactional
     public Result<?> create(@RequestBody ProductVO productVO) {
         if (productDao.isNumberExisted(productVO.getNumber())) {
             return Result.failure(ErrorType.PRODUCT_EXISTED);
@@ -37,6 +39,7 @@ public class ProductController {
 
     @PutMapping
     @RequiresRoles("pmo")
+    @Transactional
     public Result<?> update(@RequestBody ProductVO productVO) {
         Product product = productDao.queryByNumber(productVO.getNumber());
         if (productVO.getInLine() != null) {
@@ -61,6 +64,7 @@ public class ProductController {
 
     @DeleteMapping
     @RequiresRoles("pmo")
+    @Transactional
     public Result<?> remove(@RequestBody ProductRemoveVO productRemoveVO) {
         return Result.success(productDao.batchRemoveByNumber(productRemoveVO.getNumbers()));
     }
