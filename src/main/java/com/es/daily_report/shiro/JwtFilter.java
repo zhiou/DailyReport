@@ -49,6 +49,8 @@ public class JwtFilter extends AccessControlFilter {
         httpResponse.setContentType("application/json;charset=utf-8");
         try {
             httpResponse.getWriter().write(objMapper.writeValueAsString(Result.failure(ErrorType.TOKEN_INVALID)));
+            httpResponse.getWriter().flush();
+            httpResponse.getWriter().close();
         } catch (IOException e) {
             throw new TokenExpiredException("token is invalid");
         }
