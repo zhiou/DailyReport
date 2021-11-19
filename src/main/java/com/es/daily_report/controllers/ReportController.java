@@ -131,6 +131,9 @@ public class ReportController {
         if (departmentId == null) {
             return Result.failure(ErrorType.TOKEN_INVALID);
         }
+        if (reportVO.getTasks() == null || reportVO.getTasks().isEmpty()) {
+            return Result.failure(ErrorType.INVALID_PARAM);
+        }
         Report report = reportDao.query(account, reportVO.getOnDay());
         if (report != null) { // remove origin report, override it
             taskDao.removeTasksOfReport(report.getId());
@@ -141,7 +144,7 @@ public class ReportController {
 
         List<Task> tasks = new ArrayList<>();
         for (TaskVO taskVO: reportVO.getTasks()) {
-            taskVOMapper.vo2do(taskVO, report.getId());
+            tasks.add(taskVOMapper.vo2do(taskVO, report.getId()));
         }
         taskDao.saveBatch(tasks);
         return Result.success();

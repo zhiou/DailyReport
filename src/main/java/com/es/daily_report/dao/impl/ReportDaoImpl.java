@@ -7,6 +7,10 @@ import com.es.daily_report.dao.ReportDao;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -19,10 +23,13 @@ import java.util.Date;
  */
 @Service
 public class ReportDaoImpl extends ServiceImpl<ReportMapper, Report> implements ReportDao {
-    public Report query(String workCode, Date onDay) {
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    public Report query(String workCode, LocalDate onDay) {
         QueryWrapper<Report> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("work_code", workCode);
-        queryWrapper.eq("on_day", onDay);
+        queryWrapper.eq("on_day", onDay.format(formatter));
         return getOne(queryWrapper);
     }
 }

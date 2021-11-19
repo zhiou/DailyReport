@@ -11,7 +11,7 @@ create TABLE `project` (
     `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE,
-    INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
+    UNIQUE INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `product`;
@@ -24,7 +24,7 @@ create TABLE `product` (
      `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
      `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
       PRIMARY KEY (`id`) USING BTREE,
-    INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
+    UNIQUE INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `permission`;
@@ -51,7 +51,8 @@ create TABLE `user` (
     `state` tinyint NOT NULL COMMENT '员工状态: 0:上班，1:请假，2:离职，3:出差',
     `department_id` bigint NULL DEFAULT NULL COMMENT '所在部门编号',
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
-    PRIMARY KEY (`id`) USING BTREE
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE INDEX `work_code`(`work_code`) USING BTREE COMMENT '普通索引'
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `user_role`;
@@ -112,7 +113,7 @@ create TABLE `pmo` (
 DROP TABLE IF EXISTS `dm`;
 create TABLE `dm` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `manager_number` varchar(64) NOT NULL COMMENT 'pmo成员编号',
+  `manager_number` varchar(64) NOT NULL COMMENT '部门经理编号',
   `department_id` bigint NULL DEFAULT NULL COMMENT '所在部门编号',
   `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
   PRIMARY KEY (`id`) USING BTREE

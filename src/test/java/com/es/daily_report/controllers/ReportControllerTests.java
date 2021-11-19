@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,7 +56,7 @@ public class ReportControllerTests {
         List<TaskVO> taskVOList = new ArrayList<>();
         taskVOList.add(taskVO);
         ReportVO reportVO = ReportVO.builder()
-                        .onDay(new Date())
+                        .onDay(LocalDate.now())
                         .status(ReportStatus.COMMITTED)
                         .tasks(taskVOList)
                         .build();
@@ -74,7 +75,7 @@ public class ReportControllerTests {
         List<TaskVO> taskVOList = new ArrayList<>();
         taskVOList.add(taskVO);
         ReportVO reportVO = ReportVO.builder()
-                .onDay(new Date())
+                .onDay(LocalDate.now())
                 .tasks(taskVOList)
                 .build();
         testUtils.report(reportVO);
@@ -93,7 +94,7 @@ public class ReportControllerTests {
         List<TaskVO> taskVOList1 = new ArrayList<>();
         taskVOList1.add(taskVO1);
         testUtils.report(ReportVO.builder()
-                .onDay(new Date())
+                .onDay(LocalDate.now())
                 .tasks(taskVOList1)
                 .build());
 
@@ -105,7 +106,7 @@ public class ReportControllerTests {
         List<TaskVO> taskVOList2 = new ArrayList<>();
         taskVOList2.add(taskVO2);
         testUtils.report(ReportVO.builder()
-                .onDay(new Date())
+                .onDay(LocalDate.now())
                 .tasks(taskVOList2)
                 .build());
         testUtils.getReportsOfDepartment();

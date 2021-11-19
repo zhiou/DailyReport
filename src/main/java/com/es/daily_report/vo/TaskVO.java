@@ -15,19 +15,22 @@ import java.util.Date;
 @AllArgsConstructor
 public class TaskVO {
     @ExcelProperty("任务名")
+    @JsonProperty("task_name")
     private String name;
 
     @ExcelProperty("任务详情")
+    @JsonProperty("task_detail")
     private String details;
 
     @ExcelProperty("任务工时")
+    @JsonProperty("task_cost")
     private Integer cost;
 
     @ExcelProperty("所属项目")
-    @JsonProperty("project_id")
+    @JsonProperty("project_number")
     private String projectId;
 
     @ExcelProperty("相关产品")
-    @JsonProperty("product_id")
+    @JsonProperty("product_number")
     private String productId;
 }

@@ -4,6 +4,7 @@ import com.es.daily_report.entities.Project;
 import com.es.daily_report.entities.Report;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,5 +17,5 @@ import java.util.List;
  * @since 2021-11-09
  */
 public interface ReportDao extends IService<Report> {
-    Report query(String workCode, Date onDay);
+    Report query(String workCode, LocalDate onDay);
 }
