@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.*;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -55,6 +56,7 @@ public class ExcelVO {
 
     @ExcelProperty("报告日期")
     @JsonProperty("report_date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date reportDate;
 
     @ExcelProperty("任务名")
