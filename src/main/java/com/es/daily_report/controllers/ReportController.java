@@ -39,7 +39,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -237,7 +236,7 @@ public class ReportController {
     }
 
     private String encodeFileName(String name, String agent) throws IOException {
-        return URLEncoder.encode(name, StandardCharsets.UTF_8);
+        return URLEncoder.encode(name, "UTF-8");
     }
 
 
