@@ -56,6 +56,9 @@ public class ProjectController {
         if (projectVO.getManagerNumber() != null) {
             project.setManagerNumber(projectVO.getManagerNumber());
         }
+        if (projectVO.getManagerName() != null) {
+            project.setManagerName(projectVO.getManagerName());
+        }
         if (projectVO.getName() != null) {
             project.setName(projectVO.getName());
         }
