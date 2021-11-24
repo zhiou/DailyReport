@@ -24,6 +24,9 @@ public class WebService {
 
     public WebService() throws AxisFault {
         hrmStub = new HrmServiceStub();
+        if (ip == null) {
+            this.ip = System.getenv("NODE_IP");
+        }
     }
 
     public Boolean check(String username, String password) {
