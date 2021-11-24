@@ -50,22 +50,23 @@
 
     <!-- 日志输出级别 -->
     <root level="INFO">
-        <appender-ref ref="ASYNC"/>
+<!--        <appender-ref ref="ASYNC"/>-->
         <appender-ref ref="STDOUT"/>
     </root>
     <springProfile name="dev">
         <logger name="com.es.daily_report" level="DEBUG" additivity="false">
-            <appender-ref ref="ASYNC"/>
+<!--            <appender-ref ref="ASYNC"/>-->
             <appender-ref ref="STDOUT"/>
         </logger>
     </springProfile>
     <springProfile name="prod">
         <logger name="com.es.daily_report" level="INFO" additivity="false">
-            <appender-ref ref="ASYNC"/>
+<!--            <appender-ref ref="ASYNC"/>-->
+            <appender-ref ref="STDOUT"/>
         </logger>
     </springProfile>
     <logger name="springfox.documentation" level="ERROR" additivity="false">
-        <appender-ref ref="FILE"/>
+<!--        <appender-ref ref="FILE"/>-->
         <appender-ref ref="STDOUT"/>
     </logger>
 </configuration>
