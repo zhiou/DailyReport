@@ -11,6 +11,7 @@ import org.apache.axis2.AxisFault;
 import org.springframework.stereotype.Service;
 
 import java.rmi.RemoteException;
+import java.util.concurrent.*;
 
 @Slf4j
 @Service
@@ -25,7 +26,29 @@ public class WebService {
         log.info("web service client ip", ip);
     }
 
-    public Boolean check(String username, String password) {
+    public Boolean check(String username, String password) throws TimeoutException {
+        final ExecutorService exec = Executors.newSingleThreadExecutor();
+        Callable<Boolean> call = () -> {
+            //这个是一个耗时的网络 请求
+            return checkUntilFailed(username, password);
+        };
+        // Future是一个接口，该接口用来返回异步的结果
+        Future<Boolean> future = exec.submit(call);
+        Boolean r = false;
+        try{
+            // 同步结果，并且设置超时时间
+            r = future.get(10 * 1000, TimeUnit.MILLISECONDS);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        //执行结束后，手动关闭线程池
+        exec.shutdown();
+        return r;
+    }
+
+    private Boolean checkUntilFailed(String username, String password) {
         HrmServiceStub.CheckUser checkUserParam = new HrmServiceStub.CheckUser();
         checkUserParam.setIn0(ip);
         checkUserParam.setIn1(username);

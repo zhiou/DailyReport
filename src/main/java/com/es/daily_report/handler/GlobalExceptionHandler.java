@@ -12,7 +12,6 @@ import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.session.ExpiredSessionException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -20,15 +19,14 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Path;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author MrBird
@@ -162,8 +160,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = FileDownloadException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public void handleFileDownloadException(FileDownloadException e) {
+    public Result<?> handleFileDownloadException(FileDownloadException e) {
         log.error("FileDownloadException", e);
+        return Result.failure(ErrorType.UNKNOWN_ERROR, e.getMessage());
+    }
+
+    @ExceptionHandler(value = TimeoutException.class)
+    public Result<?> handleAxisFaultException(TimeoutException e) {
+        log.error("TimeoutException", e);
+        return Result.failure(ErrorType.OA_ACCESS_ERROR);
     }
 }
