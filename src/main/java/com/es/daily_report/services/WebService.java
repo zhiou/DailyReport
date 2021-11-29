@@ -5,28 +5,24 @@ import com.es.daily_report.dto.JobTitleInfoDTO;
 import com.es.daily_report.dto.UserInfoDTO;
 import com.es.daily_report.soap.HrmServiceStub;
 import com.fasterxml.jackson.core.JsonProcessingException;
-
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-
+import lombok.extern.slf4j.Slf4j;
 import org.apache.axis2.AxisFault;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.rmi.RemoteException;
 
+@Slf4j
 @Service
 public class WebService {
     private HrmServiceStub hrmStub;
     XmlMapper xmlMapper = new XmlMapper();
 
-    @Value("${webservice.client.ip}")
-    private String ip;
+    private String ip = System.getenv("NODE_IP");
 
     public WebService() throws AxisFault {
         hrmStub = new HrmServiceStub();
-        if (ip == null) {
-            this.ip = System.getenv("NODE_IP");
-        }
+        log.info("web service client ip", ip);
     }
 
     public Boolean check(String username, String password) {
