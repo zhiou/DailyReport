@@ -31,24 +31,30 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          args: ["--spring.config.location=/opt/daily_report/config/"]
+          args: [ "--spring.config.location=/opt/daily_report/config/" ]
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.hostIP
           volumeMounts:
-            -   mountPath: /opt/daily_report/config
-                name:  daily-report-configmap
+            - mountPath: /opt/daily_report/config/
+              name: daily-report-configmap
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 8157
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: http
+#          livenessProbe:
+#            httpGet:
+#              path: /health
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /health
+#              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -56,10 +62,12 @@ spec:
           configMap:
             name: daily-report-config
             items:
-              - key: application.properties
-                path: application.properties
-              - key: application-prod.properties
-                path: application-prod.properties
+              - key: application.yaml
+                path: application.yaml
+              - key: application-prod.yaml
+                path: application-prod.yaml
+              - key: logback.xml
+                path: logback.xml
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

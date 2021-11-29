@@ -23,13 +23,3 @@ if [ "$?" -ne 0 ]; then
 else
   echo -e "\033[32mPush Latest Docker Image Successful! \033[0m\n"
 fi
-
-cd ./deploy || exit
-helm upgrade manager . -n dailyreport
-if [ "$?" -ne 0 ]; then
-  echo -e "\033[31mERROR: Upgrade Manager Failed! \033[0m\n"
-  exit 1
-else
-  echo -e "\033[32mUpgrade Manager Successful! \033[0m\n"
-fi
-

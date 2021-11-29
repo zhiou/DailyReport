@@ -2,7 +2,7 @@
 <configuration debug="false">
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
     <!--<property resource="applicationDO.properties"/>-->
-    <property name="LOG_HOME" value="./logs"/>
+    <property name="LOG_HOME" value="/var/log/daily_report"/>
     <property name="LOG_NAME" value="daily_report"/>
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
     <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
