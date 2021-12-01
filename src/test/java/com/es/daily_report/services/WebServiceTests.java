@@ -4,6 +4,7 @@ import com.es.daily_report.dto.DepartmentInfoDTO;
 import com.es.daily_report.dto.JobTitleInfoDTO;
 import com.es.daily_report.dto.UserInfoDTO;
 import org.apache.axis2.AxisFault;
+import org.junit.Test;
 
 public class WebServiceTests extends junit.framework.TestCase {
 
@@ -42,5 +43,10 @@ public class WebServiceTests extends junit.framework.TestCase {
 //        WebService webService = new WebService();
 //        webService.getProjectInfo();
 
+    }
+
+    public void testGetEnv() throws AxisFault {
+        String env = System.getProperty("ALIYUN_DOCKER_USER");
+        System.out.println(env);
     }
 }
