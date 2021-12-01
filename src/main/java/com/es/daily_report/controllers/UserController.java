@@ -70,23 +70,23 @@ public class UserController {
         return Result.success(staffs);
     }
 
-    @PostMapping("/{number}")
+    @PostMapping("/role")
     @Transactional
     @RequiresRoles("admin")
-    public Result<?> addRole(@PathVariable String number, @RequestBody RoleVO roleVO) {
-        Role role = roleDao.queryByName(roleVO.getName());
+    public Result<?> addRole( @RequestBody UserRoleVO roleVO) {
+        Role role = roleDao.queryByName(roleVO.getRoleName());
         UserRole userRole = new UserRole();
         userRole.setRoleId(role.getId());
-        userRole.setUserId(number);
+        userRole.setUserId(roleVO.getWorkCode());
         userRoleDao.save(userRole);
         return Result.success();
     }
 
-    @DeleteMapping("/{number}")
+    @DeleteMapping("/role")
     @Transactional
     @RequiresRoles("admin")
-    public Result<?> delRole(@PathVariable String number, @RequestBody RoleVO roleVO) {
-        UserRole userRole = userRoleDao.queryBy(number, roleVO.getName());
+    public Result<?> delRole(@RequestBody UserRoleVO roleVO) {
+        UserRole userRole = userRoleDao.queryBy(roleVO.getWorkCode(), roleVO.getRoleName());
         userRoleDao.removeById(userRole);
         return Result.success();
     }
