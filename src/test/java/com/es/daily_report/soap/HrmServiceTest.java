@@ -23,7 +23,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.CheckUser checkUser30 =
         (com.es.daily_report.soap.HrmServiceStub.CheckUser)
             getTestObject(com.es.daily_report.soap.HrmServiceStub.CheckUser.class);
-    // TODO : Fill in the checkUser30 here
     checkUser30.setIn0("192.168.0.127");
     checkUser30.setIn1("ES0092");
     checkUser30.setIn2("2");
@@ -42,7 +41,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.ChangeUserPassword changeUserPassword42 =
             (com.es.daily_report.soap.HrmServiceStub.ChangeUserPassword)
                     getTestObject(com.es.daily_report.soap.HrmServiceStub.ChangeUserPassword.class);
-    // TODO : Fill in the changeUserPassword42 here
     changeUserPassword42.setIn0("192.168.0.127");
     changeUserPassword42.setIn1("ES0092");
     changeUserPassword42.setIn2("3");
@@ -59,7 +57,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXML getHrmSubcompanyInfoXML34 =
             (com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXML)
                     getTestObject(com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXML.class);
-    // TODO : Fill in the getHrmSubcompanyInfoXML34 here
     getHrmSubcompanyInfoXML34.setIn0("192.168.0.127");
     String companyXml = stub.getHrmSubcompanyInfoXML(getHrmSubcompanyInfoXML34).getOut();
     assertNotNull(companyXml);
@@ -75,7 +72,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXML getHrmUserInfoXML36 =
         (com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXML)
             getTestObject(com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXML.class);
-    // TODO : Fill in the getHrmUserInfoXML36 here
     getHrmUserInfoXML36.setIn0("192.168.0.127");
     getHrmUserInfoXML36.setIn2("6");
     String userInfoXml = stub.getHrmUserInfoXML(getHrmUserInfoXML36).getOut();
@@ -92,7 +88,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXML getHrmDepartmentInfoXML40 =
         (com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXML)
             getTestObject(com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXML.class);
-    // TODO : Fill in the getHrmDepartmentInfoXML40 here
     getHrmDepartmentInfoXML40.setIn0("192.168.0.127");
     getHrmDepartmentInfoXML40.setIn1("6");
     String response = stub.getHrmDepartmentInfoXML(getHrmDepartmentInfoXML40).getOut();
@@ -109,7 +104,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXML getHrmJobTitleInfoXML44 =
         (com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXML)
             getTestObject(com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXML.class);
-    // TODO : Fill in the getHrmJobTitleInfoXML44 here
     getHrmJobTitleInfoXML44.setIn0("192.168.0.127");
     getHrmJobTitleInfoXML44.setIn1("6");
     String response = stub.getHrmJobTitleInfoXML(getHrmJobTitleInfoXML44).getOut();
@@ -126,7 +120,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfo getHrmSubcompanyInfo50 =
             (com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfo)
                     getTestObject(com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfo.class);
-    // TODO : Fill in the getHrmSubcompanyInfo50 here
     getHrmSubcompanyInfo50.setIn0("192.168.0.127");
 
     HrmServiceStub.SubCompanyBean[] response = stub.getHrmSubcompanyInfo(getHrmSubcompanyInfo50).getOut().getSubCompanyBean();
@@ -144,7 +137,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfo getHrmDepartmentInfo32 =
             (com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfo)
                     getTestObject(com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfo.class);
-    // TODO : Fill in the getHrmDepartmentInfo32 here
     getHrmDepartmentInfo32.setIn0("192.168.0.127");
     getHrmDepartmentInfo32.setIn1("1");
     HrmServiceStub.DepartmentBean[] response = stub.getHrmDepartmentInfo(getHrmDepartmentInfo32).getOut().getDepartmentBean();
@@ -161,7 +153,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfo getHrmJobTitleInfo48 =
         (com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfo)
             getTestObject(com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfo.class);
-    // TODO : Fill in the getHrmJobTitleInfo48 here
     getHrmJobTitleInfo48.setIn0("192.168.0.127");
     getHrmJobTitleInfo48.setIn1("1");
     HrmServiceStub.JobTitleBean[] response = stub.getHrmJobTitleInfo(getHrmJobTitleInfo48).getOut().getJobTitleBean();
@@ -179,7 +170,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfo getHrmUserInfo52 =
         (com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfo)
             getTestObject(com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfo.class);
-    // TODO : Fill in the getHrmUserInfo52 here
     getHrmUserInfo52.setIn0("192.168.0.127");
     getHrmUserInfo52.setIn1("ES0092");
     HrmServiceStub.UserBean[] response = stub.getHrmUserInfo(getHrmUserInfo52).getOut().getUserBean();
@@ -197,7 +187,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.SynSubCompany synSubCompany46 =
             (com.es.daily_report.soap.HrmServiceStub.SynSubCompany)
                     getTestObject(com.es.daily_report.soap.HrmServiceStub.SynSubCompany.class);
-    // TODO : Fill in the synSubCompany46 here
     synSubCompany46.setIn0("192.168.0.127");
     synSubCompany46.setIn1("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<root>\n" +
@@ -241,7 +230,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.SynDepartment synDepartment54 =
             (com.es.daily_report.soap.HrmServiceStub.SynDepartment)
                     getTestObject(com.es.daily_report.soap.HrmServiceStub.SynDepartment.class);
-    // TODO : Fill in the synDepartment54 here
     synDepartment54.setIn0("192.168.0.127");
     synDepartment54.setIn1("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<root>\n" +
@@ -286,7 +274,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.SynJobtitle synJobtitle38 =
             (com.es.daily_report.soap.HrmServiceStub.SynJobtitle)
                     getTestObject(com.es.daily_report.soap.HrmServiceStub.SynJobtitle.class);
-    // TODO : Fill in the synJobtitle38 here
     synJobtitle38.setIn0("192.168.0.127");
     synJobtitle38.setIn1("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<root>\n" +
@@ -324,7 +311,6 @@ public class HrmServiceTest extends junit.framework.TestCase {
     com.es.daily_report.soap.HrmServiceStub.SynHrmResource synHrmResource28 =
             (com.es.daily_report.soap.HrmServiceStub.SynHrmResource)
                     getTestObject(com.es.daily_report.soap.HrmServiceStub.SynHrmResource.class);
-    // TODO : Fill in the synHrmResource28 here
     synHrmResource28.setIn0("192.168.0.127");
     synHrmResource28.setIn1("<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<root>\n" +

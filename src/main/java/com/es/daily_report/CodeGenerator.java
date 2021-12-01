@@ -10,7 +10,7 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
         // 代码生成器
-        FastAutoGenerator.create("jdbc:mysql://127.0.0.1:3306/daily_report", "root", "1234qwer")
+        FastAutoGenerator.create("jdbc:mysql://127.0.0.1:3306/daily_report", "root", "12345678")
                 .globalConfig(builder -> {
                     builder.author("zhiou") // 设置作者
                             .enableSwagger() // 开启 swagger 模式
@@ -23,7 +23,7 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "generated/mybatis-xml")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("pmo", "dm", "product", "project", "report", "task")
+                    builder.addInclude("user_role")//"pmo", "dm", "product", "project", "report", "task")
                             .serviceBuilder()
                             .formatServiceFileName("%sDao")
                             .formatServiceImplFileName("%sDaoImpl")

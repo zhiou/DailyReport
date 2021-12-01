@@ -1,10 +1,12 @@
 package com.es.daily_report.controllers;
 
-import com.es.daily_report.dao.DmDao;
-import com.es.daily_report.dao.PmoDao;
 import com.es.daily_report.dao.ProjectDao;
+import com.es.daily_report.dao.RoleDao;
+import com.es.daily_report.dao.UserRoleDao;
 import com.es.daily_report.dto.UserInfoDTO;
 import com.es.daily_report.entities.Project;
+import com.es.daily_report.entities.Role;
+import com.es.daily_report.entities.UserRole;
 import com.es.daily_report.enums.ErrorType;
 import com.es.daily_report.mapstruct.ProjectVOMapper;
 import com.es.daily_report.redis.RedisUtil;
@@ -15,6 +17,7 @@ import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
@@ -46,38 +50,50 @@ public class UserController {
     private ProjectVOMapper projectVOMapper;
 
     @Autowired
-    private PmoDao pmoDao;
+    private UserRoleDao userRoleDao;
 
     @Autowired
-    private DmDao dmDao;
+    private RoleDao roleDao;
 
     @GetMapping
-    @RequiresRoles("pmo")
+    @RequiresRoles(value = {"pmo", "admin"}, logical = Logical.OR)
     public Result<?> list() {
         UserInfoDTO[] users = webService.getUserInfoByCompany("6");
         List<StaffVO> staffs = Arrays.stream(users).map(user ->
-             StaffVO.builder()
-                    .workCode(user.getWorkcode())
-                    .name(user.getLastname())
-                    .department(user.getDepartmentname())
-                    .build()
+                StaffVO.builder()
+                        .workCode(user.getWorkcode())
+                        .name(user.getLastname())
+                        .department(user.getDepartmentname())
+                        .roles(roles(user))
+                        .build()
         ).collect(Collectors.toList());
         return Result.success(staffs);
     }
 
-    List<String> roles(UserInfoDTO userInfo) {
+    @PostMapping("/{number}")
+    @Transactional
+    @RequiresRoles("admin")
+    public Result<?> addRole(@PathVariable String number, @RequestBody RoleVO roleVO) {
+        Role role = roleDao.queryByName(roleVO.getName());
+        UserRole userRole = new UserRole();
+        userRole.setRoleId(role.getId());
+        userRole.setUserId(number);
+        userRoleDao.save(userRole);
+        return Result.success();
+    }
+
+    @DeleteMapping("/{number}")
+    @Transactional
+    @RequiresRoles("admin")
+    public Result<?> delRole(@PathVariable String number, @RequestBody RoleVO roleVO) {
+        UserRole userRole = userRoleDao.queryBy(number, roleVO.getName());
+        userRoleDao.removeById(userRole);
+        return Result.success();
+    }
+
+    Set<String> roles(UserInfoDTO userInfo) {
         String workCode = userInfo.getWorkcode();
-        List<String> roles = new ArrayList<>();
-        if (pmoDao.hasMember(workCode)) {
-            roles.add("pmo");
-        }
-        if (dmDao.inCharge(workCode, userInfo.getDepartmentid())) {
-            roles.add("dm");
-        }
-        if (projectDao.beingPm(workCode)) {
-            roles.add("pm");
-        }
-        return roles;
+        return userRoleDao.rolesOfUser(workCode);
     }
 
     @GetMapping("/info")
@@ -98,25 +114,26 @@ public class UserController {
         List<Project> projects = new ArrayList<>();
         if (SecurityUtils.getSubject().hasRole("pmo")) {
             projects = projectDao.list();
-        } else if(SecurityUtils.getSubject().hasRole("pm")) {
+        } else if (SecurityUtils.getSubject().hasRole("pm")) {
             projects = projectDao.queryByManagerNumber(workCode);
         }
         return projectVOMapper.dos2vos(projects);
     }
-//
+
+    //
     @PutMapping("/password")
     @Transactional
     public Result<?> modify(@RequestBody @Validated PasswordUpdateVO passwordUpdateVO,
-                                    @RequestHeader(value = "Authorization") String token) throws TimeoutException {
+                            @RequestHeader(value = "Authorization") String token) throws TimeoutException {
         String account = JwtUtil.getClaim(token, JwtUtil.ACCOUNT).asString();
         if (!webService.check(account, passwordUpdateVO.getPassword())) {
             return Result.failure(ErrorType.WRONG_PASSWORD);
         }
 
-       if (webService.changePassword(account, passwordUpdateVO.getNewPassword())) {
-           return Result.success();
-       }
-       return Result.failure(ErrorType.WRONG_PASSWORD);
+        if (webService.changePassword(account, passwordUpdateVO.getNewPassword())) {
+            return Result.success();
+        }
+        return Result.failure(ErrorType.WRONG_PASSWORD);
     }
 
     @PostMapping("/login")

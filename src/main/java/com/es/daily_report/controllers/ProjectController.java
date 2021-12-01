@@ -3,7 +3,6 @@ package com.es.daily_report.controllers;
 import com.es.daily_report.dao.ProjectDao;
 import com.es.daily_report.entities.Project;
 import com.es.daily_report.enums.ErrorType;
-import com.es.daily_report.enums.ProjectState;
 import com.es.daily_report.mapstruct.ProjectVOMapper;
 import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.ProjectRemoveVO;
@@ -15,13 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Slf4j
 @RestController
-//TODO: @RequiresRoles("admin")
 @RequestMapping(value = "/v1/daily_report/project", produces = "application/json;charset=utf-8")
 public class ProjectController {
 

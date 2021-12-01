@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum Roles {
     ADMIN(1, "admin"),
     PMO(2, "pmo"),
-    MANAGER(3, "manager"),
-    STAFF(4, "staff");
+    PM(3, "pm"),
+    DM(4, "dm");
 
     @EnumValue
     @JsonValue

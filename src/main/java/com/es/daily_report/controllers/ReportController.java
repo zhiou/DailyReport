@@ -21,14 +21,11 @@ import com.es.daily_report.utils.Result;
 import com.es.daily_report.vo.ExcelVO;
 import com.es.daily_report.vo.ReportVO;
 import com.es.daily_report.vo.TaskVO;
-
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import javax.mail.internet.MimeUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
@@ -240,7 +237,6 @@ public class ReportController {
     }
 
 
-    //TODO: 组织任务和日志
     @GetMapping("/download")
     @RequiresRoles("pmo")
     @ApiOperation("根据条件下载符合要求的员工日志表格")

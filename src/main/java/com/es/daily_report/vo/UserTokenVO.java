@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ public class UserTokenVO {
     private String account;
 
     @JsonProperty("roles")
-    private List<String> roles;
+    private Set<String> roles;
 
     @JsonProperty("token")
     private String token;
