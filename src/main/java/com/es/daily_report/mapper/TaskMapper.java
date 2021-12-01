@@ -41,7 +41,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
             "where r.work_code=#{workCode}  and r.deleted = 0 and t.deleted = 0\n" +
-            "and r.on_day between #{from} and #{to}\n" +
+            "and r.on_day >= #{from} and r.on_day < #{to}\n" +
             "order by r.on_day desc;")
     List<ExcelVO> listByWorkCode(@Param("workCode") String workCode, @Param("from") Date from, @Param("to") Date to);
 
@@ -52,7 +52,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
             "where r.department_id=#{departmentId} and r.deleted = 0 and t.deleted = 0\n" +
-            "and r.on_day between #{from} and #{to}\n" +
+            "and r.on_day >= #{from} and r.on_day < #{to}\n" +
             "order by r.on_day desc;")
     List<ExcelVO> listByDepartment(@Param("departmentId") String departmentId, @Param("from") Date from, @Param("to") Date to);
 
