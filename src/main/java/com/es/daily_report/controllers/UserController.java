@@ -25,10 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
@@ -66,14 +63,20 @@ public class UserController {
                         .department(user.getDepartmentname())
                         .roles(roles(user))
                         .build()
-        ).collect(Collectors.toList());
+        ).sorted(Comparator.comparingInt(staff -> {
+            try {
+                return Integer.parseInt(staff.getWorkCode().substring(2));
+            } catch(NumberFormatException e) {
+                return 0;
+            }
+        })).collect(Collectors.toList());
         return Result.success(staffs);
     }
 
     @PostMapping("/role")
     @Transactional
     @RequiresRoles("admin")
-    public Result<?> addRole( @RequestBody UserRoleVO roleVO) {
+    public Result<?> addRole(@RequestBody UserRoleVO roleVO) {
         Role role = roleDao.queryByName(roleVO.getRoleName());
         UserRole userRole = new UserRole();
         userRole.setRoleId(role.getId());
