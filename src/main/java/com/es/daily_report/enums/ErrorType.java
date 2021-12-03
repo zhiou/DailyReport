@@ -18,7 +18,8 @@ public enum ErrorType {
     UNKNOWN_ERROR(101016, "未知错误"),
     DATA_BINDING(101017, "数据绑定错误"),
     INVALID_REQUEST(101018, "不支持的请求"),
-    OA_ACCESS_ERROR(101019, "OA访问失败");
+    OA_ACCESS_ERROR(101019, "OA访问失败"),
+    ROLE_EXISTED(101020, "角色名已存在");
 
     private Integer code;
     private String message;

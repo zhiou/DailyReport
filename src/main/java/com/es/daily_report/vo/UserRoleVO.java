@@ -6,19 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StaffVO {
+public class UserRoleVO {
     @JsonProperty("work_code")
     private String workCode;
 
-    private String name;
-
-    private String department;
-
-    private Set<String> roles;
+    @JsonProperty("role_name")
+    private String roleName;
 }

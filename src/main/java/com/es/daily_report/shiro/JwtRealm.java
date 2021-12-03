@@ -1,10 +1,8 @@
 package com.es.daily_report.shiro;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.es.daily_report.config.RolesConfig;
-import com.es.daily_report.dao.*;
+import com.es.daily_report.dao.UserRoleDao;
 import com.es.daily_report.dto.UserInfoDTO;
-import com.es.daily_report.entities.*;
 import com.es.daily_report.redis.RedisUtil;
 import com.es.daily_report.services.WebService;
 import com.es.daily_report.utils.Constants;
@@ -18,9 +16,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
-import java.util.*;
+import java.util.Set;
 
 @Slf4j
 public class JwtRealm extends AuthorizingRealm {
@@ -32,13 +29,7 @@ public class JwtRealm extends AuthorizingRealm {
     private WebService webService;
 
     @Autowired
-    private DmDao dmDao;
-
-    @Autowired
-    private PmoDao pmoDao;
-
-    @Autowired
-    private ProjectDao projectDao;
+    private UserRoleDao userRoleDao;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -50,20 +41,9 @@ public class JwtRealm extends AuthorizingRealm {
         String staffNo = (String) principals.getPrimaryPrincipal();
 
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        Set<String> roles = new HashSet<>();
-        Set<String> permissions = new HashSet<>();
-
         UserInfoDTO userInfo = webService.getUserInfoByWorkCode(staffNo);
         String workCode = userInfo.getWorkcode();
-        if (pmoDao.hasMember(workCode)) {
-            roles.add("pmo");
-        }
-        if (dmDao.inCharge(workCode, userInfo.getDepartmentid())) {
-            roles.add("dm");
-        }
-        if (projectDao.beingPm(workCode)) {
-            roles.add("pm");
-        }
+        Set<String> roles = userRoleDao.rolesOfUser(workCode);
 
         simpleAuthorizationInfo.setRoles(roles);
 
