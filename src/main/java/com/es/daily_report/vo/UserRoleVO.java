@@ -14,6 +14,6 @@ public class UserRoleVO {
     @JsonProperty("work_code")
     private String workCode;
 
-    @JsonProperty("role_name")
-    private String roleName;
+    @JsonProperty("role_flag")
+    private Integer roleFlag;
 }

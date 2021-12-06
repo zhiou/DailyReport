@@ -73,24 +73,36 @@ public class UserController {
         return Result.success(staffs);
     }
 
-    @PostMapping("/role")
-    @Transactional
-    @RequiresRoles("admin")
-    public Result<?> addRole(@RequestBody UserRoleVO roleVO) {
-        Role role = roleDao.queryByName(roleVO.getRoleName());
-        UserRole userRole = new UserRole();
+    private Boolean addRole(String workCode, String roleName) {
+        UserRole userRole = userRoleDao.queryBy(workCode, roleName);
+        if (userRole != null) {
+            return true;
+        }
+        Role role = roleDao.queryByName(roleName);
+        userRole = new UserRole();
         userRole.setRoleId(role.getId());
-        userRole.setUserId(roleVO.getWorkCode());
+        userRole.setUserId(workCode);
         userRoleDao.save(userRole);
-        return Result.success();
+        return true;
     }
 
-    @DeleteMapping("/role")
+    private Boolean delRole(String workCode, String roleName) {
+        UserRole userRole = userRoleDao.queryBy(workCode, roleName);
+        if (userRole != null) {
+            userRoleDao.removeById(userRole);
+        }
+        return true;
+    }
+
+    @PutMapping("/role")
     @Transactional
     @RequiresRoles("admin")
-    public Result<?> delRole(@RequestBody UserRoleVO roleVO) {
-        UserRole userRole = userRoleDao.queryBy(roleVO.getWorkCode(), roleVO.getRoleName());
-        userRoleDao.removeById(userRole);
+    public Result<?> update(@RequestBody List<UserRoleVO> userRoleVOs) {
+        userRoleVOs.forEach((userRole -> {
+            Boolean success =  ((userRole.getRoleFlag() & 0x4) > 0) ? addRole(userRole.getWorkCode(), "pmo") : delRole(userRole.getWorkCode(), "pmo");
+            success &=  ((userRole.getRoleFlag() & 0x2) > 0) ? addRole(userRole.getWorkCode(), "dm") : delRole(userRole.getWorkCode(), "dm");
+            success &=  ((userRole.getRoleFlag() & 0x1) > 0) ? addRole(userRole.getWorkCode(), "pm") : delRole(userRole.getWorkCode(), "pm");
+        }));
         return Result.success();
     }
 

@@ -17,9 +17,9 @@ import java.util.Set;
 @Mapper
 public interface UserRoleMapper extends BaseMapper<UserRole> {
 
-    @Select("select distinct name from role left join user_role ur on role.id = ur.role_id where ur.user_id = #{number}")
+    @Select("select distinct name from role left join user_role ur on role.id = ur.role_id where ur.user_id = #{number} and ur.deleted = 0;")
     Set<String> rolesByUserNumber(@Param("number") String number);
 
-    @Select("select * from user_role ur left join role r on r.id = ur.role_id where ur.user_id = #{number} and r.name = #{role_name}")
+    @Select("select * from user_role ur left join role r on r.id = ur.role_id where ur.user_id = #{number} and r.name = #{role_name} and ur.deleted = 0;")
     UserRole queryBy(@Param("number") String number, @Param("role_name") String roleName);
 }
