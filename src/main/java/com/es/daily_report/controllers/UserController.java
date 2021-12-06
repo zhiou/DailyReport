@@ -103,6 +103,7 @@ public class UserController {
             success &=  ((userRole.getRoleFlag() & 0x2) > 0) ? addRole(userRole.getWorkCode(), "dm") : delRole(userRole.getWorkCode(), "dm");
             success &=  ((userRole.getRoleFlag() & 0x1) > 0) ? addRole(userRole.getWorkCode(), "pm") : delRole(userRole.getWorkCode(), "pm");
         }));
+
         return Result.success();
     }
 
