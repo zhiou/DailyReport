@@ -128,42 +128,24 @@ public class ReportController {
         if (departmentId == null) {
             return Result.failure(ErrorType.TOKEN_INVALID);
         }
-        if (reportVO.getTasks() == null || reportVO.getTasks().isEmpty()) {
-            return Result.failure(ErrorType.INVALID_PARAM);
-        }
+
         Report report = reportDao.query(account, reportVO.getOnDay());
         if (report != null) { // remove origin report, override it
             taskDao.removeTasksOfReport(report.getId());
             reportDao.removeById(report.getId());
         }
-        report = reportVOMapper.vo2do(reportVO, account, username, department, departmentId);
-        reportDao.save(report);
+        // 这里其实可以放开，直接替代下面的删除任务功能
+        if (reportVO.getTasks() != null && !reportVO.getTasks().isEmpty()) {
+            report = reportVOMapper.vo2do(reportVO, account, username, department, departmentId);
+            reportDao.save(report);
 
-        List<Task> tasks = new ArrayList<>();
-        for (TaskVO taskVO: reportVO.getTasks()) {
-            tasks.add(taskVOMapper.vo2do(taskVO, report.getId()));
+            List<Task> tasks = new ArrayList<>();
+            for (TaskVO taskVO: reportVO.getTasks()) {
+                tasks.add(taskVOMapper.vo2do(taskVO, report.getId()));
+            }
+            taskDao.saveBatch(tasks);
         }
-        taskDao.saveBatch(tasks);
-        return Result.success();
-    }
 
-    @DeleteMapping
-    @Transactional
-    public Result<?> removeAll(@RequestHeader(value = "Authorization") String token,
-            @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate onDay) {
-        String account = accountFromToken(token);
-        if (account == null) {
-            return Result.failure(ErrorType.TOKEN_INVALID);
-        }
-        String username = userNameFromToken(token);
-        if (username == null) {
-            return Result.failure(ErrorType.TOKEN_INVALID);
-        }
-        Report report = reportDao.query(account, onDay);
-        if (report != null) {
-            taskDao.removeTasksOfReport(report.getId());
-            reportDao.removeById(report.getId());
-        }
         return Result.success();
     }
 
