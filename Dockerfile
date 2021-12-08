@@ -1,4 +1,4 @@
-FROM registry-dev.excelsecu.com/library/openjdk:8
+FROM registry-dev.excelsecu.com/library/openjdk:11-slim
 ENV TZ=Asia/Shanghai \
     DEBIAN_FRONTEND=noninteractive
 
