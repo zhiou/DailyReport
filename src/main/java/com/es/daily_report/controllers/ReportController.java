@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -143,6 +144,26 @@ public class ReportController {
             tasks.add(taskVOMapper.vo2do(taskVO, report.getId()));
         }
         taskDao.saveBatch(tasks);
+        return Result.success();
+    }
+
+    @DeleteMapping
+    @Transactional
+    public Result<?> removeAll(@RequestHeader(value = "Authorization") String token,
+            @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate onDay) {
+        String account = accountFromToken(token);
+        if (account == null) {
+            return Result.failure(ErrorType.TOKEN_INVALID);
+        }
+        String username = userNameFromToken(token);
+        if (username == null) {
+            return Result.failure(ErrorType.TOKEN_INVALID);
+        }
+        Report report = reportDao.query(account, onDay);
+        if (report != null) {
+            taskDao.removeTasksOfReport(report.getId());
+            reportDao.removeById(report.getId());
+        }
         return Result.success();
     }
 
