@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.es.daily_report.entities.Task;
+import com.es.daily_report.vo.DepartmentVO;
 import com.es.daily_report.vo.ExcelVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,8 @@ import java.util.List;
 
 @Mapper
 public interface TaskMapper extends BaseMapper<Task> {
+    @Select("select distinct department, department_id from report where report.deleted = 0")
+    List<DepartmentVO> listAllDepartments();
 
     @Select("select in_line as product_line, prod.number as product_number, prod.name as product_name, r.department as department, r.work_code as work_code, r.author_name as staff_name," +
             "t.cost as task_cost, proj.number as project_number, proj.name as project_name, r.on_day as report_date, t.name as task_name, t.details as task_detail, r.committed as commit_date\n" +

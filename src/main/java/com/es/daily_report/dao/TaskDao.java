@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.es.daily_report.entities.Task;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.es.daily_report.vo.DepartmentVO;
 import com.es.daily_report.vo.ExcelVO;
 
 import java.util.Date;
@@ -23,4 +24,6 @@ public interface TaskDao extends IService<Task> {
     List<ExcelVO> queryByCondition(Integer type, String condition, Date from, Date to);
 
     IPage<ExcelVO> pageByCondition(Page<ExcelVO> page, Integer type, String condition);
+
+    List<DepartmentVO> listDepartments();
 }

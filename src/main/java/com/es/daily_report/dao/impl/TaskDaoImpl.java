@@ -7,6 +7,7 @@ import com.es.daily_report.entities.Task;
 import com.es.daily_report.mapper.TaskMapper;
 import com.es.daily_report.dao.TaskDao;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.es.daily_report.vo.DepartmentVO;
 import com.es.daily_report.vo.ExcelVO;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +56,9 @@ public class TaskDaoImpl extends ServiceImpl<TaskMapper, Task> implements TaskDa
                 return baseMapper.pageByProject(page, condition);
         }
         return baseMapper.pageAll(page);
+    }
+
+    public List<DepartmentVO> listDepartments() {
+        return baseMapper.listAllDepartments();
     }
 }

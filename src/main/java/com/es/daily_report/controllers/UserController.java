@@ -160,7 +160,9 @@ public class UserController {
         }
 
         UserInfoDTO userInfoDTO = webService.getUserInfoByWorkCode(loginVO.getAccount());
-
+        if (userInfoDTO == null) {
+            return Result.failure(ErrorType.OA_ACCESS_ERROR);
+        }
         String token = JwtUtil.sign(loginVO.getAccount(), userInfoDTO.getDepartmentid(), userInfoDTO.getDepartmentname(),
                 userInfoDTO.getLastname(), String.valueOf(System.currentTimeMillis()));
 
