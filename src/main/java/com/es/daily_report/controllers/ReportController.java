@@ -134,7 +134,7 @@ public class ReportController {
             taskDao.removeTasksOfReport(report.getId());
             reportDao.removeById(report.getId());
         }
-        // 这里其实可以放开，直接替代下面的删除任务功能
+      
         if (reportVO.getTasks() != null && !reportVO.getTasks().isEmpty()) {
             report = reportVOMapper.vo2do(reportVO, account, username, department, departmentId);
             reportDao.save(report);
