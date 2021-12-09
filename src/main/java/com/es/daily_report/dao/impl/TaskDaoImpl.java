@@ -30,17 +30,19 @@ public class TaskDaoImpl extends ServiceImpl<TaskMapper, Task> implements TaskDa
     }
 
     public List<ExcelVO> queryByCondition(Integer type, String condition, Date from, Date to) {
-        switch (type) {
-            case 0:
-                return baseMapper.listByWorkCode(condition, from, to);
-            case 1:
-                return baseMapper.listByDepartment(condition, from, to);
-            case 2:
-                return baseMapper.listByProject(condition);
-            case 3:
-                return baseMapper.listByProduct(condition);
+        if (type != null) {
+            switch (type) {
+                case 0:
+                    return baseMapper.listByWorkCode(condition, from, to);
+                case 1:
+                    return baseMapper.listByDepartment(condition, from, to);
+                case 2:
+                    return baseMapper.listByProject(condition);
+                case 3:
+                    return baseMapper.listByProduct(condition);
+            }
         }
-        return null;
+        return baseMapper.listAll(from, to);
     }
 
     public IPage<ExcelVO> pageByCondition(Page<ExcelVO> page, Integer type, String condition) {

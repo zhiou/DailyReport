@@ -172,8 +172,8 @@ public class ReportController {
 
     @GetMapping("/pmo")
     @RequiresRoles("pmo")
-    public Result<?> queryByCondition(@RequestParam("type") Integer type,
-                                      @RequestParam("condition") String content,
+    public Result<?> queryByCondition(@RequestParam(value = "type", required = false) Integer type,
+                                      @RequestParam(value = "condition", required = false) String content,
                                       @RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
                                       @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to
     ) {
