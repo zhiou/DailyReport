@@ -52,8 +52,4 @@ public class Product implements Serializable {
     @TableField("remark")
     private String remark;
 
-    @ApiModelProperty("删除状态")
-    @TableField("deleted")
-    @TableLogic
-    private Integer deleted;
 }

@@ -40,7 +40,7 @@ public class Task implements Serializable {
 
     @ApiModelProperty("任务工时")
     @TableField("cost")
-    private Integer cost;
+    private Float cost;
 
     @ApiModelProperty("项目ID")
     @TableField("project_id")

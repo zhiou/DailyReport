@@ -11,7 +11,7 @@ create TABLE `project` (
     `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
+    INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `product`;
@@ -24,7 +24,7 @@ create TABLE `product` (
      `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
      `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
       PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
+     INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `permission`;
@@ -94,7 +94,7 @@ create TABLE `task` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `name` varchar(64) NOT NULL COMMENT '任务名',
     `details` varchar(255) COMMENT '任务内容',
-    `cost` tinyint NOT NULL COMMENT '任务工时',
+    `cost` float NOT NULL COMMENT '任务工时',
     `project_id` varchar(64) DEFAULT NULL COMMENT '项目ID',
     `product_id` varchar(64) DEFAULT NULL COMMENT '产品ID',
     `in_report` bigint NOT NULL COMMENT '报告ID',

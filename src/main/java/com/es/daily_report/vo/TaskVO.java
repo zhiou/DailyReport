@@ -24,7 +24,7 @@ public class TaskVO {
 
     @ExcelProperty("任务工时")
     @JsonProperty("task_cost")
-    private Integer cost;
+    private Float cost;
 
     @ExcelProperty("所属项目")
     @JsonProperty("project_number")

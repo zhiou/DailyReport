@@ -84,7 +84,7 @@ public class JwtRealm extends AuthorizingRealm {
 
         // 检查redis中的token是否存在
         String credential = String.valueOf(redisUtil.get(Constants.PREFIX_USER_TOKEN + jwt));
-        log.error("redis中的credential:{}",credential);
+        log.info("redis中的credential:{}",credential);
         if (credential == null || credential.equals("null") || credential.isEmpty()){
             throw new AuthenticationException("token expried!");
         }

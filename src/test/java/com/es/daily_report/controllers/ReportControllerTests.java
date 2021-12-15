@@ -51,7 +51,7 @@ public class ReportControllerTests {
         TaskVO taskVO = TaskVO.builder()
                 .name("某个任务")
                 .details("就是完成了这个任务呗")
-                .cost(6)
+                .cost(6.0f)
                 .build();
         List<TaskVO> taskVOList = new ArrayList<>();
         taskVOList.add(taskVO);
@@ -70,7 +70,7 @@ public class ReportControllerTests {
         TaskVO taskVO = TaskVO.builder()
                 .name("某个任务")
                 .details("就是完成了这个任务呗")
-                .cost(6)
+                .cost(6.0f)
                 .build();
         List<TaskVO> taskVOList = new ArrayList<>();
         taskVOList.add(taskVO);
@@ -89,7 +89,7 @@ public class ReportControllerTests {
         TaskVO taskVO1 = TaskVO.builder()
                 .name("task of zhang san")
                 .details("still working on it")
-                .cost(6)
+                .cost(6.0f)
                 .build();
         List<TaskVO> taskVOList1 = new ArrayList<>();
         taskVOList1.add(taskVO1);
@@ -101,7 +101,7 @@ public class ReportControllerTests {
         TaskVO taskVO2 = TaskVO.builder()
                 .name("task of li si")
                 .details("finished")
-                .cost(6)
+                .cost(6.0f)
                 .build();
         List<TaskVO> taskVOList2 = new ArrayList<>();
         taskVOList2.add(taskVO2);

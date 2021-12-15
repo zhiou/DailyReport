@@ -24,7 +24,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
-            "where r.deleted = 0 and t.deleted = 0\n" +
+            "where r.deleted = 0 and t.deleted = 0 \n" +
             "and r.on_day >= #{from} and r.on_day < #{to}\n" +
             "order by r.on_day desc;")
     List<ExcelVO> listAll(@Param("from") Date from, @Param("to") Date to);
@@ -35,7 +35,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
-            "where t.project_id=#{projectNumber} and r.deleted = 0 and t.deleted = 0\n" +
+            "where t.project_id=#{projectNumber} and r.deleted = 0 and t.deleted = 0 \n" +
             "order by r.on_day desc;")
     List<ExcelVO> listByProject(@Param("projectNumber") String projectNumber);
 
@@ -45,7 +45,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
-            "where t.product_id=#{productNumber} and r.deleted = 0 and t.deleted = 0\n" +
+            "where t.product_id=#{productNumber} and r.deleted = 0 and t.deleted = 0 \n" +
             "order by r.on_day desc;")
     List<ExcelVO> listByProduct(@Param("productNumber") String productNumber);
 
@@ -55,7 +55,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
-            "where r.work_code=#{workCode}  and r.deleted = 0 and t.deleted = 0\n" +
+            "where r.work_code=#{workCode}  and r.deleted = 0 and t.deleted = 0 \n" +
             "and r.on_day >= #{from} and r.on_day < #{to}\n" +
             "order by r.on_day desc;")
     List<ExcelVO> listByWorkCode(@Param("workCode") String workCode, @Param("from") Date from, @Param("to") Date to);
@@ -66,7 +66,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
-            "where r.department_id=#{departmentId} and r.deleted = 0 and t.deleted = 0\n" +
+            "where r.department_id=#{departmentId} and r.deleted = 0 and t.deleted = 0 \n" +
             "and r.on_day >= #{from} and r.on_day < #{to}\n" +
             "order by r.on_day desc;")
     List<ExcelVO> listByDepartment(@Param("departmentId") String departmentId, @Param("from") Date from, @Param("to") Date to);
@@ -77,7 +77,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
-            "where t.project_id=#{projectNumber}  and r.deleted = 0 and t.deleted = 0\n" +
+            "where t.project_id=#{projectNumber}  and r.deleted = 0 and t.deleted = 0 \n" +
             "order by r.on_day desc")
     IPage<ExcelVO> pageByProject(Page<?> page, @Param("projectNumber") String projectNumber);
 
@@ -87,7 +87,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
-            "where r.work_code=#{workCode} and r.deleted = 0 and t.deleted = 0\n" +
+            "where r.work_code=#{workCode} and r.deleted = 0 and t.deleted = 0 \n" +
             "order by r.on_day desc")
     IPage<ExcelVO> pageByWorkCode(Page<?> page, @Param("workCode") String workCode);
 
@@ -97,7 +97,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
-            "where r.department_id=#{departmentId} and r.deleted = 0 and t.deleted = 0\n" +
+            "where r.department_id=#{departmentId} and r.deleted = 0 and t.deleted = 0 \n" +
             "order by r.on_day desc")
     IPage<ExcelVO> pageByDepartment(Page<?> page, @Param("departmentId") String departmentId);
 
@@ -107,7 +107,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
-            "where r.deleted = 0 and t.deleted = 0\n" +
+            "where r.deleted = 0 and t.deleted = 0 \n" +
             "order by r.on_day desc")
     IPage<ExcelVO> pageAll(Page<?> page);
 }

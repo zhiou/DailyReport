@@ -44,7 +44,7 @@ public class ExcelVO {
 
     @ExcelProperty("工时")
     @JsonProperty("task_cost")
-    private Integer taskCost;
+    private Float taskCost;
 
     @ExcelIgnore
     @JsonProperty("project_number")
