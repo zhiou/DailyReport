@@ -48,6 +48,12 @@ public class ProductController {
         if (productVO.getName() != null) {
             product.setName(productVO.getName());
         }
+        if (productVO.getStatus() != null) {
+            product.setStatus(productVO.getStatus().getValue());
+        }
+        if (productVO.getRemark() != null) {
+            product.setRemark(productVO.getRemark());
+        }
         productDao.updateById(product);
         return Result.success();
     }

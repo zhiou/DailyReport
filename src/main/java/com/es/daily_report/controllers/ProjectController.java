@@ -56,6 +56,9 @@ public class ProjectController {
         if (projectVO.getName() != null) {
             project.setName(projectVO.getName());
         }
+        if (projectVO.getRemark() != null) {
+            project.setRemark(projectVO.getRemark());
+        }
         projectDao.updateById(project);
         return Result.success();
     }
