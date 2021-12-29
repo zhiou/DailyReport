@@ -1,3 +1,4 @@
+# 注意，如果使用mysql数据库,请使用utf8mb4编码而不是utf8
 use `daily_report`;
 
 DROP TABLE IF EXISTS `project`;
@@ -59,7 +60,7 @@ DROP TABLE IF EXISTS `user_role`;
 create TABLE `user_role` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `role_id` bigint NOT NULL COMMENT '角色ID',
-  `user_id` bigint NOT NULL COMMENT '系统用户ID',
+  `user_id` varchar(64) NOT NULL COMMENT '员工编号',
   `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态\n0: 未删除\n1: 已删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4;
