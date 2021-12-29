@@ -23,13 +23,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private static int counter = 0;
 
-  private static synchronized java.lang.String getUniqueSuffix() {
+  private static synchronized String getUniqueSuffix() {
     // reset the counter if it is greater than 99999
     if (counter > 99999) {
       counter = 0;
     }
     counter = counter + 1;
-    return java.lang.Long.toString(java.lang.System.currentTimeMillis()) + "_" + counter;
+    return Long.toString(System.currentTimeMillis()) + "_" + counter;
   }
 
   private void populateAxisService() throws org.apache.axis2.AxisFault {
@@ -169,7 +169,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   /** Constructor that takes in a configContext */
   public HrmServiceStub(
       org.apache.axis2.context.ConfigurationContext configurationContext,
-      java.lang.String targetEndpoint)
+      String targetEndpoint)
       throws org.apache.axis2.AxisFault {
     this(configurationContext, targetEndpoint, false);
   }
@@ -177,7 +177,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   /** Constructor that takes in a configContext and useseperate listner */
   public HrmServiceStub(
       org.apache.axis2.context.ConfigurationContext configurationContext,
-      java.lang.String targetEndpoint,
+      String targetEndpoint,
       boolean useSeparateListener)
       throws org.apache.axis2.AxisFault {
     // To populate AxisService
@@ -196,17 +196,17 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   public HrmServiceStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://192.168.1.66:8088//services/HrmService");
+    this(configurationContext, "http://192.168.0.4//services/HrmService");
   }
 
   /** Default Constructor */
   public HrmServiceStub() throws org.apache.axis2.AxisFault {
 
-    this("http://192.168.1.66:8088//services/HrmService");
+    this("http://192.168.0.4//services/HrmService");
   }
 
   /** Constructor taking the target endpoint */
-  public HrmServiceStub(java.lang.String targetEndpoint) throws org.apache.axis2.AxisFault {
+  public HrmServiceStub(String targetEndpoint) throws org.apache.axis2.AxisFault {
     this(null, targetEndpoint);
   }
 
@@ -216,8 +216,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#synHrmResource
    * @param synHrmResource
    */
-  public com.es.daily_report.soap.HrmServiceStub.SynHrmResourceResponse synHrmResource(
-      com.es.daily_report.soap.HrmServiceStub.SynHrmResource synHrmResource)
+  public SynHrmResourceResponse synHrmResource(
+      SynHrmResource synHrmResource)
       throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -265,13 +265,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.SynHrmResourceResponse.class);
+              SynHrmResourceResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.SynHrmResourceResponse) object;
+      return (SynHrmResourceResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -281,40 +281,40 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynHrmResource"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynHrmResource"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynHrmResource"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -337,8 +337,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#checkUser
    * @param checkUser
    */
-  public com.es.daily_report.soap.HrmServiceStub.CheckUserResponse checkUser(
-      com.es.daily_report.soap.HrmServiceStub.CheckUser checkUser) throws java.rmi.RemoteException {
+  public CheckUserResponse checkUser(
+      CheckUser checkUser) throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
@@ -382,13 +382,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.CheckUserResponse.class);
+              CheckUserResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.CheckUserResponse) object;
+      return (CheckUserResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -398,40 +398,40 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "checkUser"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "checkUser"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "checkUser"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -454,8 +454,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#getHrmDepartmentInfo
    * @param getHrmDepartmentInfo
    */
-  public com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoResponse getHrmDepartmentInfo(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfo getHrmDepartmentInfo)
+  public GetHrmDepartmentInfoResponse getHrmDepartmentInfo(
+      GetHrmDepartmentInfo getHrmDepartmentInfo)
       throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -503,13 +503,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoResponse.class);
+              GetHrmDepartmentInfoResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoResponse) object;
+      return (GetHrmDepartmentInfoResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -519,42 +519,42 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "getHrmDepartmentInfo"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmDepartmentInfo"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmDepartmentInfo"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -577,9 +577,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#getHrmSubcompanyInfoXML
    * @param getHrmSubcompanyInfoXML
    */
-  public com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXMLResponse
+  public GetHrmSubcompanyInfoXMLResponse
       getHrmSubcompanyInfoXML(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXML getHrmSubcompanyInfoXML)
+          GetHrmSubcompanyInfoXML getHrmSubcompanyInfoXML)
           throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -627,13 +627,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXMLResponse.class);
+              GetHrmSubcompanyInfoXMLResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXMLResponse) object;
+      return (GetHrmSubcompanyInfoXMLResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -644,42 +644,42 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 faultElt.getQName(), "getHrmSubcompanyInfoXML"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmSubcompanyInfoXML"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmSubcompanyInfoXML"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -702,8 +702,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#getHrmUserInfoXML
    * @param getHrmUserInfoXML
    */
-  public com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXMLResponse getHrmUserInfoXML(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXML getHrmUserInfoXML)
+  public GetHrmUserInfoXMLResponse getHrmUserInfoXML(
+      GetHrmUserInfoXML getHrmUserInfoXML)
       throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -751,13 +751,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXMLResponse.class);
+              GetHrmUserInfoXMLResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXMLResponse) object;
+      return (GetHrmUserInfoXMLResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -767,42 +767,42 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "getHrmUserInfoXML"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmUserInfoXML"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmUserInfoXML"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -825,8 +825,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#synJobtitle
    * @param synJobtitle
    */
-  public com.es.daily_report.soap.HrmServiceStub.SynJobtitleResponse synJobtitle(
-      com.es.daily_report.soap.HrmServiceStub.SynJobtitle synJobtitle)
+  public SynJobtitleResponse synJobtitle(
+      SynJobtitle synJobtitle)
       throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -871,13 +871,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.SynJobtitleResponse.class);
+              SynJobtitleResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.SynJobtitleResponse) object;
+      return (SynJobtitleResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -887,40 +887,40 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynJobtitle"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynJobtitle"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynJobtitle"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -943,9 +943,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#getHrmDepartmentInfoXML
    * @param getHrmDepartmentInfoXML
    */
-  public com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXMLResponse
+  public GetHrmDepartmentInfoXMLResponse
       getHrmDepartmentInfoXML(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXML getHrmDepartmentInfoXML)
+          GetHrmDepartmentInfoXML getHrmDepartmentInfoXML)
           throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -993,13 +993,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXMLResponse.class);
+              GetHrmDepartmentInfoXMLResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXMLResponse) object;
+      return (GetHrmDepartmentInfoXMLResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -1010,42 +1010,42 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 faultElt.getQName(), "getHrmDepartmentInfoXML"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmDepartmentInfoXML"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmDepartmentInfoXML"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -1068,8 +1068,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#changeUserPassword
    * @param changeUserPassword
    */
-  public com.es.daily_report.soap.HrmServiceStub.ChangeUserPasswordResponse changeUserPassword(
-      com.es.daily_report.soap.HrmServiceStub.ChangeUserPassword changeUserPassword)
+  public ChangeUserPasswordResponse changeUserPassword(
+      ChangeUserPassword changeUserPassword)
       throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -1117,13 +1117,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.ChangeUserPasswordResponse.class);
+              ChangeUserPasswordResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.ChangeUserPasswordResponse) object;
+      return (ChangeUserPasswordResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -1133,42 +1133,42 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "changeUserPassword"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "changeUserPassword"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "changeUserPassword"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -1191,9 +1191,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#getHrmJobTitleInfoXML
    * @param getHrmJobTitleInfoXML
    */
-  public com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXMLResponse
+  public GetHrmJobTitleInfoXMLResponse
       getHrmJobTitleInfoXML(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXML getHrmJobTitleInfoXML)
+          GetHrmJobTitleInfoXML getHrmJobTitleInfoXML)
           throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -1241,13 +1241,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXMLResponse.class);
+              GetHrmJobTitleInfoXMLResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXMLResponse) object;
+      return (GetHrmJobTitleInfoXMLResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -1258,42 +1258,42 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 faultElt.getQName(), "getHrmJobTitleInfoXML"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmJobTitleInfoXML"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmJobTitleInfoXML"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -1316,8 +1316,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#synSubCompany
    * @param synSubCompany
    */
-  public com.es.daily_report.soap.HrmServiceStub.SynSubCompanyResponse synSubCompany(
-      com.es.daily_report.soap.HrmServiceStub.SynSubCompany synSubCompany)
+  public SynSubCompanyResponse synSubCompany(
+      SynSubCompany synSubCompany)
       throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -1363,13 +1363,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.SynSubCompanyResponse.class);
+              SynSubCompanyResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.SynSubCompanyResponse) object;
+      return (SynSubCompanyResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -1379,40 +1379,40 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynSubCompany"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynSubCompany"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynSubCompany"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -1435,8 +1435,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#getHrmJobTitleInfo
    * @param getHrmJobTitleInfo
    */
-  public com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoResponse getHrmJobTitleInfo(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfo getHrmJobTitleInfo)
+  public GetHrmJobTitleInfoResponse getHrmJobTitleInfo(
+      GetHrmJobTitleInfo getHrmJobTitleInfo)
       throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -1484,13 +1484,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoResponse.class);
+              GetHrmJobTitleInfoResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoResponse) object;
+      return (GetHrmJobTitleInfoResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -1500,42 +1500,42 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "getHrmJobTitleInfo"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmJobTitleInfo"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmJobTitleInfo"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -1558,8 +1558,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#getHrmSubcompanyInfo
    * @param getHrmSubcompanyInfo
    */
-  public com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoResponse getHrmSubcompanyInfo(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfo getHrmSubcompanyInfo)
+  public GetHrmSubcompanyInfoResponse getHrmSubcompanyInfo(
+      GetHrmSubcompanyInfo getHrmSubcompanyInfo)
       throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -1607,13 +1607,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoResponse.class);
+              GetHrmSubcompanyInfoResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoResponse) object;
+      return (GetHrmSubcompanyInfoResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -1623,42 +1623,42 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "getHrmSubcompanyInfo"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmSubcompanyInfo"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(
                         faultElt.getQName(), "getHrmSubcompanyInfo"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -1681,8 +1681,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#getHrmUserInfo
    * @param getHrmUserInfo
    */
-  public com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoResponse getHrmUserInfo(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfo getHrmUserInfo)
+  public GetHrmUserInfoResponse getHrmUserInfo(
+      GetHrmUserInfo getHrmUserInfo)
       throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -1730,13 +1730,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoResponse.class);
+              GetHrmUserInfoResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoResponse) object;
+      return (GetHrmUserInfoResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -1746,40 +1746,40 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "getHrmUserInfo"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "getHrmUserInfo"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "getHrmUserInfo"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -1802,8 +1802,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
    * @see com.es.daily_report.soap.HrmService#synDepartment
    * @param synDepartment
    */
-  public com.es.daily_report.soap.HrmServiceStub.SynDepartmentResponse synDepartment(
-      com.es.daily_report.soap.HrmServiceStub.SynDepartment synDepartment)
+  public SynDepartmentResponse synDepartment(
+      SynDepartment synDepartment)
       throws java.rmi.RemoteException {
 
     org.apache.axis2.context.MessageContext _messageContext =
@@ -1849,13 +1849,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
       _returnEnv.buildWithAttachments();
 
-      java.lang.Object object =
+      Object object =
           fromOM(
               _returnEnv.getBody().getFirstElement(),
-              com.es.daily_report.soap.HrmServiceStub.SynDepartmentResponse.class);
+              SynDepartmentResponse.class);
       org.apache.axis2.transport.TransportUtils.detachInputStream(_returnMessageContext);
 
-      return (com.es.daily_report.soap.HrmServiceStub.SynDepartmentResponse) object;
+      return (SynDepartmentResponse) object;
 
     } catch (org.apache.axis2.AxisFault f) {
 
@@ -1865,40 +1865,40 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynDepartment"))) {
           // make the fault by reflection
           try {
-            java.lang.String exceptionClassName =
+            String exceptionClassName =
                 faultExceptionClassNameMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynDepartment"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            Class exceptionClass = Class.forName(exceptionClassName);
             java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+                exceptionClass.getConstructor(String.class);
+            Exception ex = (Exception) constructor.newInstance(f.getMessage());
             // message class
-            java.lang.String messageClassName =
+            String messageClassName =
                 faultMessageMap.get(
                     new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SynDepartment"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            Class messageClass = Class.forName(messageClassName);
+            Object messageObject = fromOM(faultElt, messageClass);
             java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
+                exceptionClass.getMethod("setFaultMessage", new Class[] {messageClass});
+            m.invoke(ex, new Object[] {messageObject});
 
             throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
+          } catch (ClassCastException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.ClassNotFoundException e) {
+          } catch (ClassNotFoundException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.NoSuchMethodException e) {
+          } catch (NoSuchMethodException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           } catch (java.lang.reflect.InvocationTargetException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.IllegalAccessException e) {
+          } catch (IllegalAccessException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
-          } catch (java.lang.InstantiationException e) {
+          } catch (InstantiationException e) {
             // we cannot intantiate the class - throw the original Axis fault
             throw f;
           }
@@ -1929,7 +1929,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
     return false;
   }
-  // http://192.168.1.66:8088//services/HrmService
+  // http://192.168.0.4//services/HrmService
   public static class ArrayOfUserBean implements org.apache.axis2.databinding.ADBBean {
     /* This type was generated from the piece of schema that had
     name = ArrayOfUserBean
@@ -2019,8 +2019,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -2028,7 +2028,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://webservice.hrm.weaver");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -2075,7 +2075,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://webservice.hrm.weaver")) {
         return "ns1";
       }
@@ -2084,12 +2084,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -2107,13 +2107,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -2125,9 +2125,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -2140,18 +2140,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -2169,9 +2169,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -2202,9 +2202,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -2239,15 +2239,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -2273,14 +2273,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static ArrayOfUserBean parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         ArrayOfUserBean object = new ArrayOfUserBean();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -2289,20 +2289,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"ArrayOfUserBean".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (ArrayOfUserBean) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -2382,7 +2382,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -2397,14 +2397,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "SynHrmResource", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -2413,20 +2413,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -2435,7 +2435,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
@@ -2465,8 +2465,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -2474,7 +2474,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -2526,7 +2526,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -2535,12 +2535,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -2558,13 +2558,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -2576,9 +2576,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -2591,18 +2591,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -2620,9 +2620,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -2653,9 +2653,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -2690,15 +2690,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -2724,14 +2724,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static SynHrmResource parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         SynHrmResource object = new SynHrmResource();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -2740,20 +2740,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"SynHrmResource".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (SynHrmResource) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -2775,7 +2775,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -2804,7 +2804,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -2832,7 +2832,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -2847,14 +2847,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmSubcompanyInfoXML", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -2863,7 +2863,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
@@ -2893,8 +2893,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -2902,7 +2902,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -2939,7 +2939,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -2948,12 +2948,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -2971,13 +2971,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -2989,9 +2989,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -3004,18 +3004,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -3033,9 +3033,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -3066,9 +3066,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -3103,15 +3103,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -3137,14 +3137,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmSubcompanyInfoXML parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmSubcompanyInfoXML object = new GetHrmSubcompanyInfoXML();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -3153,20 +3153,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmSubcompanyInfoXML".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmSubcompanyInfoXML) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -3188,7 +3188,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -3216,7 +3216,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -3232,7 +3232,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     */
 
     /** field for _code */
-    protected java.lang.String local_code;
+    protected String local_code;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -3249,7 +3249,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_code() {
+    public String get_code() {
       return local_code;
     }
 
@@ -3258,14 +3258,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _code
      */
-    public void set_code(java.lang.String param) {
+    public void set_code(String param) {
       local_codeTracker = true;
 
       this.local_code = param;
     }
 
     /** field for _departmentid */
-    protected java.lang.String local_departmentid;
+    protected String local_departmentid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -3282,7 +3282,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_departmentid() {
+    public String get_departmentid() {
       return local_departmentid;
     }
 
@@ -3291,14 +3291,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _departmentid
      */
-    public void set_departmentid(java.lang.String param) {
+    public void set_departmentid(String param) {
       local_departmentidTracker = true;
 
       this.local_departmentid = param;
     }
 
     /** field for _fullname */
-    protected java.lang.String local_fullname;
+    protected String local_fullname;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -3315,7 +3315,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_fullname() {
+    public String get_fullname() {
       return local_fullname;
     }
 
@@ -3324,14 +3324,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _fullname
      */
-    public void set_fullname(java.lang.String param) {
+    public void set_fullname(String param) {
       local_fullnameTracker = true;
 
       this.local_fullname = param;
     }
 
     /** field for _jobcompetency */
-    protected java.lang.String local_jobcompetency;
+    protected String local_jobcompetency;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -3348,7 +3348,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_jobcompetency() {
+    public String get_jobcompetency() {
       return local_jobcompetency;
     }
 
@@ -3357,14 +3357,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _jobcompetency
      */
-    public void set_jobcompetency(java.lang.String param) {
+    public void set_jobcompetency(String param) {
       local_jobcompetencyTracker = true;
 
       this.local_jobcompetency = param;
     }
 
     /** field for _jobdoc */
-    protected java.lang.String local_jobdoc;
+    protected String local_jobdoc;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -3381,7 +3381,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_jobdoc() {
+    public String get_jobdoc() {
       return local_jobdoc;
     }
 
@@ -3390,14 +3390,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _jobdoc
      */
-    public void set_jobdoc(java.lang.String param) {
+    public void set_jobdoc(String param) {
       local_jobdocTracker = true;
 
       this.local_jobdoc = param;
     }
 
     /** field for _jobresponsibility */
-    protected java.lang.String local_jobresponsibility;
+    protected String local_jobresponsibility;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -3414,7 +3414,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_jobresponsibility() {
+    public String get_jobresponsibility() {
       return local_jobresponsibility;
     }
 
@@ -3423,14 +3423,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _jobresponsibility
      */
-    public void set_jobresponsibility(java.lang.String param) {
+    public void set_jobresponsibility(String param) {
       local_jobresponsibilityTracker = true;
 
       this.local_jobresponsibility = param;
     }
 
     /** field for _jobtitleid */
-    protected java.lang.String local_jobtitleid;
+    protected String local_jobtitleid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -3447,7 +3447,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_jobtitleid() {
+    public String get_jobtitleid() {
       return local_jobtitleid;
     }
 
@@ -3456,14 +3456,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _jobtitleid
      */
-    public void set_jobtitleid(java.lang.String param) {
+    public void set_jobtitleid(String param) {
       local_jobtitleidTracker = true;
 
       this.local_jobtitleid = param;
     }
 
     /** field for _jobtitleremark */
-    protected java.lang.String local_jobtitleremark;
+    protected String local_jobtitleremark;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -3480,7 +3480,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_jobtitleremark() {
+    public String get_jobtitleremark() {
       return local_jobtitleremark;
     }
 
@@ -3489,14 +3489,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _jobtitleremark
      */
-    public void set_jobtitleremark(java.lang.String param) {
+    public void set_jobtitleremark(String param) {
       local_jobtitleremarkTracker = true;
 
       this.local_jobtitleremark = param;
     }
 
     /** field for _lastChangdate */
-    protected java.lang.String local_lastChangdate;
+    protected String local_lastChangdate;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -3513,7 +3513,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_lastChangdate() {
+    public String get_lastChangdate() {
       return local_lastChangdate;
     }
 
@@ -3522,14 +3522,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _lastChangdate
      */
-    public void set_lastChangdate(java.lang.String param) {
+    public void set_lastChangdate(String param) {
       local_lastChangdateTracker = true;
 
       this.local_lastChangdate = param;
     }
 
     /** field for _shortname */
-    protected java.lang.String local_shortname;
+    protected String local_shortname;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -3546,7 +3546,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_shortname() {
+    public String get_shortname() {
       return local_shortname;
     }
 
@@ -3555,14 +3555,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _shortname
      */
-    public void set_shortname(java.lang.String param) {
+    public void set_shortname(String param) {
       local_shortnameTracker = true;
 
       this.local_shortname = param;
     }
 
     /** field for Action */
-    protected java.lang.String localAction;
+    protected String localAction;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -3579,7 +3579,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getAction() {
+    public String getAction() {
       return localAction;
     }
 
@@ -3588,7 +3588,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Action
      */
-    public void setAction(java.lang.String param) {
+    public void setAction(String param) {
       localActionTracker = true;
 
       this.localAction = param;
@@ -3619,8 +3619,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -3628,7 +3628,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://webservice.hrm.weaver");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -3825,7 +3825,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://webservice.hrm.weaver")) {
         return "ns1";
       }
@@ -3834,12 +3834,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -3857,13 +3857,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -3875,9 +3875,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -3890,18 +3890,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -3919,9 +3919,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -3952,9 +3952,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -3989,15 +3989,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -4023,14 +4023,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static JobTitleBean parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         JobTitleBean object = new JobTitleBean();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -4039,20 +4039,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"JobTitleBean".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (JobTitleBean) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -4074,7 +4074,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_code(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4101,7 +4101,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_departmentid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4128,7 +4128,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_fullname(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4155,7 +4155,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_jobcompetency(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4182,7 +4182,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_jobdoc(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4209,7 +4209,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_jobresponsibility(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4236,7 +4236,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_jobtitleid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4263,7 +4263,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_jobtitleremark(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4290,7 +4290,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_lastChangdate(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4317,7 +4317,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_shortname(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4344,7 +4344,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setAction(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4370,7 +4370,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -4385,14 +4385,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmUserInfo", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -4401,20 +4401,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -4423,20 +4423,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
 
     /** field for In2 */
-    protected java.lang.String localIn2;
+    protected String localIn2;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn2() {
+    public String getIn2() {
       return localIn2;
     }
 
@@ -4445,20 +4445,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In2
      */
-    public void setIn2(java.lang.String param) {
+    public void setIn2(String param) {
 
       this.localIn2 = param;
     }
 
     /** field for In3 */
-    protected java.lang.String localIn3;
+    protected String localIn3;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn3() {
+    public String getIn3() {
       return localIn3;
     }
 
@@ -4467,20 +4467,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In3
      */
-    public void setIn3(java.lang.String param) {
+    public void setIn3(String param) {
 
       this.localIn3 = param;
     }
 
     /** field for In4 */
-    protected java.lang.String localIn4;
+    protected String localIn4;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn4() {
+    public String getIn4() {
       return localIn4;
     }
 
@@ -4489,20 +4489,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In4
      */
-    public void setIn4(java.lang.String param) {
+    public void setIn4(String param) {
 
       this.localIn4 = param;
     }
 
     /** field for In5 */
-    protected java.lang.String localIn5;
+    protected String localIn5;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn5() {
+    public String getIn5() {
       return localIn5;
     }
 
@@ -4511,7 +4511,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In5
      */
-    public void setIn5(java.lang.String param) {
+    public void setIn5(String param) {
 
       this.localIn5 = param;
     }
@@ -4541,8 +4541,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -4550,7 +4550,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -4662,7 +4662,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -4671,12 +4671,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -4694,13 +4694,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -4712,9 +4712,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -4727,18 +4727,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -4756,9 +4756,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -4789,9 +4789,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -4826,15 +4826,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -4860,14 +4860,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmUserInfo parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmUserInfo object = new GetHrmUserInfo();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -4876,20 +4876,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmUserInfo".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmUserInfo) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -4911,7 +4911,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4940,7 +4940,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4969,7 +4969,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn2(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -4998,7 +4998,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn3(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -5027,7 +5027,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn4(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -5056,7 +5056,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn5(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -5084,7 +5084,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -5100,14 +5100,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmDepartmentInfoXMLResponse", "ns2");
 
     /** field for Out */
-    protected java.lang.String localOut;
+    protected String localOut;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getOut() {
+    public String getOut() {
       return localOut;
     }
 
@@ -5116,7 +5116,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Out
      */
-    public void setOut(java.lang.String param) {
+    public void setOut(String param) {
 
       this.localOut = param;
     }
@@ -5146,8 +5146,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -5155,7 +5155,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -5192,7 +5192,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -5201,12 +5201,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -5224,13 +5224,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -5242,9 +5242,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -5257,18 +5257,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -5286,9 +5286,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -5319,9 +5319,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -5356,15 +5356,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -5390,14 +5390,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmDepartmentInfoXMLResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmDepartmentInfoXMLResponse object = new GetHrmDepartmentInfoXMLResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -5406,20 +5406,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmDepartmentInfoXMLResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmDepartmentInfoXMLResponse)
                     ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
@@ -5442,7 +5442,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setOut(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -5470,7 +5470,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -5485,14 +5485,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "SynDepartmentResponse", "ns2");
 
     /** field for Out */
-    protected java.lang.String localOut;
+    protected String localOut;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getOut() {
+    public String getOut() {
       return localOut;
     }
 
@@ -5501,7 +5501,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Out
      */
-    public void setOut(java.lang.String param) {
+    public void setOut(String param) {
 
       this.localOut = param;
     }
@@ -5531,8 +5531,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -5540,7 +5540,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -5577,7 +5577,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -5586,12 +5586,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -5609,13 +5609,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -5627,9 +5627,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -5642,18 +5642,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -5671,9 +5671,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -5704,9 +5704,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -5741,15 +5741,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -5775,14 +5775,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static SynDepartmentResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         SynDepartmentResponse object = new SynDepartmentResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -5791,20 +5791,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"SynDepartmentResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (SynDepartmentResponse) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -5826,7 +5826,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setOut(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -5854,7 +5854,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -5869,14 +5869,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmDepartmentInfoXML", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -5885,20 +5885,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -5907,7 +5907,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
@@ -5937,8 +5937,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -5946,7 +5946,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -5998,7 +5998,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -6007,12 +6007,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -6030,13 +6030,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -6048,9 +6048,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -6063,18 +6063,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -6092,9 +6092,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -6125,9 +6125,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -6162,15 +6162,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -6196,14 +6196,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmDepartmentInfoXML parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmDepartmentInfoXML object = new GetHrmDepartmentInfoXML();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -6212,20 +6212,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmDepartmentInfoXML".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmDepartmentInfoXML) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -6247,7 +6247,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -6276,7 +6276,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -6304,7 +6304,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -6319,14 +6319,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmJobTitleInfo", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -6335,20 +6335,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -6357,20 +6357,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
 
     /** field for In2 */
-    protected java.lang.String localIn2;
+    protected String localIn2;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn2() {
+    public String getIn2() {
       return localIn2;
     }
 
@@ -6379,7 +6379,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In2
      */
-    public void setIn2(java.lang.String param) {
+    public void setIn2(String param) {
 
       this.localIn2 = param;
     }
@@ -6409,8 +6409,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -6418,7 +6418,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -6485,7 +6485,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -6494,12 +6494,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -6517,13 +6517,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -6535,9 +6535,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -6550,18 +6550,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -6579,9 +6579,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -6612,9 +6612,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -6649,15 +6649,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -6683,14 +6683,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmJobTitleInfo parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmJobTitleInfo object = new GetHrmJobTitleInfo();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -6699,20 +6699,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmJobTitleInfo".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmJobTitleInfo) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -6734,7 +6734,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -6763,7 +6763,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -6792,7 +6792,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn2(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -6820,7 +6820,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -6836,14 +6836,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmJobTitleInfoXMLResponse", "ns2");
 
     /** field for Out */
-    protected java.lang.String localOut;
+    protected String localOut;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getOut() {
+    public String getOut() {
       return localOut;
     }
 
@@ -6852,7 +6852,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Out
      */
-    public void setOut(java.lang.String param) {
+    public void setOut(String param) {
 
       this.localOut = param;
     }
@@ -6882,8 +6882,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -6891,7 +6891,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -6928,7 +6928,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -6937,12 +6937,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -6960,13 +6960,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -6978,9 +6978,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -6993,18 +6993,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -7022,9 +7022,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -7055,9 +7055,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -7092,15 +7092,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -7126,14 +7126,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmJobTitleInfoXMLResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmJobTitleInfoXMLResponse object = new GetHrmJobTitleInfoXMLResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -7142,20 +7142,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmJobTitleInfoXMLResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmJobTitleInfoXMLResponse)
                     ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
@@ -7178,7 +7178,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setOut(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -7206,7 +7206,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -7221,14 +7221,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "SynSubCompany", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -7237,20 +7237,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -7259,7 +7259,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
@@ -7289,8 +7289,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -7298,7 +7298,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -7350,7 +7350,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -7359,12 +7359,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -7382,13 +7382,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -7400,9 +7400,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -7415,18 +7415,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -7444,9 +7444,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -7477,9 +7477,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -7514,15 +7514,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -7548,14 +7548,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static SynSubCompany parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         SynSubCompany object = new SynSubCompany();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -7564,20 +7564,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"SynSubCompany".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (SynSubCompany) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -7599,7 +7599,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -7628,7 +7628,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -7656,7 +7656,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -7671,14 +7671,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "SynHrmResourceResponse", "ns2");
 
     /** field for Out */
-    protected java.lang.String localOut;
+    protected String localOut;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getOut() {
+    public String getOut() {
       return localOut;
     }
 
@@ -7687,7 +7687,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Out
      */
-    public void setOut(java.lang.String param) {
+    public void setOut(String param) {
 
       this.localOut = param;
     }
@@ -7717,8 +7717,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -7726,7 +7726,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -7763,7 +7763,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -7772,12 +7772,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -7795,13 +7795,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -7813,9 +7813,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -7828,18 +7828,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -7857,9 +7857,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -7890,9 +7890,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -7927,15 +7927,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -7961,14 +7961,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static SynHrmResourceResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         SynHrmResourceResponse object = new SynHrmResourceResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -7977,20 +7977,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"SynHrmResourceResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (SynHrmResourceResponse) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -8012,7 +8012,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setOut(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -8040,7 +8040,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -8055,14 +8055,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "SynSubCompanyResponse", "ns2");
 
     /** field for Out */
-    protected java.lang.String localOut;
+    protected String localOut;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getOut() {
+    public String getOut() {
       return localOut;
     }
 
@@ -8071,7 +8071,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Out
      */
-    public void setOut(java.lang.String param) {
+    public void setOut(String param) {
 
       this.localOut = param;
     }
@@ -8101,8 +8101,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -8110,7 +8110,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -8147,7 +8147,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -8156,12 +8156,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -8179,13 +8179,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -8197,9 +8197,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -8212,18 +8212,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -8241,9 +8241,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -8274,9 +8274,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -8311,15 +8311,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -8345,14 +8345,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static SynSubCompanyResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         SynSubCompanyResponse object = new SynSubCompanyResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -8361,20 +8361,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"SynSubCompanyResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (SynSubCompanyResponse) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -8396,7 +8396,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setOut(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -8424,7 +8424,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -8439,14 +8439,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "SynDepartment", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -8455,20 +8455,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -8477,7 +8477,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
@@ -8507,8 +8507,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -8516,7 +8516,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -8568,7 +8568,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -8577,12 +8577,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -8600,13 +8600,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -8618,9 +8618,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -8633,18 +8633,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -8662,9 +8662,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -8695,9 +8695,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -8732,15 +8732,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -8766,14 +8766,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static SynDepartment parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         SynDepartment object = new SynDepartment();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -8782,20 +8782,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"SynDepartment".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (SynDepartment) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -8817,7 +8817,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -8846,7 +8846,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -8874,7 +8874,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -8889,14 +8889,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "changeUserPassword", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -8905,20 +8905,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -8927,20 +8927,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
 
     /** field for In2 */
-    protected java.lang.String localIn2;
+    protected String localIn2;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn2() {
+    public String getIn2() {
       return localIn2;
     }
 
@@ -8949,7 +8949,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In2
      */
-    public void setIn2(java.lang.String param) {
+    public void setIn2(String param) {
 
       this.localIn2 = param;
     }
@@ -8979,8 +8979,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -8988,7 +8988,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -9055,7 +9055,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -9064,12 +9064,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -9087,13 +9087,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -9105,9 +9105,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -9120,18 +9120,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -9149,9 +9149,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -9182,9 +9182,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -9219,15 +9219,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -9253,14 +9253,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static ChangeUserPassword parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         ChangeUserPassword object = new ChangeUserPassword();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -9269,20 +9269,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"changeUserPassword".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (ChangeUserPassword) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -9304,7 +9304,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -9333,7 +9333,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -9362,7 +9362,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn2(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -9390,7 +9390,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -9406,7 +9406,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     */
 
     /** field for _canceled */
-    protected java.lang.String local_canceled;
+    protected String local_canceled;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -9423,7 +9423,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_canceled() {
+    public String get_canceled() {
       return local_canceled;
     }
 
@@ -9432,14 +9432,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _canceled
      */
-    public void set_canceled(java.lang.String param) {
+    public void set_canceled(String param) {
       local_canceledTracker = true;
 
       this.local_canceled = param;
     }
 
     /** field for _code */
-    protected java.lang.String local_code;
+    protected String local_code;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -9456,7 +9456,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_code() {
+    public String get_code() {
       return local_code;
     }
 
@@ -9465,14 +9465,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _code
      */
-    public void set_code(java.lang.String param) {
+    public void set_code(String param) {
       local_codeTracker = true;
 
       this.local_code = param;
     }
 
     /** field for _fullname */
-    protected java.lang.String local_fullname;
+    protected String local_fullname;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -9489,7 +9489,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_fullname() {
+    public String get_fullname() {
       return local_fullname;
     }
 
@@ -9498,14 +9498,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _fullname
      */
-    public void set_fullname(java.lang.String param) {
+    public void set_fullname(String param) {
       local_fullnameTracker = true;
 
       this.local_fullname = param;
     }
 
     /** field for _shortname */
-    protected java.lang.String local_shortname;
+    protected String local_shortname;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -9522,7 +9522,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_shortname() {
+    public String get_shortname() {
       return local_shortname;
     }
 
@@ -9531,14 +9531,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _shortname
      */
-    public void set_shortname(java.lang.String param) {
+    public void set_shortname(String param) {
       local_shortnameTracker = true;
 
       this.local_shortname = param;
     }
 
     /** field for _showorder */
-    protected java.lang.String local_showorder;
+    protected String local_showorder;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -9555,7 +9555,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_showorder() {
+    public String get_showorder() {
       return local_showorder;
     }
 
@@ -9564,14 +9564,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _showorder
      */
-    public void set_showorder(java.lang.String param) {
+    public void set_showorder(String param) {
       local_showorderTracker = true;
 
       this.local_showorder = param;
     }
 
     /** field for _subcompanyid */
-    protected java.lang.String local_subcompanyid;
+    protected String local_subcompanyid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -9588,7 +9588,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_subcompanyid() {
+    public String get_subcompanyid() {
       return local_subcompanyid;
     }
 
@@ -9597,14 +9597,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _subcompanyid
      */
-    public void set_subcompanyid(java.lang.String param) {
+    public void set_subcompanyid(String param) {
       local_subcompanyidTracker = true;
 
       this.local_subcompanyid = param;
     }
 
     /** field for _supsubcompanyid */
-    protected java.lang.String local_supsubcompanyid;
+    protected String local_supsubcompanyid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -9621,7 +9621,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_supsubcompanyid() {
+    public String get_supsubcompanyid() {
       return local_supsubcompanyid;
     }
 
@@ -9630,14 +9630,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _supsubcompanyid
      */
-    public void set_supsubcompanyid(java.lang.String param) {
+    public void set_supsubcompanyid(String param) {
       local_supsubcompanyidTracker = true;
 
       this.local_supsubcompanyid = param;
     }
 
     /** field for _website */
-    protected java.lang.String local_website;
+    protected String local_website;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -9654,7 +9654,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_website() {
+    public String get_website() {
       return local_website;
     }
 
@@ -9663,14 +9663,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _website
      */
-    public void set_website(java.lang.String param) {
+    public void set_website(String param) {
       local_websiteTracker = true;
 
       this.local_website = param;
     }
 
     /** field for Action */
-    protected java.lang.String localAction;
+    protected String localAction;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -9687,7 +9687,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getAction() {
+    public String getAction() {
       return localAction;
     }
 
@@ -9696,14 +9696,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Action
      */
-    public void setAction(java.lang.String param) {
+    public void setAction(String param) {
       localActionTracker = true;
 
       this.localAction = param;
     }
 
     /** field for LastChangdate */
-    protected java.lang.String localLastChangdate;
+    protected String localLastChangdate;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -9720,7 +9720,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getLastChangdate() {
+    public String getLastChangdate() {
       return localLastChangdate;
     }
 
@@ -9729,7 +9729,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param LastChangdate
      */
-    public void setLastChangdate(java.lang.String param) {
+    public void setLastChangdate(String param) {
       localLastChangdateTracker = true;
 
       this.localLastChangdate = param;
@@ -9760,8 +9760,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -9769,7 +9769,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://webservice.hrm.weaver");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -9950,7 +9950,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://webservice.hrm.weaver")) {
         return "ns1";
       }
@@ -9959,12 +9959,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -9982,13 +9982,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -10000,9 +10000,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -10015,18 +10015,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -10044,9 +10044,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -10077,9 +10077,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -10114,15 +10114,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -10148,14 +10148,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static SubCompanyBean parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         SubCompanyBean object = new SubCompanyBean();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -10164,20 +10164,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"SubCompanyBean".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (SubCompanyBean) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -10199,7 +10199,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_canceled(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10226,7 +10226,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_code(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10253,7 +10253,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_fullname(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10280,7 +10280,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_shortname(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10307,7 +10307,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_showorder(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10334,7 +10334,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_subcompanyid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10361,7 +10361,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_supsubcompanyid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10388,7 +10388,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_website(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10415,7 +10415,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setAction(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10442,7 +10442,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setLastChangdate(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10468,7 +10468,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -10483,14 +10483,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmDepartmentInfo", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -10499,20 +10499,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -10521,7 +10521,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
@@ -10551,8 +10551,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -10560,7 +10560,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -10612,7 +10612,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -10621,12 +10621,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -10644,13 +10644,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -10662,9 +10662,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -10677,18 +10677,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -10706,9 +10706,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -10739,9 +10739,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -10776,15 +10776,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -10810,14 +10810,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmDepartmentInfo parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmDepartmentInfo object = new GetHrmDepartmentInfo();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -10826,20 +10826,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmDepartmentInfo".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmDepartmentInfo) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -10861,7 +10861,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10890,7 +10890,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -10918,7 +10918,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -10933,14 +10933,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmUserInfoXMLResponse", "ns2");
 
     /** field for Out */
-    protected java.lang.String localOut;
+    protected String localOut;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getOut() {
+    public String getOut() {
       return localOut;
     }
 
@@ -10949,7 +10949,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Out
      */
-    public void setOut(java.lang.String param) {
+    public void setOut(String param) {
 
       this.localOut = param;
     }
@@ -10979,8 +10979,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -10988,7 +10988,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -11025,7 +11025,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -11034,12 +11034,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -11057,13 +11057,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -11075,9 +11075,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -11090,18 +11090,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -11119,9 +11119,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -11152,9 +11152,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -11189,15 +11189,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -11223,14 +11223,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmUserInfoXMLResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmUserInfoXMLResponse object = new GetHrmUserInfoXMLResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -11239,20 +11239,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmUserInfoXMLResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmUserInfoXMLResponse)
                     ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
@@ -11275,7 +11275,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setOut(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -11303,7 +11303,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -11313,11 +11313,11 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   public static class ExtensionMapper {
 
-    public static java.lang.Object getTypeObject(
-        java.lang.String namespaceURI,
-        java.lang.String typeName,
+    public static Object getTypeObject(
+        String namespaceURI,
+        String typeName,
         javax.xml.stream.XMLStreamReader reader)
-        throws java.lang.Exception {
+        throws Exception {
 
       if ("http://webservice.hrm.weaver".equals(namespaceURI)
           && "SubCompanyBean".equals(typeName)) {
@@ -11407,13 +11407,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     public void setAccounttype(int param) {
 
       // setting primitive attribute tracker to true
-      localAccounttypeTracker = param != java.lang.Integer.MIN_VALUE;
+      localAccounttypeTracker = param != Integer.MIN_VALUE;
 
       this.localAccounttype = param;
     }
 
     /** field for Assistantid */
-    protected java.lang.String localAssistantid;
+    protected String localAssistantid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11430,7 +11430,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getAssistantid() {
+    public String getAssistantid() {
       return localAssistantid;
     }
 
@@ -11439,14 +11439,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Assistantid
      */
-    public void setAssistantid(java.lang.String param) {
+    public void setAssistantid(String param) {
       localAssistantidTracker = true;
 
       this.localAssistantid = param;
     }
 
     /** field for Bememberdate */
-    protected java.lang.String localBememberdate;
+    protected String localBememberdate;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11463,7 +11463,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getBememberdate() {
+    public String getBememberdate() {
       return localBememberdate;
     }
 
@@ -11472,14 +11472,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Bememberdate
      */
-    public void setBememberdate(java.lang.String param) {
+    public void setBememberdate(String param) {
       localBememberdateTracker = true;
 
       this.localBememberdate = param;
     }
 
     /** field for Bepartydate */
-    protected java.lang.String localBepartydate;
+    protected String localBepartydate;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11496,7 +11496,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getBepartydate() {
+    public String getBepartydate() {
       return localBepartydate;
     }
 
@@ -11505,14 +11505,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Bepartydate
      */
-    public void setBepartydate(java.lang.String param) {
+    public void setBepartydate(String param) {
       localBepartydateTracker = true;
 
       this.localBepartydate = param;
     }
 
     /** field for Birthday */
-    protected java.lang.String localBirthday;
+    protected String localBirthday;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11529,7 +11529,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getBirthday() {
+    public String getBirthday() {
       return localBirthday;
     }
 
@@ -11538,14 +11538,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Birthday
      */
-    public void setBirthday(java.lang.String param) {
+    public void setBirthday(String param) {
       localBirthdayTracker = true;
 
       this.localBirthday = param;
     }
 
     /** field for Certificatenum */
-    protected java.lang.String localCertificatenum;
+    protected String localCertificatenum;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11562,7 +11562,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getCertificatenum() {
+    public String getCertificatenum() {
       return localCertificatenum;
     }
 
@@ -11571,14 +11571,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Certificatenum
      */
-    public void setCertificatenum(java.lang.String param) {
+    public void setCertificatenum(String param) {
       localCertificatenumTracker = true;
 
       this.localCertificatenum = param;
     }
 
     /** field for Createdate */
-    protected java.lang.String localCreatedate;
+    protected String localCreatedate;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11595,7 +11595,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getCreatedate() {
+    public String getCreatedate() {
       return localCreatedate;
     }
 
@@ -11604,14 +11604,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Createdate
      */
-    public void setCreatedate(java.lang.String param) {
+    public void setCreatedate(String param) {
       localCreatedateTracker = true;
 
       this.localCreatedate = param;
     }
 
     /** field for Degree */
-    protected java.lang.String localDegree;
+    protected String localDegree;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11628,7 +11628,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getDegree() {
+    public String getDegree() {
       return localDegree;
     }
 
@@ -11637,14 +11637,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Degree
      */
-    public void setDegree(java.lang.String param) {
+    public void setDegree(String param) {
       localDegreeTracker = true;
 
       this.localDegree = param;
     }
 
     /** field for Departmentcode */
-    protected java.lang.String localDepartmentcode;
+    protected String localDepartmentcode;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11661,7 +11661,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getDepartmentcode() {
+    public String getDepartmentcode() {
       return localDepartmentcode;
     }
 
@@ -11670,14 +11670,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Departmentcode
      */
-    public void setDepartmentcode(java.lang.String param) {
+    public void setDepartmentcode(String param) {
       localDepartmentcodeTracker = true;
 
       this.localDepartmentcode = param;
     }
 
     /** field for Departmentid */
-    protected java.lang.String localDepartmentid;
+    protected String localDepartmentid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11694,7 +11694,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getDepartmentid() {
+    public String getDepartmentid() {
       return localDepartmentid;
     }
 
@@ -11703,14 +11703,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Departmentid
      */
-    public void setDepartmentid(java.lang.String param) {
+    public void setDepartmentid(String param) {
       localDepartmentidTracker = true;
 
       this.localDepartmentid = param;
     }
 
     /** field for Departmentname */
-    protected java.lang.String localDepartmentname;
+    protected String localDepartmentname;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11727,7 +11727,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getDepartmentname() {
+    public String getDepartmentname() {
       return localDepartmentname;
     }
 
@@ -11736,7 +11736,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Departmentname
      */
-    public void setDepartmentname(java.lang.String param) {
+    public void setDepartmentname(String param) {
       localDepartmentnameTracker = true;
 
       this.localDepartmentname = param;
@@ -11772,13 +11772,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     public void setDsporder(float param) {
 
       // setting primitive attribute tracker to true
-      localDsporderTracker = !java.lang.Float.isNaN(param);
+      localDsporderTracker = !Float.isNaN(param);
 
       this.localDsporder = param;
     }
 
     /** field for Educationlevel */
-    protected java.lang.String localEducationlevel;
+    protected String localEducationlevel;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11795,7 +11795,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getEducationlevel() {
+    public String getEducationlevel() {
       return localEducationlevel;
     }
 
@@ -11804,14 +11804,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Educationlevel
      */
-    public void setEducationlevel(java.lang.String param) {
+    public void setEducationlevel(String param) {
       localEducationlevelTracker = true;
 
       this.localEducationlevel = param;
     }
 
     /** field for Email */
-    protected java.lang.String localEmail;
+    protected String localEmail;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11828,7 +11828,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getEmail() {
+    public String getEmail() {
       return localEmail;
     }
 
@@ -11837,14 +11837,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Email
      */
-    public void setEmail(java.lang.String param) {
+    public void setEmail(String param) {
       localEmailTracker = true;
 
       this.localEmail = param;
     }
 
     /** field for Enddate */
-    protected java.lang.String localEnddate;
+    protected String localEnddate;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11861,7 +11861,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getEnddate() {
+    public String getEnddate() {
       return localEnddate;
     }
 
@@ -11870,14 +11870,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Enddate
      */
-    public void setEnddate(java.lang.String param) {
+    public void setEnddate(String param) {
       localEnddateTracker = true;
 
       this.localEnddate = param;
     }
 
     /** field for Fax */
-    protected java.lang.String localFax;
+    protected String localFax;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11894,7 +11894,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getFax() {
+    public String getFax() {
       return localFax;
     }
 
@@ -11903,14 +11903,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Fax
      */
-    public void setFax(java.lang.String param) {
+    public void setFax(String param) {
       localFaxTracker = true;
 
       this.localFax = param;
     }
 
     /** field for Folk */
-    protected java.lang.String localFolk;
+    protected String localFolk;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11927,7 +11927,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getFolk() {
+    public String getFolk() {
       return localFolk;
     }
 
@@ -11936,14 +11936,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Folk
      */
-    public void setFolk(java.lang.String param) {
+    public void setFolk(String param) {
       localFolkTracker = true;
 
       this.localFolk = param;
     }
 
     /** field for Healthinfo */
-    protected java.lang.String localHealthinfo;
+    protected String localHealthinfo;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11960,7 +11960,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getHealthinfo() {
+    public String getHealthinfo() {
       return localHealthinfo;
     }
 
@@ -11969,14 +11969,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Healthinfo
      */
-    public void setHealthinfo(java.lang.String param) {
+    public void setHealthinfo(String param) {
       localHealthinfoTracker = true;
 
       this.localHealthinfo = param;
     }
 
     /** field for Height */
-    protected java.lang.String localHeight;
+    protected String localHeight;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -11993,7 +11993,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getHeight() {
+    public String getHeight() {
       return localHeight;
     }
 
@@ -12002,14 +12002,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Height
      */
-    public void setHeight(java.lang.String param) {
+    public void setHeight(String param) {
       localHeightTracker = true;
 
       this.localHeight = param;
     }
 
     /** field for Homeaddress */
-    protected java.lang.String localHomeaddress;
+    protected String localHomeaddress;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12026,7 +12026,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getHomeaddress() {
+    public String getHomeaddress() {
       return localHomeaddress;
     }
 
@@ -12035,14 +12035,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Homeaddress
      */
-    public void setHomeaddress(java.lang.String param) {
+    public void setHomeaddress(String param) {
       localHomeaddressTracker = true;
 
       this.localHomeaddress = param;
     }
 
     /** field for Islabouunion */
-    protected java.lang.String localIslabouunion;
+    protected String localIslabouunion;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12059,7 +12059,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getIslabouunion() {
+    public String getIslabouunion() {
       return localIslabouunion;
     }
 
@@ -12068,14 +12068,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Islabouunion
      */
-    public void setIslabouunion(java.lang.String param) {
+    public void setIslabouunion(String param) {
       localIslabouunionTracker = true;
 
       this.localIslabouunion = param;
     }
 
     /** field for Jobactivitydesc */
-    protected java.lang.String localJobactivitydesc;
+    protected String localJobactivitydesc;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12092,7 +12092,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getJobactivitydesc() {
+    public String getJobactivitydesc() {
       return localJobactivitydesc;
     }
 
@@ -12101,14 +12101,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Jobactivitydesc
      */
-    public void setJobactivitydesc(java.lang.String param) {
+    public void setJobactivitydesc(String param) {
       localJobactivitydescTracker = true;
 
       this.localJobactivitydesc = param;
     }
 
     /** field for Jobactivityid */
-    protected java.lang.String localJobactivityid;
+    protected String localJobactivityid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12125,7 +12125,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getJobactivityid() {
+    public String getJobactivityid() {
       return localJobactivityid;
     }
 
@@ -12134,14 +12134,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Jobactivityid
      */
-    public void setJobactivityid(java.lang.String param) {
+    public void setJobactivityid(String param) {
       localJobactivityidTracker = true;
 
       this.localJobactivityid = param;
     }
 
     /** field for Jobcall */
-    protected java.lang.String localJobcall;
+    protected String localJobcall;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12158,7 +12158,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getJobcall() {
+    public String getJobcall() {
       return localJobcall;
     }
 
@@ -12167,14 +12167,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Jobcall
      */
-    public void setJobcall(java.lang.String param) {
+    public void setJobcall(String param) {
       localJobcallTracker = true;
 
       this.localJobcall = param;
     }
 
     /** field for Jobgroupid */
-    protected java.lang.String localJobgroupid;
+    protected String localJobgroupid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12191,7 +12191,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getJobgroupid() {
+    public String getJobgroupid() {
       return localJobgroupid;
     }
 
@@ -12200,14 +12200,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Jobgroupid
      */
-    public void setJobgroupid(java.lang.String param) {
+    public void setJobgroupid(String param) {
       localJobgroupidTracker = true;
 
       this.localJobgroupid = param;
     }
 
     /** field for Joblevel */
-    protected java.lang.String localJoblevel;
+    protected String localJoblevel;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12224,7 +12224,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getJoblevel() {
+    public String getJoblevel() {
       return localJoblevel;
     }
 
@@ -12233,14 +12233,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Joblevel
      */
-    public void setJoblevel(java.lang.String param) {
+    public void setJoblevel(String param) {
       localJoblevelTracker = true;
 
       this.localJoblevel = param;
     }
 
     /** field for Jobtitle */
-    protected java.lang.String localJobtitle;
+    protected String localJobtitle;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12257,7 +12257,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getJobtitle() {
+    public String getJobtitle() {
       return localJobtitle;
     }
 
@@ -12266,14 +12266,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Jobtitle
      */
-    public void setJobtitle(java.lang.String param) {
+    public void setJobtitle(String param) {
       localJobtitleTracker = true;
 
       this.localJobtitle = param;
     }
 
     /** field for LastChangdate */
-    protected java.lang.String localLastChangdate;
+    protected String localLastChangdate;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12290,7 +12290,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getLastChangdate() {
+    public String getLastChangdate() {
       return localLastChangdate;
     }
 
@@ -12299,14 +12299,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param LastChangdate
      */
-    public void setLastChangdate(java.lang.String param) {
+    public void setLastChangdate(String param) {
       localLastChangdateTracker = true;
 
       this.localLastChangdate = param;
     }
 
     /** field for Lastname */
-    protected java.lang.String localLastname;
+    protected String localLastname;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12323,7 +12323,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getLastname() {
+    public String getLastname() {
       return localLastname;
     }
 
@@ -12332,14 +12332,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Lastname
      */
-    public void setLastname(java.lang.String param) {
+    public void setLastname(String param) {
       localLastnameTracker = true;
 
       this.localLastname = param;
     }
 
     /** field for Locationid */
-    protected java.lang.String localLocationid;
+    protected String localLocationid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12356,7 +12356,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getLocationid() {
+    public String getLocationid() {
       return localLocationid;
     }
 
@@ -12365,14 +12365,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Locationid
      */
-    public void setLocationid(java.lang.String param) {
+    public void setLocationid(String param) {
       localLocationidTracker = true;
 
       this.localLocationid = param;
     }
 
     /** field for Loginid */
-    protected java.lang.String localLoginid;
+    protected String localLoginid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12389,7 +12389,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getLoginid() {
+    public String getLoginid() {
       return localLoginid;
     }
 
@@ -12398,14 +12398,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Loginid
      */
-    public void setLoginid(java.lang.String param) {
+    public void setLoginid(String param) {
       localLoginidTracker = true;
 
       this.localLoginid = param;
     }
 
     /** field for Managerid */
-    protected java.lang.String localManagerid;
+    protected String localManagerid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12422,7 +12422,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getManagerid() {
+    public String getManagerid() {
       return localManagerid;
     }
 
@@ -12431,14 +12431,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Managerid
      */
-    public void setManagerid(java.lang.String param) {
+    public void setManagerid(String param) {
       localManageridTracker = true;
 
       this.localManagerid = param;
     }
 
     /** field for Maritalstatus */
-    protected java.lang.String localMaritalstatus;
+    protected String localMaritalstatus;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12455,7 +12455,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getMaritalstatus() {
+    public String getMaritalstatus() {
       return localMaritalstatus;
     }
 
@@ -12464,14 +12464,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Maritalstatus
      */
-    public void setMaritalstatus(java.lang.String param) {
+    public void setMaritalstatus(String param) {
       localMaritalstatusTracker = true;
 
       this.localMaritalstatus = param;
     }
 
     /** field for Mobile */
-    protected java.lang.String localMobile;
+    protected String localMobile;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12488,7 +12488,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getMobile() {
+    public String getMobile() {
       return localMobile;
     }
 
@@ -12497,14 +12497,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Mobile
      */
-    public void setMobile(java.lang.String param) {
+    public void setMobile(String param) {
       localMobileTracker = true;
 
       this.localMobile = param;
     }
 
     /** field for Mobilecall */
-    protected java.lang.String localMobilecall;
+    protected String localMobilecall;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12521,7 +12521,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getMobilecall() {
+    public String getMobilecall() {
       return localMobilecall;
     }
 
@@ -12530,14 +12530,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Mobilecall
      */
-    public void setMobilecall(java.lang.String param) {
+    public void setMobilecall(String param) {
       localMobilecallTracker = true;
 
       this.localMobilecall = param;
     }
 
     /** field for Nativeplace */
-    protected java.lang.String localNativeplace;
+    protected String localNativeplace;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12554,7 +12554,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getNativeplace() {
+    public String getNativeplace() {
       return localNativeplace;
     }
 
@@ -12563,14 +12563,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Nativeplace
      */
-    public void setNativeplace(java.lang.String param) {
+    public void setNativeplace(String param) {
       localNativeplaceTracker = true;
 
       this.localNativeplace = param;
     }
 
     /** field for Password */
-    protected java.lang.String localPassword;
+    protected String localPassword;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12587,7 +12587,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getPassword() {
+    public String getPassword() {
       return localPassword;
     }
 
@@ -12596,14 +12596,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Password
      */
-    public void setPassword(java.lang.String param) {
+    public void setPassword(String param) {
       localPasswordTracker = true;
 
       this.localPassword = param;
     }
 
     /** field for Policy */
-    protected java.lang.String localPolicy;
+    protected String localPolicy;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12620,7 +12620,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getPolicy() {
+    public String getPolicy() {
       return localPolicy;
     }
 
@@ -12629,14 +12629,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Policy
      */
-    public void setPolicy(java.lang.String param) {
+    public void setPolicy(String param) {
       localPolicyTracker = true;
 
       this.localPolicy = param;
     }
 
     /** field for Regresidentplace */
-    protected java.lang.String localRegresidentplace;
+    protected String localRegresidentplace;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12653,7 +12653,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getRegresidentplace() {
+    public String getRegresidentplace() {
       return localRegresidentplace;
     }
 
@@ -12662,14 +12662,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Regresidentplace
      */
-    public void setRegresidentplace(java.lang.String param) {
+    public void setRegresidentplace(String param) {
       localRegresidentplaceTracker = true;
 
       this.localRegresidentplace = param;
     }
 
     /** field for Residentplace */
-    protected java.lang.String localResidentplace;
+    protected String localResidentplace;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12686,7 +12686,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getResidentplace() {
+    public String getResidentplace() {
       return localResidentplace;
     }
 
@@ -12695,14 +12695,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Residentplace
      */
-    public void setResidentplace(java.lang.String param) {
+    public void setResidentplace(String param) {
       localResidentplaceTracker = true;
 
       this.localResidentplace = param;
     }
 
     /** field for Seclevel */
-    protected java.lang.String localSeclevel;
+    protected String localSeclevel;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12719,7 +12719,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getSeclevel() {
+    public String getSeclevel() {
       return localSeclevel;
     }
 
@@ -12728,14 +12728,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Seclevel
      */
-    public void setSeclevel(java.lang.String param) {
+    public void setSeclevel(String param) {
       localSeclevelTracker = true;
 
       this.localSeclevel = param;
     }
 
     /** field for Sex */
-    protected java.lang.String localSex;
+    protected String localSex;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12752,7 +12752,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getSex() {
+    public String getSex() {
       return localSex;
     }
 
@@ -12761,14 +12761,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Sex
      */
-    public void setSex(java.lang.String param) {
+    public void setSex(String param) {
       localSexTracker = true;
 
       this.localSex = param;
     }
 
     /** field for Startdate */
-    protected java.lang.String localStartdate;
+    protected String localStartdate;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12785,7 +12785,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getStartdate() {
+    public String getStartdate() {
       return localStartdate;
     }
 
@@ -12794,14 +12794,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Startdate
      */
-    public void setStartdate(java.lang.String param) {
+    public void setStartdate(String param) {
       localStartdateTracker = true;
 
       this.localStartdate = param;
     }
 
     /** field for Status */
-    protected java.lang.String localStatus;
+    protected String localStatus;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12818,7 +12818,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getStatus() {
+    public String getStatus() {
       return localStatus;
     }
 
@@ -12827,14 +12827,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Status
      */
-    public void setStatus(java.lang.String param) {
+    public void setStatus(String param) {
       localStatusTracker = true;
 
       this.localStatus = param;
     }
 
     /** field for Subcompanycode */
-    protected java.lang.String localSubcompanycode;
+    protected String localSubcompanycode;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12851,7 +12851,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getSubcompanycode() {
+    public String getSubcompanycode() {
       return localSubcompanycode;
     }
 
@@ -12860,14 +12860,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Subcompanycode
      */
-    public void setSubcompanycode(java.lang.String param) {
+    public void setSubcompanycode(String param) {
       localSubcompanycodeTracker = true;
 
       this.localSubcompanycode = param;
     }
 
     /** field for Subcompanyid1 */
-    protected java.lang.String localSubcompanyid1;
+    protected String localSubcompanyid1;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12884,7 +12884,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getSubcompanyid1() {
+    public String getSubcompanyid1() {
       return localSubcompanyid1;
     }
 
@@ -12893,14 +12893,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Subcompanyid1
      */
-    public void setSubcompanyid1(java.lang.String param) {
+    public void setSubcompanyid1(String param) {
       localSubcompanyid1Tracker = true;
 
       this.localSubcompanyid1 = param;
     }
 
     /** field for Subcompanyname */
-    protected java.lang.String localSubcompanyname;
+    protected String localSubcompanyname;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12917,7 +12917,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getSubcompanyname() {
+    public String getSubcompanyname() {
       return localSubcompanyname;
     }
 
@@ -12926,14 +12926,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Subcompanyname
      */
-    public void setSubcompanyname(java.lang.String param) {
+    public void setSubcompanyname(String param) {
       localSubcompanynameTracker = true;
 
       this.localSubcompanyname = param;
     }
 
     /** field for Systemlanguage */
-    protected java.lang.String localSystemlanguage;
+    protected String localSystemlanguage;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12950,7 +12950,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getSystemlanguage() {
+    public String getSystemlanguage() {
       return localSystemlanguage;
     }
 
@@ -12959,14 +12959,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Systemlanguage
      */
-    public void setSystemlanguage(java.lang.String param) {
+    public void setSystemlanguage(String param) {
       localSystemlanguageTracker = true;
 
       this.localSystemlanguage = param;
     }
 
     /** field for Telephone */
-    protected java.lang.String localTelephone;
+    protected String localTelephone;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -12983,7 +12983,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getTelephone() {
+    public String getTelephone() {
       return localTelephone;
     }
 
@@ -12992,14 +12992,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Telephone
      */
-    public void setTelephone(java.lang.String param) {
+    public void setTelephone(String param) {
       localTelephoneTracker = true;
 
       this.localTelephone = param;
     }
 
     /** field for Tempresidentnumber */
-    protected java.lang.String localTempresidentnumber;
+    protected String localTempresidentnumber;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -13016,7 +13016,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getTempresidentnumber() {
+    public String getTempresidentnumber() {
       return localTempresidentnumber;
     }
 
@@ -13025,7 +13025,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Tempresidentnumber
      */
-    public void setTempresidentnumber(java.lang.String param) {
+    public void setTempresidentnumber(String param) {
       localTempresidentnumberTracker = true;
 
       this.localTempresidentnumber = param;
@@ -13061,13 +13061,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     public void setUserid(int param) {
 
       // setting primitive attribute tracker to true
-      localUseridTracker = param != java.lang.Integer.MIN_VALUE;
+      localUseridTracker = param != Integer.MIN_VALUE;
 
       this.localUserid = param;
     }
 
     /** field for Weight */
-    protected java.lang.String localWeight;
+    protected String localWeight;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -13084,7 +13084,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getWeight() {
+    public String getWeight() {
       return localWeight;
     }
 
@@ -13093,14 +13093,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Weight
      */
-    public void setWeight(java.lang.String param) {
+    public void setWeight(String param) {
       localWeightTracker = true;
 
       this.localWeight = param;
     }
 
     /** field for Workcode */
-    protected java.lang.String localWorkcode;
+    protected String localWorkcode;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -13117,7 +13117,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getWorkcode() {
+    public String getWorkcode() {
       return localWorkcode;
     }
 
@@ -13126,14 +13126,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Workcode
      */
-    public void setWorkcode(java.lang.String param) {
+    public void setWorkcode(String param) {
       localWorkcodeTracker = true;
 
       this.localWorkcode = param;
     }
 
     /** field for Workroom */
-    protected java.lang.String localWorkroom;
+    protected String localWorkroom;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -13150,7 +13150,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getWorkroom() {
+    public String getWorkroom() {
       return localWorkroom;
     }
 
@@ -13159,7 +13159,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Workroom
      */
-    public void setWorkroom(java.lang.String param) {
+    public void setWorkroom(String param) {
       localWorkroomTracker = true;
 
       this.localWorkroom = param;
@@ -13190,8 +13190,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -13199,7 +13199,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://webservice.hrm.weaver");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -13217,7 +13217,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         namespace = "http://webservice.hrm.weaver";
         writeStartElement(null, namespace, "accounttype", xmlWriter);
 
-        if (localAccounttype == java.lang.Integer.MIN_VALUE) {
+        if (localAccounttype == Integer.MIN_VALUE) {
 
           throw new org.apache.axis2.databinding.ADBException("accounttype cannot be null!!");
 
@@ -13392,7 +13392,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         namespace = "http://webservice.hrm.weaver";
         writeStartElement(null, namespace, "dsporder", xmlWriter);
 
-        if (java.lang.Float.isNaN(localDsporder)) {
+        if (Float.isNaN(localDsporder)) {
 
           throw new org.apache.axis2.databinding.ADBException("dsporder cannot be null!!");
 
@@ -14015,7 +14015,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         namespace = "http://webservice.hrm.weaver";
         writeStartElement(null, namespace, "userid", xmlWriter);
 
-        if (localUserid == java.lang.Integer.MIN_VALUE) {
+        if (localUserid == Integer.MIN_VALUE) {
 
           throw new org.apache.axis2.databinding.ADBException("userid cannot be null!!");
 
@@ -14077,7 +14077,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://webservice.hrm.weaver")) {
         return "ns1";
       }
@@ -14086,12 +14086,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -14109,13 +14109,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -14127,9 +14127,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -14142,18 +14142,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -14171,9 +14171,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -14204,9 +14204,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -14241,15 +14241,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -14275,14 +14275,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static UserBean parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         UserBean object = new UserBean();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -14291,20 +14291,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"UserBean".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (UserBean) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -14329,7 +14329,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                   "The element: " + "accounttype" + "  cannot be null");
             }
 
-            java.lang.String content = reader.getElementText();
+            String content = reader.getElementText();
 
             object.setAccounttype(
                 org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
@@ -14339,7 +14339,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           } // End of if for expected property start element
           else {
 
-            object.setAccounttype(java.lang.Integer.MIN_VALUE);
+            object.setAccounttype(Integer.MIN_VALUE);
           }
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -14352,7 +14352,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setAssistantid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14379,7 +14379,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setBememberdate(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14406,7 +14406,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setBepartydate(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14433,7 +14433,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setBirthday(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14460,7 +14460,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setCertificatenum(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14487,7 +14487,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setCreatedate(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14514,7 +14514,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setDegree(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14541,7 +14541,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setDepartmentcode(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14568,7 +14568,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setDepartmentid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14595,7 +14595,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setDepartmentname(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14625,7 +14625,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                   "The element: " + "dsporder" + "  cannot be null");
             }
 
-            java.lang.String content = reader.getElementText();
+            String content = reader.getElementText();
 
             object.setDsporder(
                 org.apache.axis2.databinding.utils.ConverterUtil.convertToFloat(content));
@@ -14635,7 +14635,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           } // End of if for expected property start element
           else {
 
-            object.setDsporder(java.lang.Float.NaN);
+            object.setDsporder(Float.NaN);
           }
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -14648,7 +14648,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setEducationlevel(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14675,7 +14675,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setEmail(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14702,7 +14702,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setEnddate(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14729,7 +14729,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setFax(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14756,7 +14756,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setFolk(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14783,7 +14783,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setHealthinfo(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14810,7 +14810,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setHeight(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14837,7 +14837,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setHomeaddress(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14864,7 +14864,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIslabouunion(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14891,7 +14891,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setJobactivitydesc(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14918,7 +14918,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setJobactivityid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14945,7 +14945,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setJobcall(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14972,7 +14972,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setJobgroupid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -14999,7 +14999,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setJoblevel(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15026,7 +15026,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setJobtitle(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15053,7 +15053,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setLastChangdate(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15080,7 +15080,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setLastname(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15107,7 +15107,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setLocationid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15134,7 +15134,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setLoginid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15161,7 +15161,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setManagerid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15188,7 +15188,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setMaritalstatus(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15215,7 +15215,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setMobile(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15242,7 +15242,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setMobilecall(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15269,7 +15269,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setNativeplace(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15296,7 +15296,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setPassword(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15323,7 +15323,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setPolicy(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15350,7 +15350,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setRegresidentplace(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15377,7 +15377,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setResidentplace(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15404,7 +15404,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setSeclevel(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15431,7 +15431,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setSex(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15458,7 +15458,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setStartdate(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15485,7 +15485,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setStatus(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15512,7 +15512,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setSubcompanycode(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15539,7 +15539,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setSubcompanyid1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15566,7 +15566,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setSubcompanyname(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15593,7 +15593,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setSystemlanguage(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15620,7 +15620,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setTelephone(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15647,7 +15647,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setTempresidentnumber(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15677,7 +15677,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                   "The element: " + "userid" + "  cannot be null");
             }
 
-            java.lang.String content = reader.getElementText();
+            String content = reader.getElementText();
 
             object.setUserid(
                 org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
@@ -15687,7 +15687,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           } // End of if for expected property start element
           else {
 
-            object.setUserid(java.lang.Integer.MIN_VALUE);
+            object.setUserid(Integer.MIN_VALUE);
           }
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -15700,7 +15700,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setWeight(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15727,7 +15727,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setWorkcode(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15754,7 +15754,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setWorkroom(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -15780,7 +15780,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -15878,8 +15878,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -15887,7 +15887,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://webservice.hrm.weaver");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -15934,7 +15934,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://webservice.hrm.weaver")) {
         return "ns1";
       }
@@ -15943,12 +15943,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -15966,13 +15966,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -15984,9 +15984,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -15999,18 +15999,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -16028,9 +16028,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -16061,9 +16061,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -16098,15 +16098,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -16132,14 +16132,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static ArrayOfDepartmentBean parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         ArrayOfDepartmentBean object = new ArrayOfDepartmentBean();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -16148,20 +16148,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"ArrayOfDepartmentBean".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (ArrayOfDepartmentBean) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -16241,7 +16241,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -16339,8 +16339,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -16348,7 +16348,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://webservice.hrm.weaver");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -16395,7 +16395,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://webservice.hrm.weaver")) {
         return "ns1";
       }
@@ -16404,12 +16404,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -16427,13 +16427,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -16445,9 +16445,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -16460,18 +16460,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -16489,9 +16489,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -16522,9 +16522,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -16559,15 +16559,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -16593,14 +16593,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static ArrayOfSubCompanyBean parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         ArrayOfSubCompanyBean object = new ArrayOfSubCompanyBean();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -16609,20 +16609,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"ArrayOfSubCompanyBean".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (ArrayOfSubCompanyBean) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -16702,7 +16702,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -16763,8 +16763,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -16772,7 +16772,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -16808,7 +16808,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -16817,12 +16817,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -16840,13 +16840,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -16858,9 +16858,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -16873,18 +16873,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -16902,9 +16902,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -16935,9 +16935,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -16972,15 +16972,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -17006,14 +17006,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static CheckUserResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         CheckUserResponse object = new CheckUserResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -17022,20 +17022,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"checkUserResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (CheckUserResponse) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -17060,7 +17060,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                   "The element: " + "out" + "  cannot be null");
             }
 
-            java.lang.String content = reader.getElementText();
+            String content = reader.getElementText();
 
             object.setOut(
                 org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
@@ -17083,7 +17083,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -17144,8 +17144,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -17153,7 +17153,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -17188,7 +17188,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -17197,12 +17197,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -17220,13 +17220,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -17238,9 +17238,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -17253,18 +17253,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -17282,9 +17282,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -17315,9 +17315,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -17352,15 +17352,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -17386,14 +17386,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmSubcompanyInfoResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmSubcompanyInfoResponse object = new GetHrmSubcompanyInfoResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -17402,20 +17402,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmSubcompanyInfoResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmSubcompanyInfoResponse)
                     ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
@@ -17464,7 +17464,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -17478,14 +17478,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         new javax.xml.namespace.QName("http://localhost/services/HrmService", "SynJobtitle", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -17494,20 +17494,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -17516,7 +17516,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
@@ -17546,8 +17546,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -17555,7 +17555,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -17603,7 +17603,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -17612,12 +17612,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -17635,13 +17635,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -17653,9 +17653,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -17668,18 +17668,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -17697,9 +17697,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -17730,9 +17730,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -17767,15 +17767,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -17801,14 +17801,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static SynJobtitle parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         SynJobtitle object = new SynJobtitle();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -17817,20 +17817,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"SynJobtitle".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (SynJobtitle) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -17852,7 +17852,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -17881,7 +17881,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -17909,7 +17909,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -17925,7 +17925,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     */
 
     /** field for _canceled */
-    protected java.lang.String local_canceled;
+    protected String local_canceled;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -17942,7 +17942,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_canceled() {
+    public String get_canceled() {
       return local_canceled;
     }
 
@@ -17951,14 +17951,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _canceled
      */
-    public void set_canceled(java.lang.String param) {
+    public void set_canceled(String param) {
       local_canceledTracker = true;
 
       this.local_canceled = param;
     }
 
     /** field for _code */
-    protected java.lang.String local_code;
+    protected String local_code;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -17975,7 +17975,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_code() {
+    public String get_code() {
       return local_code;
     }
 
@@ -17984,14 +17984,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _code
      */
-    public void set_code(java.lang.String param) {
+    public void set_code(String param) {
       local_codeTracker = true;
 
       this.local_code = param;
     }
 
     /** field for _departmentid */
-    protected java.lang.String local_departmentid;
+    protected String local_departmentid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -18008,7 +18008,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_departmentid() {
+    public String get_departmentid() {
       return local_departmentid;
     }
 
@@ -18017,14 +18017,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _departmentid
      */
-    public void set_departmentid(java.lang.String param) {
+    public void set_departmentid(String param) {
       local_departmentidTracker = true;
 
       this.local_departmentid = param;
     }
 
     /** field for _fullname */
-    protected java.lang.String local_fullname;
+    protected String local_fullname;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -18041,7 +18041,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_fullname() {
+    public String get_fullname() {
       return local_fullname;
     }
 
@@ -18050,14 +18050,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _fullname
      */
-    public void set_fullname(java.lang.String param) {
+    public void set_fullname(String param) {
       local_fullnameTracker = true;
 
       this.local_fullname = param;
     }
 
     /** field for _shortname */
-    protected java.lang.String local_shortname;
+    protected String local_shortname;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -18074,7 +18074,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_shortname() {
+    public String get_shortname() {
       return local_shortname;
     }
 
@@ -18083,14 +18083,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _shortname
      */
-    public void set_shortname(java.lang.String param) {
+    public void set_shortname(String param) {
       local_shortnameTracker = true;
 
       this.local_shortname = param;
     }
 
     /** field for _showorder */
-    protected java.lang.String local_showorder;
+    protected String local_showorder;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -18107,7 +18107,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_showorder() {
+    public String get_showorder() {
       return local_showorder;
     }
 
@@ -18116,14 +18116,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _showorder
      */
-    public void set_showorder(java.lang.String param) {
+    public void set_showorder(String param) {
       local_showorderTracker = true;
 
       this.local_showorder = param;
     }
 
     /** field for _subcompanyid */
-    protected java.lang.String local_subcompanyid;
+    protected String local_subcompanyid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -18140,7 +18140,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_subcompanyid() {
+    public String get_subcompanyid() {
       return local_subcompanyid;
     }
 
@@ -18149,14 +18149,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _subcompanyid
      */
-    public void set_subcompanyid(java.lang.String param) {
+    public void set_subcompanyid(String param) {
       local_subcompanyidTracker = true;
 
       this.local_subcompanyid = param;
     }
 
     /** field for _supdepartmentid */
-    protected java.lang.String local_supdepartmentid;
+    protected String local_supdepartmentid;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -18173,7 +18173,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String get_supdepartmentid() {
+    public String get_supdepartmentid() {
       return local_supdepartmentid;
     }
 
@@ -18182,14 +18182,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param _supdepartmentid
      */
-    public void set_supdepartmentid(java.lang.String param) {
+    public void set_supdepartmentid(String param) {
       local_supdepartmentidTracker = true;
 
       this.local_supdepartmentid = param;
     }
 
     /** field for Action */
-    protected java.lang.String localAction;
+    protected String localAction;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -18206,7 +18206,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getAction() {
+    public String getAction() {
       return localAction;
     }
 
@@ -18215,14 +18215,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Action
      */
-    public void setAction(java.lang.String param) {
+    public void setAction(String param) {
       localActionTracker = true;
 
       this.localAction = param;
     }
 
     /** field for LastChangdate */
-    protected java.lang.String localLastChangdate;
+    protected String localLastChangdate;
 
     /*  This tracker boolean wil be used to detect whether the user called the set method
      *   for this attribute. It will be used to determine whether to include this field
@@ -18239,7 +18239,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @return java.lang.String
      */
-    public java.lang.String getLastChangdate() {
+    public String getLastChangdate() {
       return localLastChangdate;
     }
 
@@ -18248,7 +18248,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param LastChangdate
      */
-    public void setLastChangdate(java.lang.String param) {
+    public void setLastChangdate(String param) {
       localLastChangdateTracker = true;
 
       this.localLastChangdate = param;
@@ -18279,8 +18279,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -18288,7 +18288,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://webservice.hrm.weaver");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -18469,7 +18469,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://webservice.hrm.weaver")) {
         return "ns1";
       }
@@ -18478,12 +18478,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -18501,13 +18501,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -18519,9 +18519,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -18534,18 +18534,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -18563,9 +18563,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -18596,9 +18596,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -18633,15 +18633,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -18667,14 +18667,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static DepartmentBean parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         DepartmentBean object = new DepartmentBean();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -18683,20 +18683,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"DepartmentBean".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (DepartmentBean) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -18718,7 +18718,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_canceled(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -18745,7 +18745,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_code(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -18772,7 +18772,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_departmentid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -18799,7 +18799,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_fullname(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -18826,7 +18826,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_shortname(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -18853,7 +18853,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_showorder(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -18880,7 +18880,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_subcompanyid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -18907,7 +18907,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.set_supdepartmentid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -18934,7 +18934,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setAction(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -18961,7 +18961,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setLastChangdate(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -18987,7 +18987,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -19002,14 +19002,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmUserInfoXML", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -19018,20 +19018,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -19040,20 +19040,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
 
     /** field for In2 */
-    protected java.lang.String localIn2;
+    protected String localIn2;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn2() {
+    public String getIn2() {
       return localIn2;
     }
 
@@ -19062,20 +19062,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In2
      */
-    public void setIn2(java.lang.String param) {
+    public void setIn2(String param) {
 
       this.localIn2 = param;
     }
 
     /** field for In3 */
-    protected java.lang.String localIn3;
+    protected String localIn3;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn3() {
+    public String getIn3() {
       return localIn3;
     }
 
@@ -19084,20 +19084,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In3
      */
-    public void setIn3(java.lang.String param) {
+    public void setIn3(String param) {
 
       this.localIn3 = param;
     }
 
     /** field for In4 */
-    protected java.lang.String localIn4;
+    protected String localIn4;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn4() {
+    public String getIn4() {
       return localIn4;
     }
 
@@ -19106,20 +19106,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In4
      */
-    public void setIn4(java.lang.String param) {
+    public void setIn4(String param) {
 
       this.localIn4 = param;
     }
 
     /** field for In5 */
-    protected java.lang.String localIn5;
+    protected String localIn5;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn5() {
+    public String getIn5() {
       return localIn5;
     }
 
@@ -19128,7 +19128,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In5
      */
-    public void setIn5(java.lang.String param) {
+    public void setIn5(String param) {
 
       this.localIn5 = param;
     }
@@ -19158,8 +19158,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -19167,7 +19167,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -19279,7 +19279,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -19288,12 +19288,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -19311,13 +19311,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -19329,9 +19329,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -19344,18 +19344,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -19373,9 +19373,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -19406,9 +19406,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -19443,15 +19443,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -19477,14 +19477,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmUserInfoXML parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmUserInfoXML object = new GetHrmUserInfoXML();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -19493,20 +19493,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmUserInfoXML".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmUserInfoXML) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -19528,7 +19528,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -19557,7 +19557,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -19586,7 +19586,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn2(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -19615,7 +19615,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn3(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -19644,7 +19644,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn4(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -19673,7 +19673,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn5(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -19701,7 +19701,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -19716,14 +19716,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmJobTitleInfoXML", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -19732,20 +19732,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -19754,20 +19754,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
 
     /** field for In2 */
-    protected java.lang.String localIn2;
+    protected String localIn2;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn2() {
+    public String getIn2() {
       return localIn2;
     }
 
@@ -19776,7 +19776,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In2
      */
-    public void setIn2(java.lang.String param) {
+    public void setIn2(String param) {
 
       this.localIn2 = param;
     }
@@ -19806,8 +19806,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -19815,7 +19815,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -19882,7 +19882,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -19891,12 +19891,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -19914,13 +19914,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -19932,9 +19932,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -19947,18 +19947,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -19976,9 +19976,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -20009,9 +20009,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -20046,15 +20046,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -20080,14 +20080,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmJobTitleInfoXML parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmJobTitleInfoXML object = new GetHrmJobTitleInfoXML();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -20096,20 +20096,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmJobTitleInfoXML".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmJobTitleInfoXML) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -20131,7 +20131,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -20160,7 +20160,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -20189,7 +20189,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn2(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -20217,7 +20217,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -20315,8 +20315,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -20324,7 +20324,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://webservice.hrm.weaver");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -20371,7 +20371,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://webservice.hrm.weaver")) {
         return "ns1";
       }
@@ -20380,12 +20380,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -20403,13 +20403,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -20421,9 +20421,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -20436,18 +20436,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -20465,9 +20465,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -20498,9 +20498,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -20535,15 +20535,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -20569,14 +20569,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static ArrayOfJobTitleBean parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         ArrayOfJobTitleBean object = new ArrayOfJobTitleBean();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -20585,20 +20585,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"ArrayOfJobTitleBean".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (ArrayOfJobTitleBean) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -20678,7 +20678,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -20692,14 +20692,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         new javax.xml.namespace.QName("http://localhost/services/HrmService", "checkUser", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -20708,20 +20708,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
 
     /** field for In1 */
-    protected java.lang.String localIn1;
+    protected String localIn1;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn1() {
+    public String getIn1() {
       return localIn1;
     }
 
@@ -20730,20 +20730,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In1
      */
-    public void setIn1(java.lang.String param) {
+    public void setIn1(String param) {
 
       this.localIn1 = param;
     }
 
     /** field for In2 */
-    protected java.lang.String localIn2;
+    protected String localIn2;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn2() {
+    public String getIn2() {
       return localIn2;
     }
 
@@ -20752,7 +20752,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In2
      */
-    public void setIn2(java.lang.String param) {
+    public void setIn2(String param) {
 
       this.localIn2 = param;
     }
@@ -20782,8 +20782,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -20791,7 +20791,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -20854,7 +20854,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -20863,12 +20863,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -20886,13 +20886,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -20904,9 +20904,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -20919,18 +20919,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -20948,9 +20948,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -20981,9 +20981,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -21018,15 +21018,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -21052,14 +21052,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static CheckUser parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         CheckUser object = new CheckUser();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -21068,20 +21068,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"checkUser".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (CheckUser) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -21103,7 +21103,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -21132,7 +21132,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn1(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -21161,7 +21161,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn2(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -21189,7 +21189,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -21250,8 +21250,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -21259,7 +21259,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -21294,7 +21294,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -21303,12 +21303,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -21326,13 +21326,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -21344,9 +21344,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -21359,18 +21359,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -21388,9 +21388,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -21421,9 +21421,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -21458,15 +21458,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -21492,14 +21492,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmUserInfoResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmUserInfoResponse object = new GetHrmUserInfoResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -21508,20 +21508,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmUserInfoResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmUserInfoResponse) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -21569,7 +21569,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -21630,8 +21630,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -21639,7 +21639,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -21674,7 +21674,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -21683,12 +21683,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -21706,13 +21706,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -21724,9 +21724,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -21739,18 +21739,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -21768,9 +21768,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -21801,9 +21801,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -21838,15 +21838,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -21872,14 +21872,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmDepartmentInfoResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmDepartmentInfoResponse object = new GetHrmDepartmentInfoResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -21888,20 +21888,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmDepartmentInfoResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmDepartmentInfoResponse)
                     ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
@@ -21950,7 +21950,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -21965,14 +21965,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "SynJobtitleResponse", "ns2");
 
     /** field for Out */
-    protected java.lang.String localOut;
+    protected String localOut;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getOut() {
+    public String getOut() {
       return localOut;
     }
 
@@ -21981,7 +21981,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Out
      */
-    public void setOut(java.lang.String param) {
+    public void setOut(String param) {
 
       this.localOut = param;
     }
@@ -22011,8 +22011,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -22020,7 +22020,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -22057,7 +22057,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -22066,12 +22066,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -22089,13 +22089,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -22107,9 +22107,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -22122,18 +22122,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -22151,9 +22151,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -22184,9 +22184,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -22221,15 +22221,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -22255,14 +22255,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static SynJobtitleResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         SynJobtitleResponse object = new SynJobtitleResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -22271,20 +22271,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"SynJobtitleResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (SynJobtitleResponse) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -22306,7 +22306,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setOut(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -22334,7 +22334,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -22395,8 +22395,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -22404,7 +22404,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -22439,7 +22439,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -22448,12 +22448,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -22471,13 +22471,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -22489,9 +22489,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -22504,18 +22504,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -22533,9 +22533,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -22566,9 +22566,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -22603,15 +22603,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -22637,14 +22637,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmJobTitleInfoResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmJobTitleInfoResponse object = new GetHrmJobTitleInfoResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -22653,20 +22653,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmJobTitleInfoResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmJobTitleInfoResponse)
                     ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
@@ -22715,7 +22715,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -22730,14 +22730,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmSubcompanyInfo", "ns2");
 
     /** field for In0 */
-    protected java.lang.String localIn0;
+    protected String localIn0;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getIn0() {
+    public String getIn0() {
       return localIn0;
     }
 
@@ -22746,7 +22746,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param In0
      */
-    public void setIn0(java.lang.String param) {
+    public void setIn0(String param) {
 
       this.localIn0 = param;
     }
@@ -22776,8 +22776,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -22785,7 +22785,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -22822,7 +22822,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -22831,12 +22831,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -22854,13 +22854,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -22872,9 +22872,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -22887,18 +22887,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -22916,9 +22916,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -22949,9 +22949,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -22986,15 +22986,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -23020,14 +23020,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmSubcompanyInfo parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmSubcompanyInfo object = new GetHrmSubcompanyInfo();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -23036,20 +23036,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmSubcompanyInfo".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmSubcompanyInfo) ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
             }
@@ -23071,7 +23071,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setIn0(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -23099,7 +23099,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -23115,14 +23115,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
             "http://localhost/services/HrmService", "getHrmSubcompanyInfoXMLResponse", "ns2");
 
     /** field for Out */
-    protected java.lang.String localOut;
+    protected String localOut;
 
     /**
      * Auto generated getter method
      *
      * @return java.lang.String
      */
-    public java.lang.String getOut() {
+    public String getOut() {
       return localOut;
     }
 
@@ -23131,7 +23131,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
      *
      * @param param Out
      */
-    public void setOut(java.lang.String param) {
+    public void setOut(String param) {
 
       this.localOut = param;
     }
@@ -23161,8 +23161,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -23170,7 +23170,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -23207,7 +23207,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -23216,12 +23216,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -23239,13 +23239,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -23257,9 +23257,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -23272,18 +23272,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -23301,9 +23301,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -23334,9 +23334,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -23371,15 +23371,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -23405,14 +23405,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static GetHrmSubcompanyInfoXMLResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         GetHrmSubcompanyInfoXMLResponse object = new GetHrmSubcompanyInfoXMLResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -23421,20 +23421,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"getHrmSubcompanyInfoXMLResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (GetHrmSubcompanyInfoXMLResponse)
                     ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
@@ -23457,7 +23457,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
             if (!"true".equals(nillableValue) && !"1".equals(nillableValue)) {
 
-              java.lang.String content = reader.getElementText();
+              String content = reader.getElementText();
 
               object.setOut(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
@@ -23485,7 +23485,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -23546,8 +23546,8 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
         boolean serializeType)
         throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
 
-      java.lang.String prefix = null;
-      java.lang.String namespace = null;
+      String prefix = null;
+      String namespace = null;
 
       prefix = parentQName.getPrefix();
       namespace = parentQName.getNamespaceURI();
@@ -23555,7 +23555,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
       if (serializeType) {
 
-        java.lang.String namespacePrefix =
+        String namespacePrefix =
             registerPrefix(xmlWriter, "http://localhost/services/HrmService");
         if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
           writeAttribute(
@@ -23591,7 +23591,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       xmlWriter.writeEndElement();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
+    private static String generatePrefix(String namespace) {
       if (namespace.equals("http://localhost/services/HrmService")) {
         return "ns2";
       }
@@ -23600,12 +23600,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Utility method to write an element start tag. */
     private void writeStartElement(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String localPart,
+        String prefix,
+        String namespace,
+        String localPart,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
       } else {
@@ -23623,13 +23623,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute with the ns prefix */
     private void writeAttribute(
-        java.lang.String prefix,
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String prefix,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      String writerPrefix = xmlWriter.getPrefix(namespace);
       if (writerPrefix != null) {
         xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
       } else {
@@ -23641,9 +23641,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
-        java.lang.String attValue,
+        String namespace,
+        String attName,
+        String attValue,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
       if (namespace.equals("")) {
@@ -23656,18 +23656,18 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
     /** Util method to write an attribute without the ns prefix */
     private void writeQNameAttribute(
-        java.lang.String namespace,
-        java.lang.String attName,
+        String namespace,
+        String attName,
         javax.xml.namespace.QName qname,
         javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
 
-      java.lang.String attributeNamespace = qname.getNamespaceURI();
-      java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+      String attributeNamespace = qname.getNamespaceURI();
+      String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
       if (attributePrefix == null) {
         attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
       }
-      java.lang.String attributeValue;
+      String attributeValue;
       if (attributePrefix.trim().length() > 0) {
         attributeValue = attributePrefix + ":" + qname.getLocalPart();
       } else {
@@ -23685,9 +23685,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     private void writeQName(
         javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String namespaceURI = qname.getNamespaceURI();
+      String namespaceURI = qname.getNamespaceURI();
       if (namespaceURI != null) {
-        java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+        String prefix = xmlWriter.getPrefix(namespaceURI);
         if (prefix == null) {
           prefix = generatePrefix(namespaceURI);
           xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -23718,9 +23718,9 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
       if (qnames != null) {
         // we have to store this data until last moment since it is not possible to write any
         // namespace data after writing the charactor data
-        java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-        java.lang.String namespaceURI = null;
-        java.lang.String prefix = null;
+        StringBuffer stringToWrite = new StringBuffer();
+        String namespaceURI = null;
+        String prefix = null;
 
         for (int i = 0; i < qnames.length; i++) {
           if (i > 0) {
@@ -23755,15 +23755,15 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     }
 
     /** Register a namespace prefix */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+    private String registerPrefix(
+        javax.xml.stream.XMLStreamWriter xmlWriter, String namespace)
         throws javax.xml.stream.XMLStreamException {
-      java.lang.String prefix = xmlWriter.getPrefix(namespace);
+      String prefix = xmlWriter.getPrefix(namespace);
       if (prefix == null) {
         prefix = generatePrefix(namespace);
         javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
         while (true) {
-          java.lang.String uri = nsContext.getNamespaceURI(prefix);
+          String uri = nsContext.getNamespaceURI(prefix);
           if (uri == null || uri.length() == 0) {
             break;
           }
@@ -23789,14 +23789,14 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
        * the end element of its outer element
        */
       public static ChangeUserPasswordResponse parse(javax.xml.stream.XMLStreamReader reader)
-          throws java.lang.Exception {
+          throws Exception {
         ChangeUserPasswordResponse object = new ChangeUserPasswordResponse();
 
         int event;
         javax.xml.namespace.QName currentQName = null;
-        java.lang.String nillableValue = null;
-        java.lang.String prefix = "";
-        java.lang.String namespaceuri = "";
+        String nillableValue = null;
+        String prefix = "";
+        String namespaceuri = "";
         try {
 
           while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -23805,20 +23805,20 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
           if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type")
               != null) {
-            java.lang.String fullTypeName =
+            String fullTypeName =
                 reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
             if (fullTypeName != null) {
-              java.lang.String nsPrefix = null;
+              String nsPrefix = null;
               if (fullTypeName.indexOf(":") > -1) {
                 nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
               }
               nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-              java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+              String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
               if (!"changeUserPasswordResponse".equals(type)) {
                 // find namespace for the prefix
-                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
                 return (ChangeUserPasswordResponse)
                     ExtensionMapper.getTypeObject(nsUri, type, reader);
               }
@@ -23844,7 +23844,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                   "The element: " + "out" + "  cannot be null");
             }
 
-            java.lang.String content = reader.getElementText();
+            String content = reader.getElementText();
 
             object.setOut(
                 org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
@@ -23867,7 +23867,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
                 "Unexpected subelement " + reader.getName());
 
         } catch (javax.xml.stream.XMLStreamException e) {
-          throw new java.lang.Exception(e);
+          throw new Exception(e);
         }
 
         return object;
@@ -23876,12 +23876,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.SynHrmResource param, boolean optimizeContent)
+      SynHrmResource param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.SynHrmResource.MY_QNAME,
+          SynHrmResource.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -23889,12 +23889,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.SynHrmResourceResponse param, boolean optimizeContent)
+      SynHrmResourceResponse param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.SynHrmResourceResponse.MY_QNAME,
+          SynHrmResourceResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -23902,12 +23902,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.CheckUser param, boolean optimizeContent)
+      CheckUser param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.CheckUser.MY_QNAME,
+          CheckUser.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -23915,12 +23915,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.CheckUserResponse param, boolean optimizeContent)
+      CheckUserResponse param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.CheckUserResponse.MY_QNAME,
+          CheckUserResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -23928,12 +23928,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfo param, boolean optimizeContent)
+      GetHrmDepartmentInfo param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfo.MY_QNAME,
+          GetHrmDepartmentInfo.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -23941,13 +23941,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoResponse param,
+      GetHrmDepartmentInfoResponse param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoResponse.MY_QNAME,
+          GetHrmDepartmentInfoResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -23955,13 +23955,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXML param,
+      GetHrmSubcompanyInfoXML param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXML.MY_QNAME,
+          GetHrmSubcompanyInfoXML.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -23969,13 +23969,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXMLResponse param,
+      GetHrmSubcompanyInfoXMLResponse param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXMLResponse.MY_QNAME,
+          GetHrmSubcompanyInfoXMLResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -23983,12 +23983,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXML param, boolean optimizeContent)
+      GetHrmUserInfoXML param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXML.MY_QNAME,
+          GetHrmUserInfoXML.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -23996,13 +23996,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXMLResponse param,
+      GetHrmUserInfoXMLResponse param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXMLResponse.MY_QNAME,
+          GetHrmUserInfoXMLResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24010,12 +24010,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.SynJobtitle param, boolean optimizeContent)
+      SynJobtitle param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.SynJobtitle.MY_QNAME,
+          SynJobtitle.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24023,12 +24023,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.SynJobtitleResponse param, boolean optimizeContent)
+      SynJobtitleResponse param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.SynJobtitleResponse.MY_QNAME,
+          SynJobtitleResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24036,13 +24036,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXML param,
+      GetHrmDepartmentInfoXML param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXML.MY_QNAME,
+          GetHrmDepartmentInfoXML.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24050,13 +24050,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXMLResponse param,
+      GetHrmDepartmentInfoXMLResponse param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXMLResponse.MY_QNAME,
+          GetHrmDepartmentInfoXMLResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24064,12 +24064,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.ChangeUserPassword param, boolean optimizeContent)
+      ChangeUserPassword param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.ChangeUserPassword.MY_QNAME,
+          ChangeUserPassword.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24077,13 +24077,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.ChangeUserPasswordResponse param,
+      ChangeUserPasswordResponse param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.ChangeUserPasswordResponse.MY_QNAME,
+          ChangeUserPasswordResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24091,12 +24091,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXML param, boolean optimizeContent)
+      GetHrmJobTitleInfoXML param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXML.MY_QNAME,
+          GetHrmJobTitleInfoXML.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24104,13 +24104,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXMLResponse param,
+      GetHrmJobTitleInfoXMLResponse param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXMLResponse.MY_QNAME,
+          GetHrmJobTitleInfoXMLResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24118,12 +24118,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.SynSubCompany param, boolean optimizeContent)
+      SynSubCompany param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.SynSubCompany.MY_QNAME,
+          SynSubCompany.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24131,12 +24131,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.SynSubCompanyResponse param, boolean optimizeContent)
+      SynSubCompanyResponse param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.SynSubCompanyResponse.MY_QNAME,
+          SynSubCompanyResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24144,12 +24144,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfo param, boolean optimizeContent)
+      GetHrmJobTitleInfo param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfo.MY_QNAME,
+          GetHrmJobTitleInfo.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24157,13 +24157,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoResponse param,
+      GetHrmJobTitleInfoResponse param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoResponse.MY_QNAME,
+          GetHrmJobTitleInfoResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24171,12 +24171,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfo param, boolean optimizeContent)
+      GetHrmSubcompanyInfo param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfo.MY_QNAME,
+          GetHrmSubcompanyInfo.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24184,13 +24184,13 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoResponse param,
+      GetHrmSubcompanyInfoResponse param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoResponse.MY_QNAME,
+          GetHrmSubcompanyInfoResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24198,12 +24198,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfo param, boolean optimizeContent)
+      GetHrmUserInfo param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfo.MY_QNAME,
+          GetHrmUserInfo.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24211,12 +24211,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoResponse param, boolean optimizeContent)
+      GetHrmUserInfoResponse param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoResponse.MY_QNAME,
+          GetHrmUserInfoResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24224,12 +24224,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.SynDepartment param, boolean optimizeContent)
+      SynDepartment param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.SynDepartment.MY_QNAME,
+          SynDepartment.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24237,12 +24237,12 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      com.es.daily_report.soap.HrmServiceStub.SynDepartmentResponse param, boolean optimizeContent)
+      SynDepartmentResponse param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          com.es.daily_report.soap.HrmServiceStub.SynDepartmentResponse.MY_QNAME,
+          SynDepartmentResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24251,7 +24251,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.SynHrmResource param,
+      SynHrmResource param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24263,7 +24263,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.SynHrmResource.MY_QNAME, factory));
+                  SynHrmResource.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24274,7 +24274,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.CheckUser param,
+      CheckUser param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24286,7 +24286,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.CheckUser.MY_QNAME, factory));
+                  CheckUser.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24297,7 +24297,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfo param,
+      GetHrmDepartmentInfo param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24309,7 +24309,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfo.MY_QNAME, factory));
+                  GetHrmDepartmentInfo.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24320,7 +24320,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXML param,
+      GetHrmSubcompanyInfoXML param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24332,7 +24332,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXML.MY_QNAME,
+                  GetHrmSubcompanyInfoXML.MY_QNAME,
                   factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
@@ -24344,7 +24344,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXML param,
+      GetHrmUserInfoXML param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24356,7 +24356,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXML.MY_QNAME, factory));
+                  GetHrmUserInfoXML.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24367,7 +24367,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.SynJobtitle param,
+      SynJobtitle param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24379,7 +24379,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.SynJobtitle.MY_QNAME, factory));
+                  SynJobtitle.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24390,7 +24390,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXML param,
+      GetHrmDepartmentInfoXML param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24402,7 +24402,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXML.MY_QNAME,
+                  GetHrmDepartmentInfoXML.MY_QNAME,
                   factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
@@ -24414,7 +24414,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.ChangeUserPassword param,
+      ChangeUserPassword param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24426,7 +24426,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.ChangeUserPassword.MY_QNAME, factory));
+                  ChangeUserPassword.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24437,7 +24437,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXML param,
+      GetHrmJobTitleInfoXML param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24449,7 +24449,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXML.MY_QNAME, factory));
+                  GetHrmJobTitleInfoXML.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24460,7 +24460,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.SynSubCompany param,
+      SynSubCompany param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24472,7 +24472,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.SynSubCompany.MY_QNAME, factory));
+                  SynSubCompany.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24483,7 +24483,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfo param,
+      GetHrmJobTitleInfo param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24495,7 +24495,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfo.MY_QNAME, factory));
+                  GetHrmJobTitleInfo.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24506,7 +24506,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfo param,
+      GetHrmSubcompanyInfo param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24518,7 +24518,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfo.MY_QNAME, factory));
+                  GetHrmSubcompanyInfo.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24529,7 +24529,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfo param,
+      GetHrmUserInfo param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24541,7 +24541,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfo.MY_QNAME, factory));
+                  GetHrmUserInfo.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24552,7 +24552,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      com.es.daily_report.soap.HrmServiceStub.SynDepartment param,
+      SynDepartment param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -24564,7 +24564,7 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
           .getBody()
           .addChild(
               param.getOMElement(
-                  com.es.daily_report.soap.HrmServiceStub.SynDepartment.MY_QNAME, factory));
+                  SynDepartment.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -24578,274 +24578,274 @@ public class HrmServiceStub extends org.apache.axis2.client.Stub {
     return factory.getDefaultEnvelope();
   }
 
-  private java.lang.Object fromOM(org.apache.axiom.om.OMElement param, java.lang.Class type)
+  private Object fromOM(org.apache.axiom.om.OMElement param, Class type)
       throws org.apache.axis2.AxisFault {
 
     try {
 
-      if (com.es.daily_report.soap.HrmServiceStub.ChangeUserPassword.class.equals(type)) {
+      if (ChangeUserPassword.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.ChangeUserPassword.Factory.parse(reader);
+        Object result =
+            ChangeUserPassword.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.ChangeUserPasswordResponse.class.equals(type)) {
+      if (ChangeUserPasswordResponse.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.ChangeUserPasswordResponse.Factory.parse(
+        Object result =
+            ChangeUserPasswordResponse.Factory.parse(
                 reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.CheckUser.class.equals(type)) {
+      if (CheckUser.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.CheckUser.Factory.parse(reader);
+        Object result =
+            CheckUser.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.CheckUserResponse.class.equals(type)) {
+      if (CheckUserResponse.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.CheckUserResponse.Factory.parse(reader);
+        Object result =
+            CheckUserResponse.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfo.class.equals(type)) {
+      if (GetHrmDepartmentInfo.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfo.Factory.parse(reader);
+        Object result =
+            GetHrmDepartmentInfo.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoResponse.class.equals(type)) {
+      if (GetHrmDepartmentInfoResponse.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoResponse.Factory.parse(
+        Object result =
+            GetHrmDepartmentInfoResponse.Factory.parse(
                 reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXML.class.equals(type)) {
+      if (GetHrmDepartmentInfoXML.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXML.Factory.parse(reader);
+        Object result =
+            GetHrmDepartmentInfoXML.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXMLResponse.class.equals(
+      if (GetHrmDepartmentInfoXMLResponse.class.equals(
           type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmDepartmentInfoXMLResponse.Factory.parse(
+        Object result =
+            GetHrmDepartmentInfoXMLResponse.Factory.parse(
                 reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfo.class.equals(type)) {
+      if (GetHrmJobTitleInfo.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfo.Factory.parse(reader);
+        Object result =
+            GetHrmJobTitleInfo.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoResponse.class.equals(type)) {
+      if (GetHrmJobTitleInfoResponse.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoResponse.Factory.parse(
+        Object result =
+            GetHrmJobTitleInfoResponse.Factory.parse(
                 reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXML.class.equals(type)) {
+      if (GetHrmJobTitleInfoXML.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXML.Factory.parse(reader);
+        Object result =
+            GetHrmJobTitleInfoXML.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXMLResponse.class.equals(
+      if (GetHrmJobTitleInfoXMLResponse.class.equals(
           type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmJobTitleInfoXMLResponse.Factory.parse(
+        Object result =
+            GetHrmJobTitleInfoXMLResponse.Factory.parse(
                 reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfo.class.equals(type)) {
+      if (GetHrmSubcompanyInfo.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfo.Factory.parse(reader);
+        Object result =
+            GetHrmSubcompanyInfo.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoResponse.class.equals(type)) {
+      if (GetHrmSubcompanyInfoResponse.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoResponse.Factory.parse(
+        Object result =
+            GetHrmSubcompanyInfoResponse.Factory.parse(
                 reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXML.class.equals(type)) {
+      if (GetHrmSubcompanyInfoXML.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXML.Factory.parse(reader);
+        Object result =
+            GetHrmSubcompanyInfoXML.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXMLResponse.class.equals(
+      if (GetHrmSubcompanyInfoXMLResponse.class.equals(
           type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmSubcompanyInfoXMLResponse.Factory.parse(
+        Object result =
+            GetHrmSubcompanyInfoXMLResponse.Factory.parse(
                 reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfo.class.equals(type)) {
+      if (GetHrmUserInfo.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfo.Factory.parse(reader);
+        Object result =
+            GetHrmUserInfo.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoResponse.class.equals(type)) {
+      if (GetHrmUserInfoResponse.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoResponse.Factory.parse(reader);
+        Object result =
+            GetHrmUserInfoResponse.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXML.class.equals(type)) {
+      if (GetHrmUserInfoXML.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXML.Factory.parse(reader);
+        Object result =
+            GetHrmUserInfoXML.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXMLResponse.class.equals(type)) {
+      if (GetHrmUserInfoXMLResponse.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.GetHrmUserInfoXMLResponse.Factory.parse(reader);
+        Object result =
+            GetHrmUserInfoXMLResponse.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.SynDepartment.class.equals(type)) {
+      if (SynDepartment.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.SynDepartment.Factory.parse(reader);
+        Object result =
+            SynDepartment.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.SynDepartmentResponse.class.equals(type)) {
+      if (SynDepartmentResponse.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.SynDepartmentResponse.Factory.parse(reader);
+        Object result =
+            SynDepartmentResponse.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.SynHrmResource.class.equals(type)) {
+      if (SynHrmResource.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.SynHrmResource.Factory.parse(reader);
+        Object result =
+            SynHrmResource.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.SynHrmResourceResponse.class.equals(type)) {
+      if (SynHrmResourceResponse.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.SynHrmResourceResponse.Factory.parse(reader);
+        Object result =
+            SynHrmResourceResponse.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.SynJobtitle.class.equals(type)) {
+      if (SynJobtitle.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.SynJobtitle.Factory.parse(reader);
+        Object result =
+            SynJobtitle.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.SynJobtitleResponse.class.equals(type)) {
+      if (SynJobtitleResponse.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.SynJobtitleResponse.Factory.parse(reader);
+        Object result =
+            SynJobtitleResponse.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.SynSubCompany.class.equals(type)) {
+      if (SynSubCompany.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.SynSubCompany.Factory.parse(reader);
+        Object result =
+            SynSubCompany.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-      if (com.es.daily_report.soap.HrmServiceStub.SynSubCompanyResponse.class.equals(type)) {
+      if (SynSubCompanyResponse.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
-        java.lang.Object result =
-            com.es.daily_report.soap.HrmServiceStub.SynSubCompanyResponse.Factory.parse(reader);
+        Object result =
+            SynSubCompanyResponse.Factory.parse(reader);
         reader.close();
         return result;
       }
 
-    } catch (java.lang.Exception e) {
+    } catch (Exception e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
     }
     return null;
