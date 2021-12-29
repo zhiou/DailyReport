@@ -3,11 +3,13 @@ package com.es.daily_report.services;
 import com.es.daily_report.dto.DepartmentInfoDTO;
 import com.es.daily_report.dto.JobTitleInfoDTO;
 import com.es.daily_report.dto.UserInfoDTO;
+import com.es.daily_report.redis.RedisUtil;
 import com.es.daily_report.soap.HrmServiceStub;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.axis2.AxisFault;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.rmi.RemoteException;
@@ -20,6 +22,9 @@ public class WebService {
     XmlMapper xmlMapper = new XmlMapper();
 
     private String ip = System.getenv("NODE_IP");
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     public WebService() throws AxisFault {
         hrmStub = new HrmServiceStub();
@@ -83,15 +88,25 @@ public class WebService {
     }
 
     public UserInfoDTO getUserInfoByWorkCode(String workNumber) {
+        String redisKey = "cached_userinfo:" + workNumber;
+
         HrmServiceStub.GetHrmUserInfoXML getHrmUserInfoParam =
                 new HrmServiceStub.GetHrmUserInfoXML();
         getHrmUserInfoParam.setIn0(ip);
         getHrmUserInfoParam.setIn1(workNumber);
         try {
-            String userInfoXml = hrmStub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
+            String userInfoXml = null;
+            if (redisUtil.hasKey(redisKey)) {
+                userInfoXml = (String)redisUtil.get(redisKey);
+            }
+            if (null == userInfoXml){
+                userInfoXml = hrmStub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
+            }
             if (userInfoXml != null) {
                 UserInfoDTO[] result = xmlMapper.readValue(userInfoXml, UserInfoDTO[].class);
                 if (result.length > 0) {
+                    redisUtil.set(redisKey, userInfoXml);
+                    redisUtil.expire(redisKey, 30 * 24 * 60 * 60 * 1000L);
                     return result[0];
                 }
             }
@@ -102,14 +117,27 @@ public class WebService {
     }
 
     public UserInfoDTO[] getUserInfoByCompany(String companyId) {
+        String redisKey = "cached_company_userinfo";
+
         HrmServiceStub.GetHrmUserInfoXML getHrmUserInfoParam =
                 new HrmServiceStub.GetHrmUserInfoXML();
         getHrmUserInfoParam.setIn0(ip);
         getHrmUserInfoParam.setIn2(companyId);
         try {
-            String userInfoXml = hrmStub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
+            String userInfoXml = null;
+            if (redisUtil.hasKey(redisKey)) {
+                userInfoXml = (String)redisUtil.get(redisKey);
+            }
+            if (null == userInfoXml){
+                userInfoXml = hrmStub.getHrmUserInfoXML(getHrmUserInfoParam).getOut();
+            }
             if (userInfoXml != null) {
-                return xmlMapper.readValue(userInfoXml, UserInfoDTO[].class);
+                UserInfoDTO[] result = xmlMapper.readValue(userInfoXml, UserInfoDTO[].class);
+                if (result.length > 0) {
+                    redisUtil.set(redisKey, userInfoXml);
+                    redisUtil.expire(redisKey, 30 * 24 * 60 * 60 * 1000L);
+                    return result;
+                }
             }
         } catch (RemoteException | JsonProcessingException e) {
             e.printStackTrace();
