@@ -12,7 +12,7 @@ create TABLE `project` (
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE,
     INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `product`;
 create TABLE `product` (
@@ -25,7 +25,7 @@ create TABLE `product` (
      `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
       PRIMARY KEY (`id`) USING BTREE,
      INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `permission`;
 create TABLE `permission` (
@@ -33,7 +33,7 @@ create TABLE `permission` (
   `name` varchar(45) NOT NULL COMMENT '权限名称',
   `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `role`;
 create TABLE `role` (
@@ -41,7 +41,7 @@ create TABLE `role` (
   `name` varchar(45) NOT NULL COMMENT '角色名称',
   `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `user`;
 create TABLE `user` (
@@ -53,7 +53,7 @@ create TABLE `user` (
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `work_code`(`work_code`) USING BTREE COMMENT '普通索引'
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `user_role`;
 create TABLE `user_role` (
@@ -62,7 +62,7 @@ create TABLE `user_role` (
   `user_id` bigint NOT NULL COMMENT '系统用户ID',
   `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态\n0: 未删除\n1: 已删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `role_permission`;
 create TABLE `role_permission` (
@@ -71,7 +71,7 @@ create TABLE `role_permission` (
   `permission_id` bigint NOT NULL COMMENT '权限ID',
   `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
    PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `report`;
 create TABLE `report` (
@@ -86,7 +86,7 @@ create TABLE `report` (
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE,
     INDEX `work_code`(`work_code`) USING BTREE COMMENT '普通索引'
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
 
 
 DROP TABLE IF EXISTS `task`;
@@ -100,7 +100,7 @@ create TABLE `task` (
     `in_report` bigint NOT NULL COMMENT '报告ID',
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `pmo`;
 create TABLE `pmo` (
@@ -108,7 +108,7 @@ create TABLE `pmo` (
   `member_number` varchar(64) NOT NULL COMMENT 'pmo成员编号',
   `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `dm`;
 create TABLE `dm` (
@@ -117,4 +117,4 @@ create TABLE `dm` (
   `department_id` bigint NULL DEFAULT NULL COMMENT '所在部门编号',
   `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
