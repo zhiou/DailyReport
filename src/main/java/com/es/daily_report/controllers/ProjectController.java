@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/v1/daily_report/project", produces = "application/json;charset=utf-8")
@@ -59,25 +61,41 @@ public class ProjectController {
         if (projectVO.getRemark() != null) {
             project.setRemark(projectVO.getRemark());
         }
+        if (projectVO.getParentNumber() != null) {
+            project.setParentNumber(projectVO.getParentNumber());
+        }
         projectDao.updateById(project);
         return Result.success();
     }
 
     @GetMapping
     public Result<?> query() {
-        return Result.success(projectVOMapper
-                .dos2vos(projectDao.list()));
+        List<ProjectVO> rootProjects = projectVOMapper.dos2vos(projectDao.queryRoot());
+        rootProjects.forEach(rootProject -> {
+            List<ProjectVO> childProjects = projectVOMapper.dos2vos(projectDao.queryByParentNumber(rootProject.getNumber()));
+            rootProject.getSublist().addAll(childProjects);
+        });
+        return Result.success(rootProjects);
     }
 
     @GetMapping("/{number}")
     public Result<?> query(@PathVariable String number) {
-        return Result.success(projectVOMapper.do2vo(projectDao.queryByNumber(number)));
+        ProjectVO projectVO = projectVOMapper.do2vo(projectDao.queryByNumber(number));
+        List<ProjectVO> childProjects = projectVOMapper.dos2vos(projectDao.queryByParentNumber(projectVO.getNumber()));
+        projectVO.getSublist().addAll(childProjects);
+        return Result.success(projectVO);
     }
 
     @DeleteMapping
     @RequiresRoles("pmo")
     @Transactional
     public Result<?> remove(@RequestBody ProjectRemoveVO projectRemoveVO) {
+        for (String number: projectRemoveVO.getNumbers()) {
+            projectDao.queryByParentNumber(number)
+                    .forEach(project -> {
+                        projectDao.removeById(project);
+                    });
+        }
         return Result.success(projectDao.batchRemoveByNumber(projectRemoveVO.getNumbers()));
     }
 }

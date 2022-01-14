@@ -16,6 +16,8 @@ import java.util.List;
 public interface ProjectDao extends IService<Project> {
   Boolean isNumberExisted(String number);
   Project queryByNumber(String number);
+  List<Project> queryRoot();
+  List<Project> queryByParentNumber(String number);
   String[] batchRemoveByNumber(String[] numbers);
   List<String> queryMemberNumber(String projectNumber);
   List<Project> queryByManagerNumber(String number);

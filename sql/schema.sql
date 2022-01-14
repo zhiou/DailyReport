@@ -10,6 +10,7 @@ create TABLE `project` (
     `manager_name` varchar(64) NOT NULL COMMENT '项目经理',
     `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '项目状态',
     `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
+    `parent_number` varchar(64) DEFAULT NULL COMMENT '父项目编号',
     `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE,
     INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
