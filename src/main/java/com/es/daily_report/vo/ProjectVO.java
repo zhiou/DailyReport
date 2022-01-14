@@ -6,6 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -25,4 +29,10 @@ public class ProjectVO {
     private ProjectState status;
 
     private String remark;
+
+    @JsonProperty("parent_number")
+    private String parentNumber;
+
+    @Nullable
+    private Set<ProjectVO> sublist = new HashSet<>();
 }

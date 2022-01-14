@@ -1,15 +1,14 @@
 package com.es.daily_report.dao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.es.daily_report.dao.ProjectDao;
 import com.es.daily_report.entities.Project;
 import com.es.daily_report.mapper.ProjectMapper;
-import com.es.daily_report.dao.ProjectDao;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -34,6 +33,18 @@ public class ProjectDaoImpl extends ServiceImpl<ProjectMapper, Project> implemen
             wrapper.eq("number", number);
             wrapper.last("LIMIT 1");
             return getOne(wrapper);
+    }
+
+    public List<Project> queryRoot() {
+        QueryWrapper<Project> wrapper = new QueryWrapper<>();
+        wrapper.eq("parent_number", null);
+        return list(wrapper);
+    }
+
+    public List<Project> queryByParentNumber(String number) {
+        QueryWrapper<Project> wrapper = new QueryWrapper<>();
+        wrapper.eq("parent_number", number);
+        return list(wrapper);
     }
 
     public String[] batchRemoveByNumber(String[] numbers) {
