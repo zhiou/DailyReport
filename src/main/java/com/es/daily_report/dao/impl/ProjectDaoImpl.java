@@ -37,7 +37,7 @@ public class ProjectDaoImpl extends ServiceImpl<ProjectMapper, Project> implemen
 
     public List<Project> queryRoot() {
         QueryWrapper<Project> wrapper = new QueryWrapper<>();
-        wrapper.eq("parent_number", null);
+        wrapper.isNull("parent_number");
         return list(wrapper);
     }
 
