@@ -73,7 +73,7 @@ public class ProjectController {
         List<ProjectVO> rootProjects = projectVOMapper.dos2vos(projectDao.queryRoot());
         rootProjects.forEach(rootProject -> {
             List<ProjectVO> childProjects = projectVOMapper.dos2vos(projectDao.queryByParentNumber(rootProject.getNumber()));
-            rootProject.getSublist().addAll(childProjects);
+           rootProject.setSublist(childProjects);
         });
         return Result.success(rootProjects);
     }

@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -34,5 +36,5 @@ public class ProjectVO {
     private String parentNumber;
 
     @Nullable
-    private Set<ProjectVO> sublist = new HashSet<>();
+    private List<ProjectVO> sublist = new ArrayList<>();
 }
