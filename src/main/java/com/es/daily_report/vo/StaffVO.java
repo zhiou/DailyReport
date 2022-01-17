@@ -21,4 +21,14 @@ public class StaffVO {
     private String department;
 
     private Set<String> roles;
+
+    @JsonProperty("key")
+    public String getKey() {
+        return workCode;
+    }
+
+    @JsonProperty("number")
+    public String getNumber() {
+        return workCode;
+    }
 }
