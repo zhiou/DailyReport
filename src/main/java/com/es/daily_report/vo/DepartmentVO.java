@@ -16,4 +16,14 @@ public class DepartmentVO {
 
     @JsonProperty("department_name")
     private String department;
+
+    @JsonProperty("key")
+    public String getKey() {
+        return departmentId;
+    }
+
+    @JsonProperty("name")
+    public String getName() {
+        return department;
+    }
 }

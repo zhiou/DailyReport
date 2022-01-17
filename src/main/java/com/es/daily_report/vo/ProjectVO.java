@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder
@@ -35,6 +33,11 @@ public class ProjectVO {
     @JsonProperty("parent_number")
     private String parentNumber;
 
+    @JsonProperty("key")
+    public String getKey() {
+        return number;
+    }
+
     @Nullable
-    private List<ProjectVO> sublist = new ArrayList<>();
+    private List<ProjectVO> children = new ArrayList<>();
 }
