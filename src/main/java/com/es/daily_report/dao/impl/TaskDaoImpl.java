@@ -11,6 +11,7 @@ import com.es.daily_report.vo.DepartmentVO;
 import com.es.daily_report.vo.ExcelVO;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,11 +39,14 @@ public class TaskDaoImpl extends ServiceImpl<TaskMapper, Task> implements TaskDa
                 case 1:
                     return baseMapper.listByDepartment(condition, from, to);
                 case 2:
-                    return baseMapper.listByProject(condition);
+                    List<ExcelVO> all = new ArrayList<>();
+                    List<ExcelVO> tasks = baseMapper.listByProject(condition);
+                    List<ExcelVO> children = baseMapper.listByParentProject(condition);
+                    all.addAll(tasks);
+                    all.addAll(children);
+                    return all;
                 case 3:
                     return baseMapper.listByProduct(condition);
-                case 4:
-                    return baseMapper.listByParentProject(condition);
             }
         }
         return baseMapper.listAll(from, to);
