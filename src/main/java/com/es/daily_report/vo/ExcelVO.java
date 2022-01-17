@@ -2,16 +2,17 @@ package com.es.daily_report.vo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.alibaba.excel.annotation.write.style.*;
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.alibaba.excel.annotation.write.style.ContentStyle;
+import com.alibaba.excel.annotation.write.style.HeadRowHeight;
+import com.alibaba.excel.annotation.write.style.HeadStyle;
+import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
-import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
-
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -74,4 +75,7 @@ public class ExcelVO {
     public String sheetName() {
         return workCode + "-" + staffName;
     }
+
+    @JsonProperty("children")
+    public List<ExcelVO> children;
 }
