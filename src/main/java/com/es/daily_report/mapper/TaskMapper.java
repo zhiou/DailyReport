@@ -66,7 +66,7 @@ public interface TaskMapper extends BaseMapper<Task> {
             "left join report r on t.in_report=r.id\n" +
             "left join product prod on t.product_id=prod.number\n" +
             "left join project proj on t.project_id=proj.number\n" +
-            "where r.work_code=#{workCode}  and r.deleted = 0 and t.deleted = 0 \n" +
+            "where r.work_code=#{workCode} and r.deleted = 0 and t.deleted = 0 \n" +
             "and r.on_day >= #{from} and r.on_day < #{to}\n" +
             "order by r.on_day desc;")
     List<ExcelVO> listByWorkCode(@Param("workCode") String workCode, @Param("from") Date from, @Param("to") Date to);

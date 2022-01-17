@@ -12,7 +12,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Builder
@@ -75,7 +74,4 @@ public class ExcelVO {
     public String sheetName() {
         return workCode + "-" + staffName;
     }
-
-    @JsonProperty("children")
-    public List<ExcelVO> children;
 }

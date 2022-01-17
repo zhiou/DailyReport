@@ -59,6 +59,7 @@ public class ReportController {
     @Autowired
     private TaskVOMapper taskVOMapper;
 
+
     private String accountFromToken(String token) {
         if (token == null || token.isEmpty()) {
             return null;
@@ -177,14 +178,6 @@ public class ReportController {
                                       @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to
     ) {
        List<ExcelVO> sheets = taskDao.queryByCondition(type, content, from, to);
-       for (ExcelVO sheet: sheets) {
-           if (sheet.getProjectNumber() != null) {
-               List<ExcelVO> children = taskDao.queryByCondition(4, sheet.getProjectNumber(), from, to);
-               if (children != null && children.size() > 0) {
-                   sheet.setChildren(children);
-               }
-           }
-       }
         return Result.success(sheets);
     }
 
