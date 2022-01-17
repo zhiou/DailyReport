@@ -38,6 +38,12 @@ public class ProjectVO {
         return number;
     }
 
+    @JsonProperty("value")
+    public String getValue() { return number; }
+
+    @JsonProperty("label")
+    public String getLabel() { return name; }
+
     @Nullable
     private List<ProjectVO> children = new ArrayList<>();
 }
