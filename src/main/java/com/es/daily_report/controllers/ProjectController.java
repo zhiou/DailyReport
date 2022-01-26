@@ -9,6 +9,7 @@ import com.es.daily_report.vo.ProjectRemoveVO;
 import com.es.daily_report.vo.ProjectVO;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,7 @@ public class ProjectController {
 
     @PostMapping
     @ApiOperation("创建新项目")
-    @RequiresRoles("pmo")
+    @RequiresRoles(value = {"pmo", "pm"}, logical = Logical.OR)
     @Transactional
     public Result<?> create(@RequestBody ProjectVO projectVO) {
         if (projectDao.isNumberExisted(projectVO.getNumber())) {
@@ -42,7 +43,7 @@ public class ProjectController {
 
 
     @PutMapping
-    @RequiresRoles("pmo")
+    @RequiresRoles(value = {"pmo", "pm"}, logical = Logical.OR)
     @Transactional
     public Result<?> update(@RequestBody ProjectVO projectVO) {
         Project project = projectDao.queryByNumber(projectVO.getNumber());
@@ -87,7 +88,7 @@ public class ProjectController {
     }
 
     @DeleteMapping
-    @RequiresRoles("pmo")
+    @RequiresRoles(value = {"pmo", "pm"}, logical = Logical.OR)
     @Transactional
     public Result<?> remove(@RequestBody ProjectRemoveVO projectRemoveVO) {
         for (String number: projectRemoveVO.getNumbers()) {
