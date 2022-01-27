@@ -47,6 +47,10 @@ public class ProjectDaoImpl extends ServiceImpl<ProjectMapper, Project> implemen
         return list(wrapper);
     }
 
+    public long countSiblings(String parent) {
+        return baseMapper.countSiblings(parent);
+    }
+
     public String[] batchRemoveByNumber(String[] numbers) {
         List<String> removedNumbers = new ArrayList<>();
         for (String number: numbers) {

@@ -18,6 +18,7 @@ public interface ProjectDao extends IService<Project> {
   Project queryByNumber(String number);
   List<Project> queryRoot();
   List<Project> queryByParentNumber(String number);
+  long countSiblings(String parent);
   String[] batchRemoveByNumber(String[] numbers);
   List<String> queryMemberNumber(String projectNumber);
   List<Project> queryByManagerNumber(String number);

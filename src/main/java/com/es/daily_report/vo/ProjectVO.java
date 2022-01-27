@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -45,5 +44,5 @@ public class ProjectVO {
     public String getLabel() { return name; }
 
     @Nullable
-    private List<ProjectVO> children = new ArrayList<>();
+    private List<ProjectVO> children;
 }

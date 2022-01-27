@@ -34,11 +34,16 @@ public class ProjectController {
     @Transactional
     public Result<?> create(@RequestBody ProjectVO projectVO) {
         if (projectDao.isNumberExisted(projectVO.getNumber())) {
-            return Result.failure(ErrorType.PROJECT_EXISTED);
+            if (!projectVO.getParentNumber().equals(projectVO.getNumber())) {
+                return Result.failure(ErrorType.PROJECT_EXISTED);
+            }
+            long siblings = projectDao.countSiblings(projectVO.getParentNumber());
+            projectVO.setNumber(projectVO.getNumber() + String.format("-%03d", siblings + 1));
         }
         Project project = projectVOMapper.vo2do(projectVO);
+
         projectDao.save(project);
-        return Result.success();
+        return Result.success(projectVO);
     }
 
 
@@ -74,7 +79,8 @@ public class ProjectController {
         List<ProjectVO> rootProjects = projectVOMapper.dos2vos(projectDao.queryRoot());
         rootProjects.forEach(rootProject -> {
             List<ProjectVO> childProjects = projectVOMapper.dos2vos(projectDao.queryByParentNumber(rootProject.getNumber()));
-           rootProject.setChildren(childProjects);
+            // 必须设null，否则前端父项目也会带加号s
+            rootProject.setChildren(childProjects.isEmpty() ? null : childProjects);
         });
         return Result.success(rootProjects);
     }
