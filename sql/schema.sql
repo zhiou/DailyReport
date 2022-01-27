@@ -18,15 +18,16 @@ create TABLE `project` (
 
 DROP TABLE IF EXISTS `product`;
 create TABLE `product` (
-     `id` bigint NOT NULL AUTO_INCREMENT,
-     `number` varchar(64) COMMENT '产品编号',
+     `number` bigint NOT NULL AUTO_INCREMENT COMMENT '产品编号',
+     `model` varchar(64) NULL DEFAULT NULL COMMENT '产品型号',
      `name` varchar(255) COMMENT '产品名',
      `in_line` varchar(255) COMMENT '产品线名',
      `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '产品状态',
      `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
      `deleted` tinyint(2) NOT NULL DEFAULT '0' COMMENT '删除状态',
-      PRIMARY KEY (`id`) USING BTREE,
-     INDEX `number`(`number`) USING BTREE COMMENT '普通索引'
+      PRIMARY KEY (`number`) USING BTREE,
+     INDEX `in_line`(`in_line`) USING BTREE COMMENT '产品线索引',
+      INDEX `model`(`model`) USING BTREE COMMENT '型号索引'
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `permission`;

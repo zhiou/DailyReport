@@ -33,7 +33,8 @@ public class ProductController {
         }
         Product product = productVOMapper.vo2do(productVO);
         productDao.save(product);
-        return Result.success();
+        productVO = productVOMapper.do2vo(product);
+        return Result.success(productVO);
     }
 
 
@@ -60,6 +61,7 @@ public class ProductController {
 
     @GetMapping
     public Result<?> query() {
+
         return Result.success(productVOMapper.dos2vos(productDao.list()));
     }
 
