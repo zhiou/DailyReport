@@ -133,7 +133,13 @@ public class UserController {
         } else if (SecurityUtils.getSubject().hasRole("pm")) {
             projects = projectDao.queryByManagerNumber(workCode);
         }
-        return projectVOMapper.dos2vos(projects);
+        List<ProjectVO> rootProjects = projectVOMapper.dos2vos(projects);
+        rootProjects.forEach(rootProject -> {
+            List<ProjectVO> childProjects = projectVOMapper.dos2vos(projectDao.queryByParentNumber(rootProject.getNumber()));
+            // 必须设null，否则前端父项目也会带加号s
+            rootProject.setChildren(childProjects.isEmpty() ? null : childProjects);
+        });
+        return rootProjects;
     }
 
     //

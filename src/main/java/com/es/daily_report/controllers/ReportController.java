@@ -25,6 +25,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -217,7 +218,7 @@ public class ReportController {
     }
 
     @GetMapping("/pm/page")
-    @RequiresRoles("pm")
+    @RequiresRoles(value = {"pmo", "pm"}, logical = Logical.OR)
     public Result<?> pageByCondition(@RequestParam("project_number") String project,
                                      @RequestParam("page_index") Integer pageIndex,
                                      @RequestParam("page_size") Integer pageSize
@@ -228,7 +229,7 @@ public class ReportController {
     }
 
     @GetMapping("/pm")
-    @RequiresRoles("pm")
+    @RequiresRoles(value = {"pmo", "pm"}, logical = Logical.OR)
     public Result<?> queryByProjectNumber(@RequestParam("project_number") String project
     ) {
         List<ExcelVO> result = taskDao.queryByCondition(2, project, null, null);
