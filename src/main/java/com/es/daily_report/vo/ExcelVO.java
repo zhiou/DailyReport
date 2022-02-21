@@ -63,6 +63,10 @@ public class ExcelVO {
     @JsonProperty("project_name")
     private String projectName;
 
+    @JsonProperty("project_display")
+    public String projectDisplay() {
+        return projectNumber == null ? "其他" : projectNumber + "-" + projectName;
+    }
 
     @ExcelProperty("报告日期")
     @JsonProperty("report_date")
