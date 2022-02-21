@@ -129,9 +129,10 @@ public class UserController {
     private List<ProjectVO> projectsInCharge(String workCode) {
         List<Project> projects = new ArrayList<>();
         if (SecurityUtils.getSubject().hasRole("pmo")) {
-            projects = projectDao.list();
+            projects = projectDao.queryRoot();
         } else if (SecurityUtils.getSubject().hasRole("pm")) {
-            projects = projectDao.queryByManagerNumber(workCode);
+            projects = projectDao.queryByManagerNumber(workCode)
+                    .stream().filter(project -> project.getParentNumber() == null).collect(Collectors.toList());
         }
         List<ProjectVO> rootProjects = projectVOMapper.dos2vos(projects);
         rootProjects.forEach(rootProject -> {

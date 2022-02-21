@@ -27,9 +27,18 @@ public class ExcelVO {
     @JsonProperty("product_number")
     private String productNumber;
 
-    @ExcelProperty("产品")
+    @ExcelIgnore
     @JsonProperty("product_name")
     private String productName;
+
+    @ExcelIgnore
+    @JsonProperty("product_model")
+    private String productModel;
+
+    @JsonProperty("product_display")
+    public String productDisplay() {
+        return productNumber == null ? "其他" : productName + "-" + productModel;
+    }
 
     @ExcelProperty("部门")
     private String department;
@@ -53,6 +62,7 @@ public class ExcelVO {
     @ExcelProperty("项目")
     @JsonProperty("project_name")
     private String projectName;
+
 
     @ExcelProperty("报告日期")
     @JsonProperty("report_date")
